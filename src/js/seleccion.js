@@ -60,7 +60,7 @@ var mago = new Rol('Colegio de Hibernalia', 'En el Colegio de Hibernalia se apre
 
 var asesino = new Rol('Hermandad Oscura', 'La Hermandad Oscura es el gremio de asesinos más mortífero de toda Tamriel. Sus miembros son despiadados asesinos. +X de daño física adicional y -Y de armadura de resistencia mágica', 3, -1, -1);
 
-var tanque = new Rol('Legión Imperial', 'En el ejercito del imperio, la Legión Imperial, se encuentran los mejores soldados del imperio. Sus miembros son resistentes grácias a sus ecelentes armaduras.', -1, 2, 2);
+var tanque = new Rol('Legión Imperial', 'En el ejercito del imperio, la Legión Imperial, se encuentran los mejores soldados del imperio. Sus miembros son resistentes gracias a sus excelentes armaduras. -X de daño y +Y de armadura y resistencia mágica.', -1, 2, 2);
 
 //Seleccion de personaje
 var playerJSON;

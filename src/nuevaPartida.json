@@ -89,9 +89,21 @@
       "precio": 30
     }]
   }, {
-    "moneda": [{
+    "moneda": {
       "nombre": "",
       "img": ""
-    }]
+    }
+  }, {
+    "botas": {
+      "nombre": "",
+      "img": ""
+    }
+  }],
+  "cofre": [{
+    "img": "",
+    "objetos": []
+  }, {
+    "img": "",
+    "objetos": []
   }]
 }

@@ -1,0 +1,97 @@
+{
+  "player": {
+    "nombre": "",
+    "raza": "",
+    "sexo": "",
+    "rol": "",
+    "vida": 10,
+    "nivel": 0,
+    "xp": 100,
+    "ataque": 0,
+    "tipoAtaque": "",
+    "armadura": 0,
+    "resistenciaMagica": 0,
+    "manoderecha": "garrot",
+    "manoizquierda": "",
+    "mochila": [],
+    "estadoPartida": {
+      "x": 3,
+      "y": 1,
+      "nivel": -2,
+      "direccion": 0
+    }
+  },
+  "enemigos": [{
+    "nombre": "",
+    "vida": 10,
+    "tipoAtaque": "fisico",
+    "ataque": 3,
+    "armadura": 2,
+    "resistenciaMagica": 2,
+    "xp": 20,
+    "img": "",
+    "objetos": []
+  },{
+    "nombre": "",
+    "vida": 10,
+    "tipoAtaque": "magico",
+    "ataque": 3,
+    "armadura": 2,
+    "resistenciaMagica": 2,
+    "xp": 20,
+    "img": "",
+    "objetos": []
+  }],
+  "objetos": [ {
+    "armas": [{
+      "nombre": "",
+      "img": "",
+      "ataque": 3,
+      "precio": 100
+    },{
+      "nombre": "",
+      "img": "",
+      "ataque": 4,
+      "precio": 150
+    }]
+  },{
+    "escudos": [{
+      "nombre": "",
+      "img": "",
+      "armadura": 2,
+      "precio": 100
+    },{"nombre": "",
+      "img": "",
+      "armadura": 3,
+      "precio": 200}]
+  },{
+    "armaduras": [{
+      "nombre": "",
+      "img": "",
+      "armadura": 4,
+      "resistenciaMagica": 2,
+      "precio": 500
+    },{"nombre": "",
+      "img": "",
+      "armadura": 2,
+      "resistenciaMagica": 4,
+      "precio": 500}]
+  },{
+    "pociones": [{
+      "nombre": "",
+      "img": "",
+      "curacion": 2,
+      "precio": 20
+    },{
+      "nombre": "",
+      "img": "",
+      "curacion": 3,
+      "precio": 30
+    }]
+  }, {
+    "moneda": [{
+      "nombre": "",
+      "img": ""
+    }]
+  }]
+}

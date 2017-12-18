@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Dungeon</title>
+    <meta charset="UTF-8">
+    <meta name="description" content="Dungeon Master AJAX Game" />
+    <meta name="keywords" content="dungeon, ajax, javascript, css" />
+    <meta name="author" content="Joan Fito, Adrian Garcia, Marc Salinero" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="css/main.css" type="text/css" media="all" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="js/seleccion.js"></script>
+  </head>
+  <body>
+    <section id="sel-sections">
+      <section class="sel-section">
+        <div class="center-horizontal">
+          <div class="center-vertical">
+            <p id="descripcion-raza"></p>
+          </div>
+        </div>
+      </section>
+      <section class="sel-section">
+        <div>
+          <img id="visor-personaje" src="#" alt="personaje">
+        </div>
+        <form class="sel-form" action="index.html">
+          <label for="nombre">Nombre:</label>
+          <input type="text" id="nombre" placeholder="Entre 3 i 12 carácteres" required>
+          <br>
+          <label for="raza">Raza:</label>
+          <select id="raza">
+            <option value="altmer">Altmer</option>
+            <option value="bosmer">Bosmer</option>
+            <option value="dunmer">Dunmer</option>
+            <option value="orco">Orco</option>
+            <option value="imperial">Imperial</option>
+            <option value="nordico">Nordico</option>
+            <option value="breton">Breton</option>
+            <option value="guardiaRojo">Guardia Rojo</option>
+            <option value="argoniano">Argoniano</option>
+            <option value="khajita">Khajita</option>
+          </select>
+          <br>
+          <label for="sexo">Sexo:</label>
+          <select id="sexo">
+            <option value="masculino">Masculino</option>
+            <option value="femenino">Femenino</option>
+            <option value="otro">Otro</option>
+          </select>
+          <br>
+          <label for="rol">Rol:</label>
+          <select id="rol">
+            <option value="mago">Colegio de Hibernalia</option>
+            <option value="asesino">Hermandad Oscura</option>
+            <option value="tanque">Legión imperial</option>
+          </select>
+          <br>
+          <button type="button" onclick="creaPersonaje();">Listo</button>
+        </form>
+      </section>
+      <section class="sel-section">
+        <div class="center-horizontal">
+          <div class="center-vertical">
+            <p id="descripcion-rol"></p>
+          </div>
+        </div>
+      </section>
+    </section>
+
+  </body>
+</html>

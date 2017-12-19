@@ -60,7 +60,8 @@
       "img": "",
       "armadura": 2,
       "precio": 100
-    },{"nombre": "",
+    },{
+      "nombre": "",
       "img": "",
       "armadura": 3,
       "precio": 200}]

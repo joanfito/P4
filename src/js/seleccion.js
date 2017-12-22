@@ -1,13 +1,4 @@
-var ficheroInicial;
-
-//Definimos las razas
-function Raza(nombre, nombrePasiva, descripcion, habilidad) {
-  this.nombre = nombre;
-  this.nombrePasiva = nombrePasiva;
-  this.pasiva = descripcion;
-  this.habilidad = habilidad;
-}
-var altmer, bosmer, dunmer, orco, imperial, nordico, breton, guardiaRojo, argoniano, khajita;
+var ficheroConfig;
 
 //Definimos los roles
 function Rol(nombre, descripcion, ataque, armadura, resistencia) {
@@ -20,34 +11,17 @@ function Rol(nombre, descripcion, ataque, armadura, resistencia) {
 var mago, asesino, tanque;
 
 //Seleccion de personaje
-var playerJSON;
-
 window.onload = function() {
   //Leemos el fichero inicial
   var urlGet = 'http://puigpedros.salleurl.edu/pwi/pac4/partida.php?token=0aee8310-0212-424d-b2b2-8e7771e4982d&slot=nueva';
   $.get(urlGet, function (data) {
     var ficheroInicial = JSON.parse(data);
 
-    //Creamos las razas
-    altmer = new Raza(ficheroInicial.razas[0].nombre, ficheroInicial.razas[0].habilidad, ficheroInicial.razas[0].descripcion, undefined);
-
-    bosmer = new Raza(ficheroInicial.razas[1].nombre, ficheroInicial.razas[1].habilidad, ficheroInicial.razas[1].descripcion, undefined);
-
-    dunmer = new Raza(ficheroInicial.razas[2].nombre, ficheroInicial.razas[2].habilidad, ficheroInicial.razas[2].descripcion, undefined);
-
-    orco = new Raza(ficheroInicial.razas[3].nombre, ficheroInicial.razas[3].habilidad, ficheroInicial.razas[3].descripcion, undefined);
-
-    imperial = new Raza(ficheroInicial.razas[4].nombre, ficheroInicial.razas[4].habilidad, ficheroInicial.razas[4].descripcion, undefined);
-
-    nordico = new Raza(ficheroInicial.razas[5].nombre, ficheroInicial.razas[5].habilidad, ficheroInicial.razas[5].descripcion, undefined);
-
-    breton = new Raza(ficheroInicial.razas[6].nombre, ficheroInicial.razas[6].habilidad, ficheroInicial.razas[6].descripcion, undefined);
-
-    guardiaRojo = new Raza(ficheroInicial.razas[7].nombre, ficheroInicial.razas[7].habilidad, ficheroInicial.razas[7].descripcion, undefined);
-
-    argoniano = new Raza(ficheroInicial.razas[8].nombre, ficheroInicial.razas[8].habilidad, ficheroInicial.razas[8].descripcion, undefined);
-
-    khajita = new Raza(ficheroInicial.razas[9].nombre, ficheroInicial.razas[9].habilidad, ficheroInicial.razas[9].descripcion, undefined);
+    //Definimos las razas y mostramos la información inicial cuando la petición acabe
+    $.when(defineRazas()).done(function() {
+      cambioRaza();
+      cambioRol();
+    });
 
     //Creamos los roles
     mago = new Rol(ficheroInicial.roles[0].nombre, ficheroInicial.roles[0].descripcion, ficheroInicial.roles[0].ataque, ficheroInicial.roles[0].armadura, ficheroInicial.roles[0].resistenciaMagica);
@@ -56,9 +30,7 @@ window.onload = function() {
 
     tanque = new Rol(ficheroInicial.roles[2].nombre, ficheroInicial.roles[2].descripcion, ficheroInicial.roles[2].ataque, ficheroInicial.roles[2].armadura, ficheroInicial.roles[2].resistenciaMagica);
 
-    //Cargamos la información inicial (altmer y mago)
-    cambioRaza();
-    cambioRol();
+    ficheroConfig = ficheroInicial;
   });
 
   //Creamos los eventos
@@ -69,7 +41,7 @@ window.onload = function() {
   $('#rol').change(function() {
     cambioRol();
   });
-}
+};
 
 function creaPersonaje() {
   var nombre = $('#nombre').val();
@@ -79,28 +51,28 @@ function creaPersonaje() {
 
   //Comprobamos que el nombre sea valido
   if ((/^\w{3,12}$/).test(nombre)) {
-    console.log(nuevoJugador);
     //Actualizamos los valores del jugador en función de su raza y rol
     var ataque, tipoAtaque, armadura, resistenciaMagica;
+    var player = ficheroConfig.player;
 
     switch (rol) {
       case 'mago':
         tipoAtaque = 'AP';
-        ataque = nuevoJugador.ataque + mago.ataque;
-        armadura = nuevoJugador.armadura + mago.armadura;
-        resistenciaMagica = nuevoJugador.resistenciaMagica + mago.resistencia;
+        ataque = player.ataque + mago.ataque;
+        armadura = player.armadura + mago.armadura;
+        resistenciaMagica = player.resistenciaMagica + mago.resistencia;
         break;
       case 'asesino':
         tipoAtaque = 'AD';
-        ataque = nuevoJugador.ataque + asesino.ataque;
-        armadura = nuevoJugador.armadura + asesino.armadura;
-        resistenciaMagica = nuevoJugador.resistenciaMagica + asesino.resistencia;
+        ataque = player.ataque + asesino.ataque;
+        armadura = player.armadura + asesino.armadura;
+        resistenciaMagica = player.resistenciaMagica + asesino.resistencia;
         break;
       case 'tanque':
         tipoAtaque = 'AD';
-        ataque = nuevoJugador.ataque + tanque.ataque;
-        armadura = nuevoJugador.armadura + tanque.armadura;
-        resistenciaMagica = nuevoJugador.resistenciaMagica + tanque.resistencia;
+        ataque = player.ataque + tanque.ataque;
+        armadura = player.armadura + tanque.armadura;
+        resistenciaMagica = player.resistenciaMagica + tanque.resistencia;
         break;
     }
 
@@ -109,87 +81,51 @@ function creaPersonaje() {
         if (tipoAtaque == 'AP') {
           ataque = ataque + 2;
         }
-        //Creamos la habilidad
-        altmer.habilidad = function () {
-          console.log("ATAQUEEEE ALTMER");
-        };
-        break;
-      case 'bosmer':
-        //Creamos la habilidad
-        bosmer.habilidad = function () {
-          // Hace 1 de daño
-          console.log("ATAQUEEEE BOSMER");
-        };
-        break;
-      case 'dunmer':
-        //Creamos la habilidad
-        dunmer.habilidad = function () {
-          // Hace 4 de daño --> se carga cada 10 turnos
-          console.log("ATAQUEEEE DUNMER");
-        };
-        break;
-      case 'orco':
-        //Creamos la habilidad
-        orco.habilidad = function () {
-          // 20% mejores
-          console.log("ATAQUEEEE ORCO");
-        };
-        break;
-      case 'imperial':
-        //Creamos la habilidad
-        imperial.habilidad = function () {
-          // 25% de oro
-          console.log("ATAQUEEEE IMPERIAL");
-        };
-        break;
-      case 'nordico':
-        //Creamos la habilidad
-        nordico.habilidad = function () {
-          // 20% de daño extra
-          console.log("ATAQUEEEE NORDICO");
-        };
         break;
       case 'breton':
         if (tipoAtaque == 'AP') {
           ataque = ataque + 1;
         }
         resistenciaMagica = resistenciaMagica + 2;
-
-        //Creamos la habilidad
-        breton.habilidad = function () {
-          console.log("ATAQUEEEE BRETON");
-        };
         break;
       case 'guardiaRojo':
         armadura = armadura + 2;
-
-        //Creamos la habilidad
-        guardiaRojo.habilidad = function () {
-          // +3 daño si no lleva escudo
-          console.log("ATAQUEEEE ROJO");
-        };
-        break;
-      case 'argoniano':
-        //Creamos la habilidad
-        argoniano.habilidad = function () {
-          // 33% de prob de curarse 25% de la vida restante
-          console.log("ATAQUEEEE ARGONIANO");
-        };
-        break;
-      case 'khajita':
-        //Creamos la habilidad
-        khajita.habilidad = function () {
-          //10% prob de esquivar
-          console.log("ATAQUEEEE KHAJITA");
-        };
         break;
     }
-    //Creamos un JSON con la nueva información
-    playerJSON = JSON.stringify({nombre: nombre, raza: raza, sexo: sexo, rol: rol, vida: 10, nivel: 0, xp: 0, ataque: ataque, tipoAtaque: tipoAtaque, armadura: armadura, resistenciaMagica: resistenciaMagica, manoderecha: 'boli', manoizquierda: '', mochila: [], estadoPartida: {x: 3, y: 1, nivel: -2, direccion: 0}});
+    //Actualizamos el JSON conla nueva información
+    ficheroConfig.player.nombre = nombre;
+    ficheroConfig.player.raza = raza;
+    ficheroConfig.player.sexo = sexo;
+    ficheroConfig.player.rol = rol;
+    ficheroConfig.player.ataque = ataque;
+    ficheroConfig.player.tipoAtaque = tipoAtaque;
+    ficheroConfig.player.armadura = armadura;
+    ficheroConfig.player.resistenciaMagica = resistenciaMagica;
 
-    console.log(playerJSON);
+    if (tipoAtaque == 'AD') {
+      ficheroConfig.player.manoderecha = "Espada de hierro";
+    } else {
+      ficheroConfig.player.manoderecha = "Llamas";
+    }
+    //Actualizamos el fichero de nueva partida con los datos
+    $.when(eliminaJSON()).done(function() {
+      $.ajax({
+        type: 'POST',
+        url: 'http://puigpedros.salleurl.edu/pwi/pac4/partida.php?token=0aee8310-0212-424d-b2b2-8e7771e4982d&slot=nueva',
+        data: {json: JSON.stringify(ficheroConfig)},
+        statusCode: {
+         404: function () {
+           console.log('Slot ocupat');
+         }
+        },
+        success: function() {
+         console.log('JSON inicial guardado correctamente');
+        }
+      });
+    });
+
     //Avanzamos hasta el juego
-    //location.href = 'juego.html';
+    //location.href = 'juego.html?slot=nueva';
   } else {
     alert('Introduce un nombre que tenga entre 3 y 12 caràcteres alfanumericos (sin acentos)');
   }
@@ -205,7 +141,19 @@ function cambioRaza() {
 
   //Cambiamos la imagen del personaje
   var src = './media/images/' + raza + '_char.png';
-  $('#visor-personaje').get(0).src='./media/images/dungeon_door.png';
+
+  /* PROBA */
+  switch (raza) {
+    case 'altmer':
+      $('#visor-personaje').get(0).src='./media/images/hechizo_fuego.png'
+      break;
+    case 'bosmer':
+    $('#visor-personaje').get(0).src='./media/images/hechizo_hielo.png'
+    break;
+    default: $('#visor-personaje').get(0).src='./media/images/hechizo_rayo.png'
+
+  }
+  //$('#visor-personaje').get(0).src='./media/images/dungeon_door.png';
 
   //Mostramos la información del nuevo raza
   $('#descripcion-raza').html(descripcionRaza(raza));

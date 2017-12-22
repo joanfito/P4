@@ -1,7 +1,9 @@
+var ficheroConfig;
 
 /* Inicializar el juego */
 function iniciarJuego() {
   /* TODO */
+  defineRazas();
 }
 
 /* Convierte lo que hay en el mapa en un archivo de imagen */
@@ -16,4 +18,8 @@ function creaJugador() {
   player.rol = null;
   delete player.defensa;
   console.log(player);
+}
+
+function mostraConfig() {
+  console.log(ficheroConfig);
 }

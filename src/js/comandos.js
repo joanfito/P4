@@ -66,8 +66,8 @@
       "resistenciaMagica": -1
     }, {
       "nombre": "Legión Imperial",
-      "descripcion": "En el ejercito del imperio, la Legión Imperial, se encuentran los mejores soldados del imperio. Sus miembros son resistentes gracias a sus excelentes armaduras. -2 de daño y +2 de armadura y resistencia mágica.",
-      "ataque": -2,
+      "descripcion": "En el ejercito del imperio, la Legión Imperial, se encuentran los mejores soldados del imperio. Sus miembros son resistentes gracias a sus excelentes armaduras. -1 de daño y +2 de armadura y resistencia mágica.",
+      "ataque": -1,
       "armadura": 2,
       "resistenciaMagica": 2
     }],
@@ -79,12 +79,13 @@
       "vida": 10,
       "nivel": 0,
       "xp": 100,
-      "ataque": 0,
+      "ataque": 2,
       "tipoAtaque": "",
-      "armadura": 0,
-      "resistenciaMagica": 0,
+      "armadura": 1,
+      "resistenciaMagica": 1,
       "manoderecha": "garrot",
       "manoizquierda": "",
+      "cuerpo": "",
       "mochila": [],
       "estadoPartida": {
         "x": 3,
@@ -181,7 +182,7 @@
   });
 
   //Subimos el json de configuración
-  $.ajax({
+  return $.ajax({
     type: 'POST',
     url: url,
     data: {json: ficheroJSON},
@@ -201,7 +202,7 @@
  * Función para eliminar el fichero nuevaPartida.json en la API
  */
 function eliminaJSON() {
-  $.ajax({
+  return $.ajax({
     url: 'http://puigpedros.salleurl.edu/pwi/pac4/partida.php?token=0aee8310-0212-424d-b2b2-8e7771e4982d&slot=nueva',
     type: 'DELETE',
     success: function(result) {

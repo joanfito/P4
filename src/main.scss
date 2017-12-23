@@ -83,3 +83,35 @@ form {
     width: 30%;
   }
 }
+
+//CargaPartida
+#titolSelecciona{
+  font-size: "26";
+}
+
+.clearfix:after{
+  content: ".";
+  visibility: hidden;
+  display: block;
+  height: 0;
+  clear: both;
+}
+
+.slot{
+  background-color: #a9f5d0;
+  box-shadow: 0 0 20px #666666;
+  margin: 20px 50px 0 50px;
+  padding: 20px 10px;
+}
+
+.slot-column{
+  float:left;
+}
+
+.slot-right{
+  width: 40%;
+}
+
+.slot-center, .slot-left{
+  width: 30%;
+}

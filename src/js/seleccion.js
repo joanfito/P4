@@ -125,7 +125,7 @@ function creaPersonaje() {
     });
 
     //Avanzamos hasta el juego
-    //location.href = 'juego.html?slot=nueva';
+    location.href = 'juego.html?slot=nueva';
   } else {
     alert('Introduce un nombre que tenga entre 3 y 12 caràcteres alfanumericos (sin acentos)');
   }
@@ -141,19 +141,7 @@ function cambioRaza() {
 
   //Cambiamos la imagen del personaje
   var src = './media/images/' + raza + '_char.png';
-
-  /* PROBA */
-  switch (raza) {
-    case 'altmer':
-      $('#visor-personaje').get(0).src='./media/images/hechizo_fuego.png'
-      break;
-    case 'bosmer':
-    $('#visor-personaje').get(0).src='./media/images/hechizo_hielo.png'
-    break;
-    default: $('#visor-personaje').get(0).src='./media/images/hechizo_rayo.png'
-
-  }
-  //$('#visor-personaje').get(0).src='./media/images/dungeon_door.png';
+  $('#visor-personaje').get(0).src='./media/images/dungeon_door.png';
 
   //Mostramos la información del nuevo raza
   $('#descripcion-raza').html(descripcionRaza(raza));

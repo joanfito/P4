@@ -11,6 +11,7 @@
 
   //Creamos el archivo
   var ficheroJSON = JSON.stringify({
+    "nombre": "Nueva",
     "razas": [{
       "nombre": "Altmer",
       "habilidad": "Soberbia Altmer",
@@ -24,7 +25,7 @@
       "habilidad": "Ira del Antepasado",
       "descripcion": "Los dunmer, nativos de Morrowind, donde se alza la Montaña Roja, un enorme volcán, no le temen al fuego. Cada 10 turnos, se rodean durante un turno de fuego, que inflinge +4 de daño verdadero al enemigo cuándo ataca."
     }, {
-      "nombre": "Orci",
+      "nombre": "Orco",
       "habilidad": "Herrero de Orsinium",
       "descripcion": "Los orcos son los mayores herreros de toda Tamriel. Las armas y escudos comprados en la tienda son un 20% mejores."
     }, {
@@ -77,6 +78,7 @@
       "sexo": "",
       "rol": "",
       "vida": 10,
+      "oro": 0,
       "nivel": 0,
       "xp": 100,
       "ataque": 2,

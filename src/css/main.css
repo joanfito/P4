@@ -134,33 +134,16 @@ form button {
   width: 30%;
 }
 
-#titolSelecciona {
-  font-size: "26";
-}
-
-.clearfix:after {
-  content: ".";
-  visibility: hidden;
-  display: block;
-  height: 0;
-  clear: both;
-}
-
 .slot {
   background-color: #a9f5d0;
   box-shadow: 0 0 20px #666666;
-  margin: 20px 50px 0 50px;
+  display: table;
+  margin: auto;
+  margin-bottom: 30px;
   padding: 20px 10px;
+  width: 75%;
 }
 
 .slot-column {
-  float: left;
-}
-
-.slot-right {
-  width: 40%;
-}
-
-.slot-center, .slot-left {
-  width: 30%;
+  display: table-cell;
 }

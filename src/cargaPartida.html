@@ -4,42 +4,44 @@
     <meta charset="utf-8">
     <title>Dungeon Master</title>
     <link rel="stylesheet" href="css/main.css" type="text/css" media="all" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="js/carrega.js"></script>
+    <script src="js/comandos.js"></script>
   </head>
   <body>
     <header>
-      <h1 id="titolSelecciona">Selecciona Partida</h1>
+      <h1>Selecciona Partida</h1>
     </header>
 
-    <section class="slot" id="slot-1">
-      <div class="slot-column slot-right">
-        <p>Patata</p>
-        <img src="capturaSlot1.jpg" alt="capturaSlot1">
+    <section class="slot" id="slot-1" onclick="cargaPartida(1);">
+      <div class="slot-column">
+        <p id="nombre-1">Slot vacío</p>
+        <img src="#" alt="capturaSlot1">
       </div>
-      <div class="slot-column slot-center">
-        <p>Username:</p>
-        <p>Nivel:</p>
-        <p>Raza/Rol:</p>
+      <div class="slot-column">
+        <p>Username: <span id="username-1">---</span></p>
+        <p>Nivel: <span id="niv-1">---</span></p>
+        <p>Raza/Rol: <span id="rr-1">---</span></p>
       </div>
-      <div class="slot-column slot-left">
-        <p>Sotano:</p>
-        <p>Oro:</p>
+      <div class="slot-column">
+        <p>Sotano: <span id="sotano-1">---</span></p>
+        <p>Oro: <span id="oro-1"></span>---</p>
       </div>
     </section>
 
-    <section class="slot" id="slot-2">
-      <div class="slot-column slot-right">
-        <p>Patata</p>
-        <img src="capturaSlot2.jpg" alt="capturaSlot2">
+    <section class="slot" id="slot-2" onclick="cargaPartida(2);">
+      <div class="slot-column">
+        <p id="nombre-2">Slot vacío</p>
+        <img src="#" alt="capturaSlot2">
       </div>
-      <div class="slot-column slot-center">
-        <p>Username:</p>
-        <p>Nivel:</p>
-        <p>Raza/Rol:</p>
+      <div class="slot-column">
+        <p>Username: <span id="username-2">---</span></p>
+        <p>Nivel: <span id="niv-2">---</span></p>
+        <p>Raza/Rol: <span id="rr-2">---</span></p>
       </div>
-      <div class="slot-column slot-left">
-        <p>Sotano:</p>
-        <p>Oro:</p>
+      <div class="slot-column">
+        <p>Sotano: <span id="sotano-2">---</span></p>
+        <p>Oro: <span id="oro-2">---</span></p>
       </div>
     </section>
   </body>

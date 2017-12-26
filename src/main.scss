@@ -1,5 +1,10 @@
 @import './css/reset';
 
+//Variables
+$fuente-principal: arial, sans-serif;
+$color-principal: lemonchiffon;
+$color-secundario: white;
+
 #navegacion {
   float:left;
 }
@@ -85,6 +90,12 @@ form {
 }
 
 //CargaPartida
+#titulo-carga {
+  font-size: 80px;
+  margin: 20px 10px;
+  text-align: center;
+  text-transform: uppercase;
+}
 
 .slot{
   background-color: #a9f5d0;

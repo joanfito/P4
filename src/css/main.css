@@ -134,6 +134,13 @@ form button {
   width: 30%;
 }
 
+#titulo-carga {
+  font-size: 80px;
+  margin: 20px 10px;
+  text-align: center;
+  text-transform: uppercase;
+}
+
 .slot {
   background-color: #a9f5d0;
   box-shadow: 0 0 20px #666666;

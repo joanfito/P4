@@ -66,10 +66,9 @@ html, body {
 }
 
 #descripcion-rol, #descripcion-raza {
-  background-color: $color-principal;
+  background-color: rgba(44, 45, 46, 0.5);
   color: $color-letra;
   font-family: $fuente-principal;
-  box-shadow: 2px 2px 2px BLACK;
 }
 
 .center-vertical {

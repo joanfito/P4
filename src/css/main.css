@@ -112,10 +112,9 @@ html, body {
 }
 
 #descripcion-rol, #descripcion-raza {
-  background-color: #2C2D2E;
+  background-color: rgba(44, 45, 46, 0.5);
   color: #C3C9C9;
   font-family: "Inknut Antiqua", serif;
-  box-shadow: 2px 2px 2px BLACK;
 }
 
 .center-vertical {

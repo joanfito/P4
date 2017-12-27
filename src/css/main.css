@@ -152,7 +152,7 @@ form button {
 #titulo-carga {
   font-family: "Inknut Antiqua", serif;
   font-size: 80px;
-  margin: 20px 10px;
+  margin: 0px 10px 20px 10px;
   text-align: center;
   text-transform: uppercase;
   color: #C3C9C9;
@@ -164,6 +164,8 @@ form button {
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center center;
+  width: 100%;
+  height: 100%;
 }
 
 .slot {

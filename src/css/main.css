@@ -73,6 +73,13 @@ html, body {
   height: 100%;
 }
 
+#fondo-seleccion {
+  background-image: url("file:../media/images/fondo3.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+
 #sel-sections {
   font-size: 0;
   width: 100%;
@@ -96,10 +103,19 @@ html, body {
 .sel-form {
   padding-top: 20px;
   text-align: center;
+  font-family: "Inknut Antiqua", serif;
+  color: #C3C9C9;
+}
+
+#raza, #sexo, #rol, #nombre {
+  font-family: "Inknut Antiqua", serif;
 }
 
 #descripcion-rol, #descripcion-raza {
-  background-color: lemonchiffon;
+  background-color: #2C2D2E;
+  color: #C3C9C9;
+  font-family: "Inknut Antiqua", serif;
+  box-shadow: 2px 2px 2px BLACK;
 }
 
 .center-vertical {
@@ -135,20 +151,37 @@ form button {
 }
 
 #titulo-carga {
+  font-family: "Inknut Antiqua", serif;
   font-size: 80px;
   margin: 20px 10px;
   text-align: center;
   text-transform: uppercase;
+  color: #C3C9C9;
+  text-shadow: 4px 4px 2px BLACK;
+}
+
+#fondo-cargapartida {
+  background-image: url("file:../media/images/fondo2.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
 }
 
 .slot {
-  background-color: #a9f5d0;
+  background-color: #2C2D2E;
   box-shadow: 0 0 20px #666666;
   display: table;
   margin: auto;
   margin-bottom: 30px;
   padding: 20px 10px;
   width: 75%;
+  font-family: "Inknut Antiqua", serif;
+  color: #C3C9C9;
+}
+
+.img-slot {
+  width: 150px;
+  height: 150px;
 }
 
 .slot-column {
@@ -158,30 +191,29 @@ form button {
 #fondo-index {
   background-image: url("file:../media/images/fondo.jpg");
   background-size: cover;
-  /* <------ */
   background-repeat: no-repeat;
   background-position: center center;
 }
 
 #titulo-index {
-  font-family: 'Inknut Antiqua',serif;
+  font-family: "Inknut Antiqua", serif;
   font-size: 70px;
-  color: WHITE;
+  color: #C3C9C9;
   padding-top: 100px;
   padding-bottom: 50px;
   text-align: center;
 }
 
 #titulo2-index {
-  font-family: 'Inknut Antiqua',serif;
-  color: WHITE;
+  font-family: "Inknut Antiqua", serif;
+  color: #C3C9C9;
   font-size: 50px;
   padding-bottom: 20px;
   text-align: center;
 }
 
 #lista-index {
-  font-family: 'Inknut Antiqua',serif;
+  font-family: "Inknut Antiqua", serif;
   text-align: center;
   padding-top: 150px;
   font-size: 30px;
@@ -192,9 +224,9 @@ form button {
 }
 
 #nueva-partida {
-  color: GRAY;
+  color: #B5B5B5;
 }
 
 #cargar-partida {
-  color: GRAY;
+  color: #B5B5B5;
 }

@@ -8,18 +8,17 @@
     <meta name="author" content="Joan Fito, Adrian Garcia, Marc Salinero" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="css/main.css" type="text/css" media="all" />
-    <link rel="stylesheet" href="css/index.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="js/comandos.js"></script>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inknut+Antiqua">
   </head>
-  <body onload="eliminaJSON(); cargaJSON();">
-      <h1>Dungeon Master AJAX Game</h1>
-      <h2>The Elder Scrolls Edition</h2>
-      <nav>
+  <body id="fondo-index" onload="eliminaJSON(); cargaJSON();">
+      <h1 id="titulo-index">Dungeon Master AJAX Game</h1>
+      <h2 id="titulo2-index">The Elder Scrolls Edition</h2>
+      <nav id="lista-index">
         <ul>
-          <li><a id="NuevaPartida" href="video.html">Nueva partida</a></li>
-          <li><a id="CargarPartida" href="cargaPartida.html">Cargar partida</a></li>
+          <li class="elemento-lista"><a id="nueva-partida" href="video.html">Nueva partida</a></li>
+          <li class="elemento-lista"><a id="cargar-partida" href="cargaPartida.html">Cargar partida</a></li>
         </ul>
       </nav>
   </body>

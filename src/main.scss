@@ -110,3 +110,48 @@ form {
 .slot-column{
   display: table-cell;
 }
+//Index.html
+#fondo-index {
+
+  background-image: url("file:../media/images/fondo.jpg");
+  background-size:     cover;                      /* <------ */
+  background-repeat:   no-repeat;
+  background-position: center center;
+}
+
+#titulo-index {
+  font-family: 'Inknut Antiqua',serif;
+  font-size: 70px;
+  color: WHITE;
+  padding-top: 100px;
+  padding-bottom: 50px;
+  text-align: center;
+}
+
+#titulo2-index {
+  font-family: 'Inknut Antiqua',serif;
+  color: WHITE;
+  font-size: 50px;
+  padding-bottom: 20px;
+  text-align: center;
+}
+
+#lista-index {
+  font-family: 'Inknut Antiqua',serif;
+  text-align: center;
+  padding-top: 150px;
+  font-size: 30px;
+}
+
+.elemento-lista {
+  margin: 30px 10px;
+
+}
+
+#nueva-partida {
+  color: GRAY;
+}
+
+#cargar-partida {
+  color: GRAY;
+}

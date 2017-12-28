@@ -28,7 +28,7 @@ function rellenaDatos() {
     var urlGet1 = 'http://puigpedros.salleurl.edu/pwi/pac4/partida.php?token=0aee8310-0212-424d-b2b2-8e7771e4982d&slot=1';
     $.get(urlGet1, function(data) {
       var slot = JSON.parse(data);
-
+      $('.img-slot').get(0).src = './media/images/dungeon_wall.png';
       //Rellenamos con los datos del slot
       $('#nombre-1').html(slot.nombre);
       $('#username-1').html(slot.player.nombre);
@@ -43,7 +43,7 @@ function rellenaDatos() {
     var urlGet2 = 'http://puigpedros.salleurl.edu/pwi/pac4/partida.php?token=0aee8310-0212-424d-b2b2-8e7771e4982d&slot=2';
     $.get(urlGet2, function(data) {
       var slot = JSON.parse(data);
-
+$('.img-slot').get(1).src = './media/images/dungeon_step.png';
       //Rellenamos con los datos del slot
       $('#nombre-2').html(slot.nombre);
       $('#username-2').html(slot.player.nombre);
@@ -60,5 +60,7 @@ function cargaPartida(slot) {
     location.href = 'juego.html?slot=1';
   } else if (slot == 2 && existe2) {
     location.href = 'juego.html?slot=2';
+  } else {
+    alert('No puedes cargar un slot vacío');
   }
 }

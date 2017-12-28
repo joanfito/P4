@@ -126,8 +126,8 @@ form {
 }
 
 .slot{
-  background-color: $color-principal  ;
-  box-shadow: 0 0 20px #666666;
+  background-color: $color-principal;
+  box-shadow: 0 0 20px $color-secundario;
   display: table;
   margin: auto;
   margin-bottom: 30px;
@@ -137,6 +137,10 @@ form {
   color: $color-letra;
 }
 
+.slot:hover {
+  box-shadow: 0 0 40px white;
+}
+
 .img-slot {
   width: 150px;
   height: 150px;
@@ -144,6 +148,15 @@ form {
 
 .slot-column{
   display: table-cell;
+
+  p {
+    margin-bottom: 15%;
+  }
+
+  h6 {
+    margin-bottom: 10px;
+    text-transform: uppercase;
+  }
 }
 //Index.html
 #fondo-index {
@@ -179,14 +192,12 @@ form {
 }
 
 .elemento-lista {
+  color: $color-secundario;
   margin: 30px 10px;
+  text-decoration: none;
 
 }
 
-#nueva-partida {
-  color: $color-secundario;
-}
-
-#cargar-partida {
-  color: $color-secundario;
+.elemento-lista:hover {
+  text-decoration: underline;
 }

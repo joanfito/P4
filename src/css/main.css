@@ -170,7 +170,7 @@ form button {
 
 .slot {
   background-color: #2C2D2E;
-  box-shadow: 0 0 20px #666666;
+  box-shadow: 0 0 20px #B5B5B5;
   display: table;
   margin: auto;
   margin-bottom: 30px;
@@ -180,6 +180,10 @@ form button {
   color: #C3C9C9;
 }
 
+.slot:hover {
+  box-shadow: 0 0 40px white;
+}
+
 .img-slot {
   width: 150px;
   height: 150px;
@@ -187,6 +191,15 @@ form button {
 
 .slot-column {
   display: table-cell;
+}
+
+.slot-column p {
+  margin-bottom: 15%;
+}
+
+.slot-column h6 {
+  margin-bottom: 10px;
+  text-transform: uppercase;
 }
 
 #fondo-index {
@@ -221,13 +234,11 @@ form button {
 }
 
 .elemento-lista {
+  color: #B5B5B5;
   margin: 30px 10px;
+  text-decoration: none;
 }
 
-#nueva-partida {
-  color: #B5B5B5;
-}
-
-#cargar-partida {
-  color: #B5B5B5;
+.elemento-lista:hover {
+  text-decoration: underline;
 }

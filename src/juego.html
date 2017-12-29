@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Dungeon</title>
+    <title>Dungeon Master</title>
     <meta charset="UTF-8">
     <meta name="description" content="Dungeon Master AJAX Game" />
     <meta name="keywords" content="dungeon, ajax, javascript, css" />
@@ -15,38 +15,39 @@
     <script src="js/razas.js"></script>
   </head>
   <body>
-    <head>
+    <header>
       <h1>Dungeon Master AJAX Game</h1>
-      <nav>
-        <ul>
-          <li>Comenzar partida</li>
-          <li>Guardar partida</li>
-        </ul>
-      </nav>
-    </head>
-    <section>
-      <h2>Controles</h2>
-      <a href="#" id="movesquerra">Gira izquierda</a>
-      <a href="#" id="movdreta">Gira derecha</a>
-      <a href="#" id="movendavant">Adelante</a>
-      <a href="#" id="movendarrere">Atrás</a>
+    </header>
+    <section class="game">
+      <section class="game-column">
+        <div id="navegacion" class="game-cell">
+          <h2>Navegación</h2>
+          <canvas id="visor" width="300" height="300"></canvas>
+        </div>
+        <div class="game-cell" id="controllers">
+          <h2>Controles</h2>
+          <a href="#" id="movesquerra">Gira izquierda</a>
+          <a href="#" id="movdreta">Gira derecha</a>
+          <a href="#" id="movendavant">Adelante</a>
+          <a href="#" id="movendarrere">Atrás</a>
+          <a href="#" id="giresquerra">Gira Izquierda</a>
+          <a href="#" id="dirdreta">Gira Derrecha</a>
+        </div>
+      </section>
+      <section class="game-column" id="equipocarac">
+        <h2>Equipo & Características</h2>
+        <p>Nombre: <span></span></p>
+        <p>Raza: <span></span></p>
+        <p>Sexo: <span></span></p>
+        <p>Rol: <span></span></p>
+        <p>Nivel: <span></span></p>
+        <p>Vida: <span></span></p>
+        <p>Ataque: <span></span></p>
+        <p>Armadura: <span></span></p>
+        <p>Resistencia magica: <span></span></p>
+        <p>Objetos: <span></span></p>
+      </section>
     </section>
-    <section id="navegacion">
-      <h2>Navegación</h2>
-      <canvas id="visor" width="512" height="480"></canvas>
-    </section>
-    <section id="equipocarac">
-      <h2>Equipo & Características</h2>
-      <p>Nombre: <span></span></p>
-      <p>Raza: <span></span></p>
-      <p>Sexo: <span></span></p>
-      <p>Rol: <span></span></p>
-      <p>Nivel: <span></span></p>
-      <p>Vida: <span></span></p>
-      <p>Ataque: <span></span></p>
-      <p>Armadura: <span></span></p>
-      <p>Resistencia magica: <span></span></p>
-      <p>Objetos: <span></span></p>
-    </section>
+
   </body>
 </html>

@@ -242,3 +242,23 @@ form button {
 .elemento-lista:hover {
   text-decoration: underline;
 }
+
+.game {
+  display: table;
+}
+
+.game-column {
+  display: table-cell;
+}
+
+.game-cell {
+  display: table-cell;
+}
+
+#navegacion {
+  background-color: orange;
+}
+
+#controllers {
+  background-color: yellow;
+}

@@ -119,13 +119,13 @@ function creaPersonaje() {
          }
         },
         success: function() {
-         console.log('JSON inicial guardado correctamente');
+          console.log('JSON inicial guardado correctamente');
+          
+          //Avanzamos hasta el juego
+          location.href = 'juego.html?slot=nueva';
         }
       });
     });
-
-    //Avanzamos hasta el juego
-    location.href = 'juego.html?slot=nueva';
   } else {
     alert('Introduce un nombre que tenga entre 3 y 12 caràcteres alfanumericos (sin acentos)');
   }

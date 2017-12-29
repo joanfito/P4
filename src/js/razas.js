@@ -27,14 +27,20 @@ function defineRazas() {
 
       altmer = new Raza(info.razas[0].nombre, info.razas[0].habilidad, info.razas[0].descripcion, undefined);
 
-      bosmer = new Raza(info.razas[1].nombre, info.razas[1].habilidad, info.razas[1].descripcion, function () {
+      bosmer = new Raza(info.razas[1].nombre, info.razas[1].habilidad, info.razas[1].descripcion, function (rival) {
         // Hace 1 de daño
-        console.log("ATAQUEEEE BOSMER");
+        rival.vida = rival.vida - 1;
+        //INDICAR-LO EN EL DIV DE TEXTO
       });
 
-      dunmer = new Raza(info.razas[2].nombre, info.razas[2].habilidad, info.razas[2].descripcion, function () {
-        // Hace 4 de daño --> se carga cada 10 turnos
-        console.log("ATAQUEEEE DUNMER");
+      dunmer = new Raza(info.razas[2].nombre, info.razas[2].habilidad, info.razas[2].descripcion, function (rival, turnos) {
+        // Hace 4 de daño --> se carga cada 10 turno
+        if (turnos == 10) {
+          rival.vida = rival.vida - 4;
+          //INDICAR-LO EN EL DIV DE TEXTO
+          return true;
+        }
+        return false;
       });
 
       orco = new Raza(info.razas[3].nombre, info.razas[3].habilidad, info.razas[3].descripcion, function () {
@@ -66,7 +72,8 @@ function defineRazas() {
 
       khajita = new Raza(info.razas[9].nombre, info.razas[9].habilidad, info.razas[9].descripcion, function () {
         //10% prob de esquivar
-        console.log("ATAQUEEEE KHAJITA");
+        var ran = Math.floor((Math.random() * 100) + 1);
+        return ran <= 10 ? true : false;
       });
     }
   });

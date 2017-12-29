@@ -1,0 +1,12 @@
+V --> Espacio Vacio
+X --> Pared
+O --> Transporte 1
+P --> Transporte 2
+S --> Puerta Subir
+B --> Puerta Bajar
+F --> Puerta Final
+T --> Tienda
+C --> Cofre
+J --> Boss
+E --> Enemigo
+A --> Pared Alma

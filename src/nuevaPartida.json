@@ -3,68 +3,68 @@
     "mapas": [{
       "nivel": -1,
       "salto": -5,
-      "0": ['X','F','X','X','X','X','X','X','X','X'],
-      "1": ['X','V','V','C','X','V','V','V','V','X'],
-      "2": ['X','V','V','X','X','V','G','V','C','X'],
-      "3": ['X','V','X','X','V','V','V','X','X','X'],
-      "4": ['X','V','X','V','V','V','V','V','V','B'],
-      "5": ['X','V','E','V','V','E','V','X','X','X'],
-      "6": ['X','V','V','V','V','V','V','V','V','X'],
-      "7": ['X','V','X','V','V','V','V','M','V','X'],
-      "8": ['X','M','X','V','C','V','V','V','O','X'],
-      "9": ['X','X','X','X','X','X','X','X','X','X']
+      "0": ["X","F","X","X","X","X","X","X","X","X"],
+      "1": ["X","V","V","C","X","V","V","V","V","X"],
+      "2": ["X","V","V","X","X","V","G","V","C","X"],
+      "3": ["X","V","X","X","V","V","V","X","X","X"],
+      "4": ["X","V","X","V","V","V","V","V","V","B"],
+      "5": ["X","V","E","V","V","E","V","X","X","X"],
+      "6": ["X","V","V","V","V","V","V","V","V","X"],
+      "7": ["X","V","X","V","V","V","V","M","V","X"],
+      "8": ["X","M","X","V","C","V","V","V","O","X"],
+      "9": ["X","X","X","X","X","X","X","X","X","X"]
     }, {
       "nivel": -2,
       "salto": -4,
-      "0": ['X','X','X','X','X','X','X','X','X','X'],
-      "1": ['X','C','V','V','X','V','V','V','V','X'],
-      "2": ['X','X','X','V','X','X','X','V','V','X'],
-      "3": ['X','T','V','V','V','V','X','V','G','X'],
-      "4": ['X','V','V','E','V','V','G','V','V','S'],
-      "5": ['X','X','X','V','V','V','V','V','C','X'],
-      "6": ['X','X','B','V','M','V','X','X','X','X'],
-      "7": ['X','C','X','V','V','V','V','M','V','X'],
-      "8": ['X','V','V','V','P','V','V','V','V','X'],
-      "9": ['X','X','X','X','X','X','X','X','X','X']
+      "0": ["X","X","X","X","X","X","X","X","X","X"],
+      "1": ["X","C","V","V","X","V","V","V","V","X"],
+      "2": ["X","X","X","V","X","X","X","V","V","X"],
+      "3": ["X","T","V","V","V","V","X","V","G","X"],
+      "4": ["X","V","V","E","V","V","G","V","V","S"],
+      "5": ["X","X","X","V","V","V","V","V","C","X"],
+      "6": ["X","X","B","V","M","V","X","X","X","X"],
+      "7": ["X","C","X","V","V","V","V","M","V","X"],
+      "8": ["X","V","V","V","P","V","V","V","V","X"],
+      "9": ["X","X","X","X","X","X","X","X","X","X"]
     }, {
       "nivel": -3,
       "salto": -3,
-      "0": ['X','X','X','X','X','X','X','X','X','X'],
-      "1": ['X','V','V','V','V','V','V','V','V','X'],
-      "2": ['B','V','V','V','V','V','V','V','C','X'],
-      "3": ['X','V','X','V','V','V','V','E','V','X'],
-      "4": ['X','C','X','V','M','V','V','V','V','X'],
-      "5": ['X','X','X','V','X','V','V','V','V','X'],
-      "6": ['X','X','S','V','X','X','X','V','M','X'],
-      "7": ['X','C','X','X','X','V','V','V','V','X'],
-      "8": ['X','V','V','E','V','V','G','V','V','X'],
-      "9": ['X','X','X','X','X','X','X','X','X','X']
+      "0": ["X","X","X","X","X","X","X","X","X","X"],
+      "1": ["X","V","V","V","V","V","V","V","V","X"],
+      "2": ["B","V","V","V","V","V","V","V","C","X"],
+      "3": ["X","V","X","V","V","V","V","E","V","X"],
+      "4": ["X","C","X","V","M","V","V","V","V","X"],
+      "5": ["X","X","X","V","X","V","V","V","V","X"],
+      "6": ["X","X","S","V","X","X","X","V","M","X"],
+      "7": ["X","C","X","X","X","V","V","V","V","X"],
+      "8": ["X","V","V","E","V","V","G","V","V","X"],
+      "9": ["X","X","X","X","X","X","X","X","X","X"]
     }, {
       "nivel": -4,
       "salto": -2,
-      "0": ['X','X','X','X','X','X','X','X','X','X'],
-      "1": ['X','C','X','M','V','V','V','V','V','B'],
-      "2": ['S','V','V','V','V','V','V','V','V','X'],
-      "3": ['X','T','X','V','M','V','V','E','V','X'],
-      "4": ['X','X','X','V','V','V','V','V','V','X'],
-      "5": ['X','V','V','V','V','V','P','V','V','X'],
-      "6": ['X','V','X','V','V','X','V','V','V','X'],
-      "7": ['X','V','X','E','V','X','V','V','V','X'],
-      "8": ['X','C','X','V','V','X','V','V','V','X'],
-      "9": ['X','X','X','X','X','X','X','X','X','X']
+      "0": ["X","X","X","X","X","X","X","X","X","X"],
+      "1": ["X","C","X","M","V","V","V","V","V","B"],
+      "2": ["S","V","V","V","V","V","V","V","V","X"],
+      "3": ["X","T","X","V","M","V","V","E","V","X"],
+      "4": ["X","X","X","V","V","V","V","V","V","X"],
+      "5": ["X","V","V","V","V","V","P","V","V","X"],
+      "6": ["X","V","X","V","V","X","V","V","V","X"],
+      "7": ["X","V","X","E","V","X","V","V","V","X"],
+      "8": ["X","C","X","V","V","X","V","V","V","X"],
+      "9": ["X","X","X","X","X","X","X","X","X","X"]
     }, {
       "nivel": -5,
       "salto": -1,
-      "0": ['X','X','X','X','X','X','X','X','X','X'],
-      "1": ['X','V','E','V','V','V','V','G','V','S'],
-      "2": ['X','G','V','V','M','E','V','V','V','X'],
-      "3": ['X','V','V','C','V','V','C','V','V','X'],
-      "4": ['X','V','X','X','V','V','X','X','V','X'],
-      "5": ['X','V','X','V','V','V','V','X','V','X'],
-      "6": ['X','V','X','V','J','V','V','X','V','X'],
-      "7": ['X','V','X','X','A','X','V','X','V','X'],
-      "8": ['X','O','X','X','V','X','V','X','C','X'],
-      "9": ['X','X','X','X','X','X','X','X','X','X']
+      "0": ["X","X","X","X","X","X","X","X","X","X"],
+      "1": ["X","V","E","V","V","V","V","G","V","S"],
+      "2": ["X","G","V","V","M","E","V","V","V","X"],
+      "3": ["X","V","V","C","V","V","C","V","V","X"],
+      "4": ["X","V","X","X","V","V","X","X","V","X"],
+      "5": ["X","V","X","V","V","V","V","X","V","X"],
+      "6": ["X","V","X","V","J","V","V","X","V","X"],
+      "7": ["X","V","X","X","A","X","V","X","V","X"],
+      "8": ["X","O","X","X","V","X","V","X","C","X"],
+      "9": ["X","X","X","X","X","X","X","X","X","X"]
     }],
     "razas": [{
       "nombre": "Altmer",
@@ -151,82 +151,171 @@
       }
     },
     "enemigos": [{
-      "nombre": "",
+      "nombre": "Draugr",
       "vida": 10,
       "tipoAtaque": "fisico",
       "ataque": 3,
       "armadura": 2,
       "resistenciaMagica": 2,
       "xp": 20,
-      "img": "",
+      "img": "draugr.jpg",
       "objetos": []
     },{
-      "nombre": "",
+      "nombre": "Nigromante",
       "vida": 10,
       "tipoAtaque": "magico",
       "ataque": 3,
       "armadura": 2,
       "resistenciaMagica": 2,
       "xp": 20,
-      "img": "",
+      "img": "nigromante.png",
+      "objetos": []
+    }, {
+      "nombre": "Centurión Enano",
+      "vida": 20,
+      "tipoAtaque": "fisico",
+      "ataque": 3,
+      "armadura": 4,
+      "resistenciaMagica": 4,
+      "xp": 40,
+      "img": "centurion_enano.jpg",
       "objetos": []
     }],
     "objetos": [ {
       "armas": [{
-        "nombre": "",
-        "img": "",
+        "nombre": "Espada de Hierro",
+        "img": "espada_hierro.png",
         "ataque": 3,
         "precio": 100
       },{
-        "nombre": "",
-        "img": "",
+        "nombre": "Espada Élfica",
+        "img": "espada_elfica.png",
         "ataque": 4,
         "precio": 150
+      }, {
+        "nombre": "Espada Enana",
+        "img": "espada_enana.png",
+        "ataque": 5,
+        "precio": 200
+      },{
+        "nombre": "Espada de Cristal",
+        "img": "espada_cristal.png",
+        "ataque": 6,
+        "precio": 250
+      }, {
+        "nombre": "Espada Daédrica",
+        "img": "espada_daedrica.png",
+        "ataque": 9,
+        "precio": 400
+      },{
+        "nombre": "Espada de Hueso de Dragón",
+        "img": "espada_dragon.png",
+        "ataque": 12,
+        "precio": 700
       }]
     },{
       "escudos": [{
-        "nombre": "",
-        "img": "",
+        "nombre": "Escudo de Piel",
+        "img": "escudo_piel.png",
         "armadura": 2,
         "precio": 100
-      },{"nombre": "",
-        "img": "",
+      },{
+        "nombre": "Escudo Élfico",
+        "img": "escudo_elfico.png",
         "armadura": 3,
-        "precio": 200}]
+        "precio": 200
+
+      },{
+        "nombre": "Escudo Daédrico",
+        "img": "escudo_daedra.png",
+        "armadura": 4,
+        "precio": 300
+      },{
+        "nombre": "Escudo de Dragón",
+        "img": "escudo_dragon.png",
+        "armadura": 5,
+        "precio": 400}]
     },{
       "armaduras": [{
-        "nombre": "",
-        "img": "",
+        "nombre": "Capa de Ruiseñor",
+        "img": "armadura_ruisenor.png",
         "armadura": 4,
         "resistenciaMagica": 2,
         "precio": 500
-      },{"nombre": "",
-        "img": "",
+      },{"nombre": "Armadura Élfica",
+        "img": "armadura_elfica.png",
         "armadura": 2,
         "resistenciaMagica": 4,
-        "precio": 500}]
+        "precio": 500}, {
+        "nombre": "Armadura ligera de Dragón",
+        "img": "armadura_dragon.png",
+        "armadura": 6,
+        "resistenciaMagica": 4,
+        "precio": 1000
+      },{"nombre": "Armadura Daédrica",
+        "img": "armadura_daedrica.png",
+        "armadura": 4,
+        "resistenciaMagica": 6,
+        "precio": 1000},
+        {"nombre": "Armadura de Dragón",
+        "img": "armadura_hueso_dragon.png",
+        "armadura": 8,
+        "resistenciaMagica": 8,
+        "precio": 2000}]
     },{
       "pociones": [{
-        "nombre": "",
-        "img": "",
+        "nombre": "Poción de salud",
+        "img": "pocion_1.png",
         "curacion": 2,
         "precio": 20
       },{
-        "nombre": "",
-        "img": "",
-        "curacion": 3,
-        "precio": 30
+        "nombre": "Gran poción de salud",
+        "img": "pocion_2.png",
+        "curacion": 5,
+        "precio": 100
       }]
     }, {
       "moneda": {
-        "nombre": "",
-        "img": ""
+        "nombre": "Séptim",
+        "img": "septim.png"
       }
     }, {
       "botas": {
-        "nombre": "",
+        "nombre": "Boots trap",
         "img": ""
       }
+    }, {
+      "hechizos": [{
+        "nombre": "Llamas",
+        "img": "hechizo_fuego.png",
+        "ataque": 3,
+        "precio": 100
+      }, {
+        "nombre": "Congelación",
+        "img": "hechizo_hielo.png",
+        "ataque": 4,
+        "precio": 150
+      }, {
+        "nombre": "Rayo",
+        "img": "hechizo_rayo.png",
+        "ataque": 5,
+        "precio": 200
+      }, {
+        "nombre": "Bola de fuego",
+        "img": "hechizo_fuego.png",
+        "ataque": 6,
+        "precio": 250
+      }, {
+        "nombre": "Estaca de hielo",
+        "img": "hechizo_hielo.png",
+        "ataque": 9,
+        "precio": 400
+      }, {
+        "nombre": "Relámpagos",
+        "img": "hechizo_rayo.png",
+        "ataque": 12,
+        "precio": 700
+      }]
     }],
     "cofre": [{
       "img": "",

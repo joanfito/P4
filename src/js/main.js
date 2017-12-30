@@ -1,4 +1,4 @@
-var cofres, armas, escudos, armaduras, pociones, moneda, botas, mapas;
+var cofres, armas, escudos, armaduras, pociones, moneda, botas, mapas, hechizos;
 var gameover = false;
 
 
@@ -70,6 +70,7 @@ function cargaFichero(slot) {
     pociones = objetos[3].pociones;
     moneda = objetos[4].moneda;
     botas = objetos[5].botas;
+    hechizos = objetos[6].hechizos;
     mapas = data.mapas;
 
     //Cargamos el mapa (variable existente en juego.js)

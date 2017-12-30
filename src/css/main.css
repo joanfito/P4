@@ -243,22 +243,19 @@ form button {
   text-decoration: underline;
 }
 
-.game {
+.juego {
   display: table;
+  border: 1px solid black;
+  width: 100%;
 }
 
-.game-column {
+.fila-juego {
+  display: table-row;
+  width: 50%;
+  border: 1px solid green;
+}
+
+.col-juego {
   display: table-cell;
-}
-
-.game-cell {
-  display: table-cell;
-}
-
-#navegacion {
-  background-color: orange;
-}
-
-#controllers {
-  background-color: yellow;
+  border: 1px solid red;
 }

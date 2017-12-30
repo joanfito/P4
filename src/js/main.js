@@ -1,4 +1,4 @@
-var cofres, armas, escudos, armaduras, pociones, moneda, botas;
+var cofres, armas, escudos, armaduras, pociones, moneda, botas, mapas;
 var gameover = false;
 
 
@@ -58,7 +58,6 @@ function cargaFichero(slot) {
 
     //Variables existentes en juego.js
     partida = data;
-    //mapa = data.mapa;
     objetos = data.objetos;
     enemigo = data.enemigos;
     player = data.player;
@@ -71,6 +70,10 @@ function cargaFichero(slot) {
     pociones = objetos[3].pociones;
     moneda = objetos[4].moneda;
     botas = objetos[5].botas;
+    mapas = data.mapas;
+
+    //Cargamos el mapa (variable existente en juego.js)
+    mapa = cargaMapa('-2');
   });
 }
 
@@ -80,6 +83,15 @@ function leeSlot() {
   var regex = new RegExp("[\\?&]" + 'slot' + "=([^&#]*)");
   var slot = regex.exec(location.search)[1];
   return slot;
+}
+
+/* Carga el mapa del nivel indicado */
+function cargaMapa(nivel) {
+  for (var m of mapas) {
+    if (m.nivel == nivel) {
+      return m;
+    }
+  }
 }
 
 /* Ejecuta el combate entre el jugador y el enemigo */
@@ -157,7 +169,7 @@ function recogeObjetos(objetos) {
 /* Indicamos que se ha acado la partida */
 function setGameover(victoria) {
   gameover = true;
-  fin = function() {
+  var fin = function() {
     location.href = (victoria ? 'gameover.html?victoria=s' : 'gameover.html?victoria=n');
   }();
 }

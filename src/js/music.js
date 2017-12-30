@@ -20,7 +20,7 @@ function cargaMusica(pantalla){
       music.src = musica.c3;
     break;
   }
-  music.id = "backgroundmusic"; //En caso que queramos hacer pausas, stop, etc, sino se puede quitar
+  music.id = "backgroundmusic";
   document.getElementById('musicaindex').appendChild(music);
   music.play();
 }
@@ -33,4 +33,9 @@ function pauseMusic(){
 function stopMusic(){
   var canco = document.getElementById('backgroundmusic');
   canco.stop();
+}
+
+function playMusic(){
+  var canco = document.getElementById('backgroundmusic');
+  canco.play();
 }

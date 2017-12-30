@@ -8,5 +8,7 @@ F --> Puerta Final
 T --> Tienda
 C --> Cofre
 J --> Boss
-E --> Enemigo
+E --> Enemigo Asesino
+M —-> Enemigo Mago
+G —-> Enemigo Tanque
 A --> Pared Alma

@@ -1,6 +1,8 @@
 var existe1 = false, existe2 = false;
 
 window.onload = function () {
+  //Cargamos la musica de la pantalla
+  cargaMusica("cargaPartida")
   //Comprobamos que existan los slots, después de la comprobación rellenamos la pantalla con los datos correspondientes
   $.when(compruebaSlots()).done(function() {
     //Si existen, leemos los datos de la API, sino, dejamos los valores por defecto

@@ -12,6 +12,9 @@ var mago, asesino, tanque;
 
 //Seleccion de personaje
 window.onload = function() {
+
+  //Cargamos la musica de esta pantalla
+  cargaMusica("seleccion");
   //Leemos el fichero inicial
   var urlGet = 'http://puigpedros.salleurl.edu/pwi/pac4/partida.php?token=0aee8310-0212-424d-b2b2-8e7771e4982d&slot=nueva';
   $.get(urlGet, function (data) {
@@ -120,7 +123,7 @@ function creaPersonaje() {
         },
         success: function() {
           console.log('JSON inicial guardado correctamente');
-          
+
           //Avanzamos hasta el juego
           location.href = 'juego.html?slot=nueva';
         }

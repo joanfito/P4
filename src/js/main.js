@@ -1,6 +1,7 @@
 var cofres, armas, escudos, armaduras, pociones, moneda, botas;
 var gameover = false;
 
+
 /* Inicializar el juego */
 function iniciarJuego() {
   //Comprobamos que el slot que se va a cargar es un valor válido (nueva, 1, 2)

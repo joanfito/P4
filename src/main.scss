@@ -6,14 +6,6 @@ $color-principal: #2C2D2E;
 $color-secundario: #B5B5B5;
 $color-letra: #C3C9C9;
 
-#navegacion {
-  float:left;
-}
-
-#equipcarac {
-  float:left;
-}
-
 #video-body {
   background-color: black;
 }
@@ -69,6 +61,7 @@ html, body {
   background-color: rgba(44, 45, 46, 0.5);
   color: $color-letra;
   font-family: $fuente-principal;
+  padding: 10px;
 }
 
 .center-vertical {
@@ -219,4 +212,12 @@ form {
 .col-juego{
   display: table-cell;
   border: 1px solid red;
+}
+
+#texto-juego {
+  background-color: lemonchiffon;
+  font-family: $fuente-principal;
+  height: 50px;
+  padding: 10px;
+  text-align: center;
 }

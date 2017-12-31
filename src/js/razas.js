@@ -30,14 +30,14 @@ function defineRazas() {
       bosmer = new Raza(info.razas[1].nombre, info.razas[1].habilidad, info.razas[1].descripcion, function (rival) {
         // Hace 1 de daño
         rival.vida = rival.vida - 1;
-        //INDICAR-LO EN EL DIV DE TEXTO
+        $('#texto-juego').html('Inflinges 1 de daño con tu arco al ' + rival.nombre);
       });
 
       dunmer = new Raza(info.razas[2].nombre, info.razas[2].habilidad, info.razas[2].descripcion, function (rival, turnos) {
         // Hace 4 de daño --> se carga cada 10 turno
         if (turnos == 10) {
           rival.vida = rival.vida - 4;
-          //INDICAR-LO EN EL DIV DE TEXTO
+          $('#texto-juego').html('El ' + rival.nombre + ' se quema y recibe 4 de daño');
           return true;
         }
         return false;
@@ -65,9 +65,10 @@ function defineRazas() {
         console.log("ATAQUEEEE ROJO");
       });
 
-      argoniano = new Raza(info.razas[8].nombre, info.razas[8].habilidad, info.razas[8].descripcion, function () {
-        // 33% de prob de curarse 25% de la vida restante
-        console.log("ATAQUEEEE ARGONIANO");
+      argoniano = new Raza(info.razas[8].nombre, info.razas[8].habilidad, info.razas[8].descripcion, function (vida) {
+        // 33% de prob de curarse 25% de la vida perdida
+        var ran = Math.floor((Math.random() * 100) + 1);
+        return ran <= 33 ? Math.floor(vida * 0.5) : 0;
       });
 
       khajita = new Raza(info.razas[9].nombre, info.razas[9].habilidad, info.razas[9].descripcion, function () {

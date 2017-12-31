@@ -1,38 +1,45 @@
 var cofres, armas, escudos, armaduras, pociones, moneda, botas, mapas, hechizos;
-var gameover = false;
+var gameover = false, espera = true, cargasDunmer = 0;
 
 
 /* Inicializar el juego */
 function iniciarJuego() {
   //Comprobamos que el slot que se va a cargar es un valor válido (nueva, 1, 2)
-  var slot = leeSlot();
+  var slot;
+  try {
+    slot = leeSlot();
 
-  if (slot == 'nueva' || slot == '1' || slot == '2') {
-    //Definimos las razas para poder usar sus habilidades
-    defineRazas();
+    if (slot == 'nueva' || slot == '1' || slot == '2') {
+      //Definimos las razas para poder usar sus habilidades
+      defineRazas();
 
-    //Cargamos el fichero correspondiente
-    $.when(cargaFichero(slot)).done(function() {
-      //Funciones del juego
-      /* TODO */
-      //movimiento (ADRI)
-      //cambiar de nivel (de mapa) (ADRI)
-      //lucha (FITO)
-      //gestionar nivel personaje (augmentar las stats siguendo el enunciado + subir un punto en una de las stats (definido en rubrica.rtf)) (ADRI --> funcion creada: augmentaXP)
-      //recoger objetos (que dropean los enemigos) (FITO)
-      //comprar en tienda (ADRI -- aplicar pasiva Orco)
-      //abrir cofre (MARC: onclick en canvas per a "obrirlo")
-      //gestionar mochila (FITO)
-      //gestionar objetos equipados (MARC -- llegeix extras.rtf)
-      //visor (canvas) (ADRI)
-      //HUD (FITO)
-      //guardar partida (sobreescribir si ya existe una en el slot) (FITO)
-      //musica (ADRI)
-      //alduin (drop 'alma' + aprender grito) (MARC)
-      //abrir puerta salida (MARC)
-      //game over (por muerte o abriendo puerta) (MARC (gameover.html))
-    });
-  } else {
+      //Cargamos el fichero correspondiente
+      $.when(cargaFichero(slot)).done(function() {
+        //Funciones del juego
+
+        // TODO movimiento (ADRI)
+        // TODO cambiar de nivel (de mapa) (ADRI)
+        //lucha (FITO)
+        //TODO cambiar musica en la lucha (FITO)
+        //TODO gestionar nivel personaje (augmentar las stats siguendo el enunciado + subir un punto en una de las stats (definido en rubrica.rtf)) (ADRI --> funcion creada: augmentaXP)
+        //TODO recoger objetos (que dropean los enemigos) (FITO)
+        //TODO comprar en tienda (ADRI -- aplicar pasiva Orco)
+        //TODO abrir cofre (MARC: onclick en canvas per a "obrirlo")
+        //TODO gestionar mochila (FITO)
+        //TODO gestionar objetos equipados (MARC -- llegeix extras.rtf)
+        //TODO visor (canvas) (ADRI)
+        //TODO HUD (FITO)
+        //TODO guardar partida (sobreescribir si ya existe una en el slot) (FITO)
+        //musica (ADRI)
+        //TODO alduin (drop 'alma' + aprender grito) (MARC)
+        //TODO abrir puerta salida (MARC)
+        //TODO game over (por muerte o abriendo puerta) (MARC (gameover.html))
+      });
+    } else {
+      alert('Slot no válido, no modifiques la URL.');
+      location.href = 'index.html';
+    }
+  } catch (e) {
     alert('Slot no válido, no modifiques la URL.');
     location.href = 'index.html';
   }
@@ -75,7 +82,7 @@ function cargaFichero(slot) {
 
     //Cargamos el mapa (variable existente en juego.js)
     mapa = cargaMapa(player.estadoPartida.nivel);
-    cargaPosicion(player.estadoPartida.x, partida.estadoPartida.y, partida.estadoPartida.direccion);
+    cargaPosicion(player.estadoPartida.x, player.estadoPartida.y, player.estadoPartida.direccion);
   });
 }
 
@@ -116,7 +123,7 @@ function cargaPosicion(x, y, orientacion) {
 
 /* Transforma la posicion de la imagen a la propia imagen en si */
 function mapaToImg(x, y) {
-  switch (mapa.x[y]) {
+  switch (mapa[x][y]) {
     case "V":
       return "vacio.jpg";
     case "X":
@@ -136,9 +143,13 @@ function mapaToImg(x, y) {
     case "C":
       return "cofre.jpg";
     case "J":
-      return "boss.jpg";
+      return enemigo[3].img;
     case "E":
-      return "enemigo.jpg";
+      return enemigo[0].img;
+    case "M":
+      return enemigo[1].img;
+    case "G":
+      return enemigo[2].img;
     case "A":
       return "alma.jpg";
   }
@@ -147,7 +158,7 @@ function mapaToImg(x, y) {
 /* Trata el movimiento del jugador */
 function movimiento(x, y) {
   //Entran x, y que serian la posicion siguiente dependiendo de la tecla que pulsemos --> x+1,y , etc.
-  switch (mapa.x[y]) {
+  switch (mapa[x][y]) {
     case "V":
       //Actualizamos la posicion
       player.estadoPartida.x = x;
@@ -235,7 +246,7 @@ function movimiento(x, y) {
       break;
     case "F":
       if (player.estadoPartida.grito == true) {
-        setGameover(s);
+        setGameover(true);
       } else {
         /* TODO Mensaje? */
       }
@@ -253,14 +264,22 @@ function movimiento(x, y) {
     case "J":
       player.estadoPartida.x = x;
       player.estadoPartida.y = y;
-      /* TODO Ajustar */
-      combate("boss");
+      combate(enemigo[3]);
+      break;
+    case "G":
+      player.estadoPartida.x = x;
+      player.estadoPartida.y = y;
+      combate(enemigo[2]);
       break;
     case "E":
       player.estadoPartida.x = x;
       player.estadoPartida.y = y;
-      /* TODO Ajustar que no se como va y depende de como tengamos los enemigos*/
-      combate("enemigo");
+      combate(enemigo[0]);
+      break;
+    case "M":
+      player.estadoPartida.x = x;
+      player.estadoPartida.y = y;
+      combate(enemigo[1]);
       break;
     case "A":
       player.estadoPartida.x = x;
@@ -318,65 +337,119 @@ function creaCofre() {
 
 /* Ejecuta el combate entre el jugador y el enemigo */
 function combate(rival) {
-  var huir = false,
-    esquivar = false;
+  var huir = false, esquivar = false;
+
   //Comprobamos que el combate sea posible, sino, el jugador huye del combate
-  if (player.tipoAtaque == 'AD' && player.tipoAtaque <= rival.armadura) {
+  if (player.tipoAtaque == 'AD' && player.ataque <= rival.armadura) {
     huir = true;
-  } else if (player.tipoAtaque == 'AP' && player.tipoAtaque <= rival.resistenciaMagica) {
+    $('#texto-juego').html('Has huido del combate contra ' + rival.nombre);
+  } else if (player.tipoAtaque == 'AP' && player.ataque <= rival.resistenciaMagica) {
     huir = true;
+    $('#texto-juego').html('Has huido del combate contra ' + rival.nombre);
   } else {
     //El combate es posible, ejecutamos la habilidad pasiva (si tiene)
-    switch (player.raza) {
-      case 'bosmer':
-        bosmer.habilidad(rival);
-        break;
-      case 'dunmer':
-        dunmer.habilidad(rival);
-        break;
+    if (player.raza == 'bosmer') {
+      setTimeout(bosmer.habilidad, 500, rival);
     }
 
     //Empieza el combate
-    while (player.vida > 0 || rival.vida > 0) {
-      //AUGMENTAR CONTADOR TURNO DUNMER
+    $('#texto-juego').html('Te enfrentas a un ' + rival.nombre);
+    turnosCombate(rival, esquivar, 0, 0);
+
+  }
+}
+
+function turnosCombate(rival, esquivar, turno, vidaPerdida) {
+  //Empieza el combate (2 segundos entre turno y turno)
+  if (player.vida > 0 && rival.vida > 0) {
+    if (turno % 2 == 0) {
       //Primero ataca el jugador
-      var dano;
-      if (player.tipoAtaque == 'AD') {
-        dano = player.ataque - rival.armadura;
-      } else dano = player.ataque - rival.resistenciaMagica;
-
-      rival.vida = rival.vida - dano;
-
-      //MOSTRAR EN EL DIV + ACTUALIZAR STATS ENEMIGO
-      //Esperamos X tiempo o hasta que pulse un boton
-
-      //Turno del enemigo
-      if (player.raza == 'khajita') {
-        esquivar = khajita.habilidad();
-      }
-      if (!esquivar) {
-        if (rival.tipoAtaque == 'fisico') {
-          dano = rival.ataque - player.armadura;
-        } else dano = rival.ataque - player.resistenciaMagica;
-
-        player.vida = player.vida - dano;
+      if (player.raza == 'dunmer' && cargasDunmer == 10) {
+        setTimeout(dunmer.habilidad, 2000, rival, cargasDunmer);
+        setTimeout(turnoJugador, 4000, rival, esquivar, turno, vidaPerdida);
+        cargasDunmer = 0;
       } else {
-
+        setTimeout(turnoJugador, 2000, rival, esquivar, turno, vidaPerdida);
       }
-      //MOSTRAR EN EL DIV + ACTUALIZAR STATS JUGADOR
-      //Esperamos X tiempo o hasta que pulse un boton
-    }
 
+    } else {
+      //Despues ataca el enemigo
+      setTimeout(turnoRival, 2000, rival, esquivar, turno, vidaPerdida);
+    }
+  } else {
     //Si el enemigo muere, augmentamos la XP y dropeamos los objetos
-    if (rival.vida == 0) {
-      augmentaXP(rival.xp);
-      recogeObjetos(rival.objetos);
+    if (rival.vida <= 0) {
+      setTimeout(victoriaCombate, 2000, rival, vidaPerdida);
     }
 
-    if (player.vida == 0) {
-      gameover = true;
+    if (player.vida <= 0) {
+      setTimeout(derrotaCombate, 2000, rival);
     }
   }
+}
+
+/* Turno del jugador */
+function turnoJugador(rival, esquivar, turno, vidaPerdida) {
+  //TODO ACTUALIZAR STATS ENEMIGO
+
+  var dano;
+  if (player.tipoAtaque == 'AD') {
+    dano = player.ataque - rival.armadura;
+  } else dano = player.ataque - rival.resistenciaMagica;
+
+  rival.vida = rival.vida - dano;
+  $('#texto-juego').html(player.nombre + ' inflinge ' + dano + ' de daño al ' + rival.nombre);
+
+  //Augmentamos el turno
+  cargasDunmer++;
+  turno++;
+
+  //Si el rival tiene vida, volvemos a llamar a la funcion
+  turnosCombate(rival, esquivar, turno, vidaPerdida);
+}
+
+/* Turno del rival */
+function turnoRival(rival, esquivar, turno, vidaPerdida) {
+  //TODO ACTUALIZAR STATS JUGADOR
+  var dano;
+  if (player.raza == 'khajita') {
+    esquivar = khajita.habilidad();
+  }
+
+  if (!esquivar) {
+    if (rival.tipoAtaque == 'fisico') {
+      dano = rival.ataque - player.armadura;
+    } else dano = rival.ataque - player.resistenciaMagica;
+
+    player.vida = player.vida - dano;
+    vidaPerdida = vidaPerdida + dano;
+    $('#texto-juego').html('El ' + rival.nombre + ' te inflinge ' + dano + ' de daño');
+  } else {
+    $('#texto-juego').html('Has esquivado el ataque');
+  }
+
+  //Augmentamos el turno
+  turno++;
+
+  //Si el jugador tiene vida, volvemos a llamar a la funcion
+  turnosCombate(rival, esquivar, turno, vidaPerdida);
+}
+
+/* Gestiona la victoria en un combate */
+function victoriaCombate(rival, vidaPerdida) {
+  $('#texto-juego').html(player.nombre + ' ha vencido el combate contra el ' + rival.nombre);
+  augmentaXP(rival.xp);
+  recogeObjetos(rival.objetos);
+
+  if (player.raza == 'argoniano') {
+    player.vida = player.vida + argoniano.habilidad(vidaPerdida);
+  }
+}
+
+/* Gestiona la derrota en un combate */
+function derrotaCombate(rival) {
+  $('#texto-juego').html(player.nombre + ' ha perdido el combate contra el ' + rival.nombre);
+  //setGameover(false);
 }
 
 /* Gestiona la experiencia y el nivel del jugador */

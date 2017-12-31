@@ -101,7 +101,7 @@
     }, {
       "nombre": "Argoniano",
       "habilidad": "Piel de Hist",
-      "descripcion": "Los argonianos, una raza con aspecto de reptiliano que habitan en la Ciénaga Negra son resistentes a casi cualquier enfermedad. Despues de cada combate, tienen un 33% de curarse un 25% de su vida restante."
+      "descripcion": "Los argonianos, una raza con aspecto de reptiliano que habitan en la Ciénaga Negra son resistentes a casi cualquier enfermedad. Despues de cada combate, tienen un 33% de curarse un 50% de la vida perdida."
     }, {
       "nombre": "Khajita",
       "habilidad": "Sigilo",
@@ -147,7 +147,9 @@
         "x": 3,
         "y": 1,
         "nivel": -2,
-        "direccion": 0
+        "direccion": 0,
+        "alma": false,
+        "grito": false
       }
     },
     "enemigos": [{
@@ -180,6 +182,16 @@
       "xp": 40,
       "img": "centurion_enano.jpg",
       "objetos": []
+    }, {
+      "nombre": "Alduin",
+      "vida": 50,
+      "tipoAtaque": "magico",
+      "ataque": 20,
+      "armadura": 10,
+      "resistenciaMagica": 10,
+      "xp": 400,
+      "img": "alduin.jpg",
+      "objetos": ["alma"]
     }],
     "objetos": [ {
       "armas": [{
@@ -212,7 +224,11 @@
         "img": "espada_dragon.png",
         "ataque": 12,
         "precio": 700
-      }]
+      }, {
+        "nombre": "Espada JS",
+        "img": "espada_js.png",
+        "armadura": 5000,
+        "precio": 3000000}]
     },{
       "escudos": [{
         "nombre": "Escudo de Piel",
@@ -234,7 +250,12 @@
         "nombre": "Escudo de Dragón",
         "img": "escudo_dragon.png",
         "armadura": 5,
-        "precio": 400}]
+        "precio": 400},
+        {
+        "nombre": "Escudo CSS",
+        "img": "escudo_css.png",
+        "armadura": 5000,
+        "precio": 3000000}]
     },{
       "armaduras": [{
         "nombre": "Capa de Ruiseñor",
@@ -282,7 +303,7 @@
     }, {
       "botas": {
         "nombre": "Boots trap",
-        "img": ""
+        "img": "boots_trap.png"
       }
     }, {
       "hechizos": [{

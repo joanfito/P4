@@ -52,14 +52,6 @@ table {
   border-spacing: 0;
 }
 
-#navegacion {
-  float: left;
-}
-
-#equipcarac {
-  float: left;
-}
-
 #video-body {
   background-color: black;
 }
@@ -115,6 +107,7 @@ html, body {
   background-color: rgba(44, 45, 46, 0.5);
   color: #C3C9C9;
   font-family: "Inknut Antiqua", serif;
+  padding: 10px;
 }
 
 .center-vertical {
@@ -258,4 +251,12 @@ form button {
 .col-juego {
   display: table-cell;
   border: 1px solid red;
+}
+
+#texto-juego {
+  background-color: lemonchiffon;
+  font-family: "Inknut Antiqua", serif;
+  height: 50px;
+  padding: 10px;
+  text-align: center;
 }

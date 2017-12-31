@@ -39,3 +39,9 @@ function playMusic(){
   var canco = document.getElementById('backgroundmusic');
   canco.play();
 }
+
+function cambiaMusica(num){
+  var canco = document.getElementById('backgroundmusic');
+  canco.src = musica[num];
+  canco.play();
+}

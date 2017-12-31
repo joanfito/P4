@@ -74,7 +74,8 @@ function cargaFichero(slot) {
     mapas = data.mapas;
 
     //Cargamos el mapa (variable existente en juego.js)
-    mapa = cargaMapa('-2');
+    mapa = cargaMapa(player.estadoPartida.nivel);
+    cargaPosicion(player.estadoPartida.x, partida.estadoPartida.y, partida.estadoPartida.direccion);
   });
 }
 
@@ -95,9 +96,230 @@ function cargaMapa(nivel) {
   }
 }
 
+/* Carga la imagen que pertoca segun la posicion del jugador */
+function cargaPosicion(x, y, orientacion) {
+  switch (orientacion) {
+    case 0:
+      pintaPosicion(x, y - 1);
+      break;
+    case 1:
+      pintaPosicion(x, y + 1);
+      break;
+    case 2:
+      pintaPosicion(x + 1, y);
+      break;
+    case 3:
+      pintaPosicion(x - 1, y);
+      break;
+  }
+}
+
+/* Transforma la posicion de la imagen a la propia imagen en si */
+function mapaToImg(x, y) {
+  switch (mapa.x[y]) {
+    case "V":
+      return "vacio.jpg";
+    case "X":
+      return "pared.jpg";
+    case "O":
+      return "transporte.jpg";
+    case "P":
+      return "transporte.jpg";
+    case "S":
+      return "puertasubir.jpg";
+    case "B":
+      return "puertabajar.jpg";
+    case "F":
+      return "puertafinal.jpg";
+    case "T":
+      return "tienda.jpg";
+    case "C":
+      return "cofre.jpg";
+    case "J":
+      return "boss.jpg";
+    case "E":
+      return "enemigo.jpg";
+    case "A":
+      return "alma.jpg";
+  }
+}
+
+/* Trata el movimiento del jugador */
+function movimiento(x, y) {
+  //Entran x, y que serian la posicion siguiente dependiendo de la tecla que pulsemos --> x+1,y , etc.
+  switch (mapa.x[y]) {
+    case "V":
+      //Actualizamos la posicion
+      player.estadoPartida.x = x;
+      player.estadoPartida.y = y;
+
+      break;
+    case "X":
+      /*TODO Mostrar Mensaje?*/
+      break;
+    case "O":
+      if (player.estadoPartida.nivel == -5) {
+        player.estadoPartida.nivel = -1;
+        player.estadoPartida.x = 8;
+        player.estadoPartida.y = 7;
+        player.estadoPartida.direccion = 3;
+      } else {
+        player.estadoPartida.nivel = -5;
+        player.estadoPartida.x = 8;
+        player.estadoPartida.y = 1;
+        player.estadoPartida.direccion = 0;
+      }
+      break;
+    case "P":
+      if (player.estadoPartida.nivel == -4) {
+        player.estadoPartida.nivel = -2;
+        player.estadoPartida.x = 8;
+        player.estadoPartida.y = 4;
+        player.estadoPartida.direccion = 0;
+      } else {
+        player.estadoPartida.nivel = -4;
+        player.estadoPartida.x = 5;
+        player.estadoPartida.y = 6;
+        player.estadoPartida.direccion = 0;
+      }
+      break;
+    case "S":
+      player.estadoPartida.nivel++;
+      switch (player.estadoPartida.nivel) {
+        case -1:
+          player.estadoPartida.x = 4;
+          player.estadoPartida.y = 8;
+          player.estadoPartida.direccion = 3;
+          break;
+        case -2:
+          player.estadoPartida.x = 6;
+          player.estadoPartida.y = 3;
+          player.estadoPartida.direccion = 2;
+          break;
+        case -3:
+          player.estadoPartida.x = 2;
+          player.estadoPartida.y = 1;
+          player.estadoPartida.direccion = 2;
+          break;
+        case -4:
+          player.estadoPartida.x = 8;
+          player.estadoPartida.y = 1;
+          player.estadoPartida.direccion = 3;
+          break;
+      }
+      break;
+    case "B":
+      player.estadoPartida.nivel--;
+      switch (player.estadoPartida.nivel) {
+        case -2:
+          player.estadoPartida.x = 4;
+          player.estadoPartida.y = 8;
+          player.estadoPartida.direccion = 3;
+          break;
+        case -3:
+          player.estadoPartida.x = 6;
+          player.estadoPartida.y = 3;
+          player.estadoPartida.direccion = 0;
+          break;
+        case -4:
+          player.estadoPartida.x = 2;
+          player.estadoPartida.y = 1;
+          player.estadoPartida.direccion = 2;
+          break;
+        case -5:
+          player.estadoPartida.x = 8;
+          player.estadoPartida.y = 1;
+          player.estadoPartida.direccion = 3;
+          break;
+      }
+      break;
+    case "F":
+      if (player.estadoPartida.grito == true) {
+        setGameover(s);
+      } else {
+        /* TODO Mensaje? */
+      }
+      break;
+    case "T":
+      player.estadoPartida.x = x;
+      player.estadoPartida.y = y;
+      creaTienda();
+      break;
+    case "C":
+      player.estadoPartida.x = x;
+      player.estadoPartida.y = y;
+      creaCofre();
+      break;
+    case "J":
+      player.estadoPartida.x = x;
+      player.estadoPartida.y = y;
+      /* TODO Ajustar */
+      combate("boss");
+      break;
+    case "E":
+      player.estadoPartida.x = x;
+      player.estadoPartida.y = y;
+      /* TODO Ajustar que no se como va y depende de como tengamos los enemigos*/
+      combate("enemigo");
+      break;
+    case "A":
+      player.estadoPartida.x = x;
+      player.estadoPartida.y = y;
+      break;
+  }
+  mapa = cargaMapa(player.estadoPartida.nivel);
+  cargaPosicion(player.estadoPartida.x, player.estadoPartida.y, player.estadoPartida.direccion);
+}
+
+/* Trata los giros de camara */
+function girarCamara(x, y, derecha) {
+  if (derecha == true) {
+    switch (player.estadoPartida.direccion) {
+      case 0:
+        player.estadoPartida.direccion = 2;
+        break;
+      case 1:
+        player.estadoPartida.direccion = 3;
+        break;
+      case 2:
+        player.estadoPartida.direccion = 1;
+        break;
+      case 3:
+        player.estadoPartida.direccion = 0;
+        break;
+    }
+  } else {
+    switch (player.estadoPartida.direccion) {
+      case 0:
+        player.estadoPartida.direccion = 3;
+        break;
+      case 1:
+        player.estadoPartida.direccion = 2;
+        break;
+      case 2:
+        player.estadoPartida.direccion = 0;
+        break;
+      case 3:
+        player.estadoPartida.direccion = 1;
+        break;
+    }
+  }
+}
+
+/* Creamos el menu de la Tienda con los items*/
+function creaTienda() {
+
+}
+
+/* Creamos el menu de la Tienda con los items*/
+function creaCofre() {
+
+}
+
 /* Ejecuta el combate entre el jugador y el enemigo */
 function combate(rival) {
-  var huir = false, esquivar = false;
+  var huir = false,
+    esquivar = false;
   //Comprobamos que el combate sea posible, sino, el jugador huye del combate
   if (player.tipoAtaque == 'AD' && player.tipoAtaque <= rival.armadura) {
     huir = true;
@@ -167,7 +389,7 @@ function recogeObjetos(objetos) {
 
 }
 
-/* Indicamos que se ha acado la partida */
+/* Indicamos que se ha acabado la partida */
 function setGameover(victoria) {
   gameover = true;
   var fin = function() {

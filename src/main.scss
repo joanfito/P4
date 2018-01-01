@@ -199,25 +199,40 @@ form {
 
 .juego{
   display: table;
-  border: 1px solid black;
+  height: 100%;
   width: 100%;
-}
-
-.fila-juego{
-  display: table-row;
-  width: 50%;
-  border: 1px solid green;
 }
 
 .col-juego{
   display: table-cell;
-  border: 1px solid red;
+  width: 50%;
+}
+
+.fila-juego{
+  //display: table-row;
+  width: 100%;
+}
+
+#navegacion {
+  margin: auto;
+  width: 300px;
+}
+
+.espacio-controllers {
+  display: inline-block;
+  width: 60px;
+}
+
+#controllers {
+  display: table;
+  margin: auto;
 }
 
 #texto-juego {
   background-color: lemonchiffon;
   font-family: $fuente-principal;
   height: 50px;
-  padding: 10px;
+  padding-top: 10px;
   text-align: center;
+  width: 100%;
 }

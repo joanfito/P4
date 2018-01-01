@@ -103,7 +103,7 @@ function cargaMapa(nivel) {
   }
 }
 
-/* Carga la imagen que pertoca segun la posicion del jugador */
+/* Carga la imagen que corresponde segun la posicion del jugador */
 function cargaPosicion(x, y, orientacion) {
   switch (orientacion) {
     case 0:
@@ -123,25 +123,26 @@ function cargaPosicion(x, y, orientacion) {
 
 /* Transforma la posicion de la imagen a la propia imagen en si */
 function mapaToImg(x, y) {
+  console.log(mapa[x][y]);
   switch (mapa[x][y]) {
     case "V":
-      return "vacio.jpg";
+      return "suelo.png";
     case "X":
-      return "pared.jpg";
+      return "dungeon_wall.png";
     case "O":
       return "transporte.jpg";
     case "P":
       return "transporte.jpg";
     case "S":
-      return "puertasubir.jpg";
+      return "puerta_arriba.png";
     case "B":
-      return "puertabajar.jpg";
+      return "puerta_abajo.png";
     case "F":
-      return "puertafinal.jpg";
+      return "puerta_final.png";
     case "T":
-      return "tienda.jpg";
+      return "tienda.png";
     case "C":
-      return "cofre.jpg";
+      return cofres[0].img;
     case "J":
       return enemigo[3].img;
     case "E":
@@ -151,7 +152,7 @@ function mapaToImg(x, y) {
     case "G":
       return enemigo[2].img;
     case "A":
-      return "alma.jpg";
+      return "pared_con_grito 1.png";
   }
 }
 
@@ -291,7 +292,7 @@ function movimiento(x, y) {
 }
 
 /* Trata los giros de camara */
-function girarCamara(x, y, derecha) {
+function girarCamara(derecha) {
   if (derecha == true) {
     switch (player.estadoPartida.direccion) {
       case 0:
@@ -323,6 +324,9 @@ function girarCamara(x, y, derecha) {
         break;
     }
   }
+
+  //Actualizamos el canvas
+  cargaPosicion(player.estadoPartida.x, player.estadoPartida.y, player.estadoPartida.direccion);
 }
 
 /* Creamos el menu de la Tienda con los items*/
@@ -421,9 +425,13 @@ function turnoRival(rival, esquivar, turno, vidaPerdida) {
       dano = rival.ataque - player.armadura;
     } else dano = rival.ataque - player.resistenciaMagica;
 
-    player.vida = player.vida - dano;
-    vidaPerdida = vidaPerdida + dano;
-    $('#texto-juego').html('El ' + rival.nombre + ' te inflinge ' + dano + ' de daño');
+    if (dano > 0) {
+      player.vida = player.vida - dano;
+      vidaPerdida = vidaPerdida + dano;
+      $('#texto-juego').html('El ' + rival.nombre + ' te inflinge ' + dano + ' de daño');
+    } else {
+      $('#texto-juego').html('El ' + rival.nombre + ' no te inflinge daño');
+    }
   } else {
     $('#texto-juego').html('Has esquivado el ataque');
   }
@@ -468,4 +476,16 @@ function setGameover(victoria) {
   var fin = function() {
     location.href = (victoria ? 'gameover.html?victoria=s' : 'gameover.html?victoria=n');
   }();
+}
+
+/* Guarda la partida actual en un slot */
+function guardarPartida() {
+  //Substitumos el panel de información por el menu de guardar partida
+  
+}
+
+/* Cierra el juego */
+function salir() {
+  alert('Gracias por jugar');
+  location.href = 'index.html';
 }

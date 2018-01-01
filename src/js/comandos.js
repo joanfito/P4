@@ -172,7 +172,7 @@
       "armadura": 2,
       "resistenciaMagica": 2,
       "xp": 20,
-      "img": "draugr.jpg",
+      "img": "draug.png",
       "objetos": []
     },{
       "nombre": "Nigromante",
@@ -185,14 +185,14 @@
       "img": "nigromante.png",
       "objetos": []
     }, {
-      "nombre": "Centurión Enano",
+      "nombre": "Trol",
       "vida": 20,
       "tipoAtaque": "fisico",
       "ataque": 3,
       "armadura": 4,
       "resistenciaMagica": 4,
       "xp": 40,
-      "img": "centurion_enano.jpg",
+      "img": "troll.png",
       "objetos": []
     }, {
       "nombre": "Alduin",
@@ -310,7 +310,8 @@
     }, {
       "moneda": {
         "nombre": "Séptim",
-        "img": "septim.png"
+        "img": "septim.png",
+        "cantidad": 0
       }
     }, {
       "botas": {
@@ -351,11 +352,11 @@
       }]
     }],
     "cofre": [{
-      "img": "",
-      "objetos": []
+      "img": "cofre1.png",
+      "objetos": [100, "Poción de salud", "Escudo Élfico"]
     }, {
-      "img": "",
-      "objetos": []
+      "img": "cofre1.png",
+      "objetos": [100, "Gran poción de salud", "Armadura Élfica"]
     }]
   });
 

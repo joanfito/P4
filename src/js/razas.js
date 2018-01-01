@@ -66,7 +66,7 @@ function defineRazas() {
       });
 
       argoniano = new Raza(info.razas[8].nombre, info.razas[8].habilidad, info.razas[8].descripcion, function (vida) {
-        // 33% de prob de curarse 25% de la vida perdida
+        // 33% de prob de curarse 50% de la vida perdida
         var ran = Math.floor((Math.random() * 100) + 1);
         return ran <= 33 ? Math.floor(vida * 0.5) : 0;
       });

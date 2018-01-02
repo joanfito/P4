@@ -202,7 +202,7 @@
       "armadura": 10,
       "resistenciaMagica": 10,
       "xp": 400,
-      "img": "alduin.jpg",
+      "img": "alduin.png",
       "objetos": ["alma"]
     }],
     "objetos": [ {

@@ -31,15 +31,15 @@
           <div id="controllers">
             <div>
               <img id="giresquerra" src="./media/images/l.png" alt="Giro Izquierda" onclick="girarCamara(false);">
-              <img id="movendavant" src="./media/images/up.png" alt="Adelante">
-              <img id="dirdreta" src="./media/images/r.png" alt="Giro Derecha" onclick="girarCamara(true)">
+              <img id="movendavant" src="./media/images/up.png" alt="Adelante" onclick="movimiento(player.estadoPartida.x+1, player.estadoPartida.y);">
+              <img id="dirdreta" src="./media/images/r.png" alt="Giro Derecha" onclick="girarCamara(true);">
               <span class="espacio-controllers"></span>
               <img id="guardarPartida" src="./media/images/save.png" alt="Guardar" onclick="guardarPartida();">
             </div>
             <div>
-              <img id="movesquerra" src="./media/images/left.png" alt="Izquierda">
-              <img id="movendarrere" src="./media/images/down.png" alt="Atrás">
-              <img id="movdreta" src="./media/images/right.png" alt="Derecha">
+              <img id="movesquerra" src="./media/images/left.png" alt="Izquierda" onclick="movimiento(player.estadoPartida.x, player.estadoPartida.y-1);">
+              <img id="movendarrere" src="./media/images/down.png" alt="Atrás" onclick="movimiento(player.estadoPartida.x-1, player.estadoPartida.y);">
+              <img id="movdreta" src="./media/images/right.png" alt="Derecha" onclick="movimiento(player.estadoPartida.x, player.estadoPartida.y+1);">
               <span class="espacio-controllers"></span>
               <img id="salir" src="./media/images/exit.png" alt="Salir" onclick="salir();">
             </div>

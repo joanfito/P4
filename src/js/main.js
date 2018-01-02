@@ -128,7 +128,7 @@ function mapaToImg(x, y) {
     case "V":
       return "suelo.png";
     case "X":
-      return "dungeon_wall.png";
+      return "pared.png";
     case "O":
       return "transporte.jpg";
     case "P":
@@ -481,7 +481,7 @@ function setGameover(victoria) {
 /* Guarda la partida actual en un slot */
 function guardarPartida() {
   //Substitumos el panel de información por el menu de guardar partida
-  
+
 }
 
 /* Cierra el juego */

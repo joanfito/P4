@@ -1,5 +1,7 @@
 var cofres, armas, escudos, armaduras, pociones, moneda, botas, mapas, hechizos;
-var gameover = false, espera = true, cargasDunmer = 0;
+var gameover = false,
+  espera = true,
+  cargasDunmer = 0;
 
 
 /* Inicializar el juego */
@@ -156,8 +158,104 @@ function mapaToImg(x, y) {
   }
 }
 
+function muevePlayer(x, y, direccion) {
+  switch (player.estadoPartida.direccion) {
+    //Norte
+    case 0:
+      //Direccion NORTE
+      switch (direccion) {
+        //Norte
+        case 0:
+          movimiento(x - 1, y);
+          break;
+          //Sur
+        case 1:
+          movimiento(x + 1, y);
+          break;
+          //Este
+        case 2:
+          movimiento(x, y + 1);
+          break;
+          //Oeste
+        case 3:
+          movimiento(x, y - 1);
+          break;
+      }
+      break;
+      //Sur
+    case 1:
+      //Direccion SUR
+      switch (direccion) {
+        //Norte
+        case 0:
+          movimiento(x + 1, y);
+          break;
+          //Sur
+        case 1:
+          movimiento(x - 1, y);
+          break;
+          //Este
+        case 2:
+          movimiento(x, y - 1);
+          break;
+          //Oeste
+        case 3:
+          movimiento(x, y + 1);
+          break;
+      }
+      break;
+      //Este
+    case 2:
+      //Direccion ESTE
+      switch (direccion) {
+        //Norte
+        case 0:
+          movimiento(x, y + 1);
+          break;
+          //Sur
+        case 1:
+          movimiento(x, y - 1);
+          break;
+          //Este
+        case 2:
+          movimiento(x + 1, y);
+          break;
+          //Oeste
+        case 3:
+          movimiento(x - 1, y);
+          break;
+      }
+      break;
+      //Oeste
+    case 3:
+      //Direccion OESTE
+      switch (direccion) {
+        //Norte
+        case 0:
+          movimiento(x, y - 1);
+          break;
+          //Sur
+        case 1:
+          movimiento(x, y + 1);
+          break;
+          //Este
+        case 2:
+          movimiento(x - 1, y);
+          break;
+          //Oeste
+        case 3:
+          movimiento(x + 1, y);
+          break;
+      }
+      break;
+  }
+}
+
 /* Trata el movimiento del jugador */
 function movimiento(x, y) {
+  console.log(player.estadoPartida.x);
+  console.log(player.estadoPartida.y);
+  console.log(player.estadoPartida.direccion);
   //Entran x, y que serian la posicion siguiente dependiendo de la tecla que pulsemos --> x+1,y , etc.
   switch (mapa[x][y]) {
     case "V":
@@ -331,7 +429,8 @@ function girarCamara(derecha) {
 
 /* Creamos el menu de la Tienda con los items*/
 function creaTienda() {
-
+  alert('patata');
+  $("visor").remove();
 }
 
 /* Creamos el menu de la Tienda con los items*/
@@ -341,7 +440,8 @@ function creaCofre() {
 
 /* Ejecuta el combate entre el jugador y el enemigo */
 function combate(rival) {
-  var huir = false, esquivar = false;
+  var huir = false,
+    esquivar = false;
 
   //Comprobamos que el combate sea posible, sino, el jugador huye del combate
   if (player.tipoAtaque == 'AD' && player.ataque <= rival.armadura) {

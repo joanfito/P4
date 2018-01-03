@@ -130,9 +130,9 @@ function mapaToImg(x, y) {
     case "X":
       return "pared.png";
     case "O":
-      return "transporte.jpg";
+      return "portal.png";
     case "P":
-      return "transporte.jpg";
+      return "portal.png";
     case "S":
       return "puerta_arriba.png";
     case "B":
@@ -390,7 +390,7 @@ function movimiento(x, y) {
       if (player.estadoPartida.grito == true) {
         setGameover(true);
       } else {
-        /* TODO Mensaje? */
+        $('#texto-juego').html('Necesitas el grito para abrir la puerta');
       }
       break;
     case "T":
@@ -444,6 +444,7 @@ function movimiento(x, y) {
     case "A":
       player.estadoPartida.x = x;
       player.estadoPartida.y = y;
+      aprendeGrito();
       break;
   }
   mapa = cargaMapa(player.estadoPartida.nivel);
@@ -507,6 +508,14 @@ function creaTienda() {
 function creaCofre() {
   //Al salir --> accionTerminada = true;
   accionTerminada = true;
+}
+
+function aprendeGrito() {
+  if (player.estadoPartida.alma == true) {
+    player.estadoPartida.grito = true;
+  } else {
+    player.estadoPartida.grito = false;
+  }
 }
 
 /* Ejecuta el combate entre el jugador y el enemigo */
@@ -621,6 +630,11 @@ function victoriaCombate(rival, vidaPerdida, vidaInicial) {
 
   if (player.raza == 'argoniano') {
     player.vida = player.vida + argoniano.habilidad(vidaPerdida);
+  }
+
+  //Comprobamos que el enemigo sea Alduin
+  if (player.estadoPartida.x  == 4 && player.estadoPartida.y == 6 && player.estadoPartida.nivel == -5) {
+    player.estadoPartida.alma = true;
   }
 
   //Restauramos la vida del rival para proximos combates

@@ -16,11 +16,11 @@ function iniciarJuego() {
       //Cargamos el fichero correspondiente
       $.when(cargaFichero(slot)).done(function() {
         //Funciones del juego
-
+        actualizaHUD();
         // TODO movimiento (ADRI)
         // TODO cambiar de nivel (de mapa) (ADRI)
         //lucha (FITO)
-        //TODO cambiar musica en la lucha (FITO)
+        //TODO crear 'stats' eneigo en hud (FITO)
         //TODO gestionar nivel personaje (augmentar las stats siguendo el enunciado + subir un punto en una de las stats (definido en rubrica.rtf)) (ADRI --> funcion creada: augmentaXP)
         //TODO recoger objetos (que dropean los enemigos) (FITO)
         //TODO comprar en tienda (ADRI -- aplicar pasiva Orco)
@@ -123,7 +123,6 @@ function cargaPosicion(x, y, orientacion) {
 
 /* Transforma la posicion de la imagen a la propia imagen en si */
 function mapaToImg(x, y) {
-  console.log(mapa[x][y]);
   switch (mapa[x][y]) {
     case "V":
       return "suelo.png";
@@ -573,7 +572,6 @@ function turnosCombate(rival, turno, vidaPerdida, vidaInicial) {
 
 /* Turno del jugador */
 function turnoJugador(rival, turno, vidaPerdida, vidaInicial) {
-  //TODO ACTUALIZAR STATS ENEMIGO
 
   var dano;
   if (player.tipoAtaque == 'AD') {
@@ -587,13 +585,15 @@ function turnoJugador(rival, turno, vidaPerdida, vidaInicial) {
   cargasDunmer++;
   turno++;
 
+  //Actualizamos la vida del enemigo en el HUD
+  actualizaVidaEnemigo();
+
   //Si el rival tiene vida, volvemos a llamar a la funcion
   turnosCombate(rival, turno, vidaPerdida, vidaInicial);
 }
 
 /* Turno del rival */
 function turnoRival(rival, turno, vidaPerdida, vidaInicial) {
-  //TODO ACTUALIZAR STATS JUGADOR
   var dano, esquivar;
   if (player.raza == 'khajita') {
     esquivar = khajita.habilidad();
@@ -618,6 +618,9 @@ function turnoRival(rival, turno, vidaPerdida, vidaInicial) {
   //Augmentamos el turno
   turno++;
 
+  //Actualizamos la vida del jugador en el HUD
+  actualizaVida();
+
   //Si el jugador tiene vida, volvemos a llamar a la funcion
   turnosCombate(rival, turno, vidaPerdida, vidaInicial);
 }
@@ -637,6 +640,9 @@ function victoriaCombate(rival, vidaPerdida, vidaInicial) {
     player.estadoPartida.alma = true;
   }
 
+  //Augmentamos el numero de enemigos muertos
+  player.estadoPartida.enemigosMuertos++;
+
   //Restauramos la vida del rival para proximos combates
   rival.vida = vidaInicial;
 
@@ -652,7 +658,8 @@ function derrotaCombate(rival) {
 
 /* Gestiona la experiencia y el nivel del jugador */
 function augmentaXP(xp) {
-
+  
+  actualizaNivel();
 }
 
 /* Gestiona la recogida de objetos de un enemigo */
@@ -678,4 +685,68 @@ function guardarPartida() {
 function salir() {
   alert('Gracias por jugar');
   location.href = 'index.html';
+}
+
+/* Actualiza el HUD del juego */
+function actualizaHUD() {
+
+  //Valores de la barra de la vida
+  actualizaVida();
+
+  //Valores del nivel y de la barra de experiencia
+  actualizaNivel();
+
+  //Actualizamos las otras estadisticas
+  actualizaStats();
+
+  //Actualizamos los objetos de la mochila
+
+
+  //Actualizamos los objetos equipados
+
+
+  //Actualizamos el nombre, sexo, rol y raza
+  $('#nombre-hud').html(player.nombre);
+  $('#sexo-hud').html(player.sexo);
+  $('#raza-hud').html(getNombre(player.raza));
+
+  switch (player.rol) {
+    case 'mago':
+      $('#rol-hud').html(partida.roles[0].nombre);
+      break;
+    case 'asesino':
+      $('#rol-hud').html(partida.roles[1].nombre);
+      break;
+    case 'tanque':
+      $('#rol-hud').html(partida.roles[2].nombre);
+      break;
+  }
+}
+
+/* Actualiza la vida del hud */
+function actualizaVida() {
+  $('.barra-vida').children('progress').attr('value',player.vida);
+  $('.barra-vida').children('progress').attr('max',player.vidaMax);
+}
+
+/* Actualiza el nivel del hud */
+function actualizaNivel() {
+  $('.barra-nivel').children('p').html(player.nivel);
+  $('.barra-nivel').children('progress').attr('value',player.xp);
+  $('.barra-nivel').children('progress').attr('max',10 * player.nivel);
+}
+
+/* Actualiza las estadisticas del hud */
+function actualizaStats() {
+  $('#oro-hud').html(player.oro);
+  $('#ataque-hud').html(player.ataque);
+  $('#armadura-hud').html(player.armadura);
+  $('#mr-hud').html(player.resistenciaMagica);
+  $('#niv-hud').html(player.estadoPartida.nivel);
+  $('#enemigos-hud').html(player.estadoPartida.enemigosMuertos);
+}
+
+/* Actualiza la vida del enemigo */
+function actualizaVidaEnemigo() {
+
 }

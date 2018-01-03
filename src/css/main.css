@@ -236,14 +236,26 @@ form button {
   text-decoration: underline;
 }
 
+header {
+  background-color: black;
+  color: #C3C9C9;
+}
+
 .juego {
-  display: table;
+  background-color: black;
+  font-family: "Inknut Antiqua", serif;
+  color: #C3C9C9;
   height: 100%;
   width: 100%;
 }
 
-.col-juego {
-  display: table-cell;
+.col-juego-r {
+  float: right;
+  width: 50%;
+}
+
+.col-juego-l {
+  float: left;
   width: 50%;
 }
 
@@ -264,13 +276,66 @@ form button {
 #controllers {
   display: table;
   margin: auto;
+  padding-top: 20px;
 }
 
 #texto-juego {
-  background-color: lemonchiffon;
-  font-family: "Inknut Antiqua", serif;
+  background-color: #B5B5B5;
+  color: #2C2D2E;
   height: 50px;
   padding-top: 10px;
   text-align: center;
   width: 100%;
+}
+
+#titulo-juego {
+  font-family: "Inknut Antiqua", serif;
+  font-size: 30px;
+  padding: 20px;
+  text-align: center;
+}
+
+.barra-vida {
+  padding: 10px 0 0 10px;
+}
+
+.barra-nivel {
+  padding: 10px 0 0 10px;
+}
+
+.objetos-jugador {
+  padding: 10px 0 0 10px;
+}
+
+.lista-objetos {
+  padding: 10px 0 0 10px;
+}
+
+.fila-objetos {
+  margin: auto;
+}
+
+p {
+  padding: 10px 10px 0 10px;
+}
+
+h4 {
+  font-size: 20px;
+  padding-top: 5px;
+}
+
+.barra-nivel p, .estadisticas-1 p, .estadisticas-2 p {
+  display: inline-block;
+}
+
+.estadisticas-3 {
+  text-align: left;
+}
+
+#equipocarac {
+  background-color: #2C2D2E;
+  display: table;
+  margin: auto;
+  padding: 10px;
+  text-align: center;
 }

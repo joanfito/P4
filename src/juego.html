@@ -17,10 +17,10 @@
   </head>
   <body>
     <header>
-      <h1>Dungeon Master AJAX Game</h1>
+      <h1 id="titulo-juego">Dungeon Master AJAX Game</h1>
     </header>
     <section class="juego">
-      <section class="col-juego">
+      <section class="col-juego-l">
         <div class="fila-juego">
           <div id="navegacion">
             <canvas id="visor" width="300" height="300"></canvas>
@@ -46,19 +46,55 @@
           </div>
         </div>
       </section>
-      <section class="col-juego">
+      <section class="col-juego-r">
         <section id="equipocarac">
-          <h2>Equipo & Características</h2>
-          <p>Nombre: <span></span></p>
-          <p>Raza: <span></span></p>
-          <p>Sexo: <span></span></p>
-          <p>Rol: <span></span></p>
-          <p>Nivel: <span></span></p>
-          <p>Vida: <span></span></p>
-          <p>Ataque: <span></span></p>
-          <p>Armadura: <span></span></p>
-          <p>Resistencia magica: <span></span></p>
-          <p>Objetos: <span></span></p>
+          <h4>Estadísticas jugador</h4>
+          <div class="fila-juego barra-vida">
+            <img src="./media/images/vida.png" alt="vida">
+            <progress value="0" max="10"></progress>
+          </div>
+          <div class="fila-juego barra-nivel">
+            <img src="./media/images/vida.png" alt="nivel">
+            <p></p>
+            <progress value="0" max="10"></progress>
+          </div>
+          <div class="fila-juego estadisticas-1">
+            <p>Oro: <span id="oro-hud"></span></p>
+            <p>Ataque: <span id="ataque-hud"></span></p>
+            <p>Armadura: <span id="armadura-hud"></span></p>
+          </div>
+          <div class="fila-juego estadisticas-2">
+            <p>Resistencia magica: <span id="mr-hud"></span></p>
+            <p>Nivel mazmorra: <span id="niv-hud"></span></p>
+            <p>Enemigos: <span id="enemigos-hud"></span></p>
+          </div>
+          <div class="fila-juego lista-objetos">
+            <h4>Mochila</h4>
+            <div class="fila-objetos">
+              <img src="./media/images/objeto_vacio.png" alt="objeto 1" width="100" height="100">
+              <img src="./media/images/objeto_vacio.png" alt="objeto 2" width="100" height="100">
+              <img src="./media/images/objeto_vacio.png" alt="objeto 3" width="100" height="100">
+            </div>
+            <div class="fila-objetos">
+              <img src="./media/images/objeto_vacio.png" alt="objeto 4" width="100" height="100">
+              <img src="./media/images/objeto_vacio.png" alt="objeto 5" width="100" height="100">
+              <img src="./media/images/objeto_vacio.png" alt="objeto 6" width="100" height="100">
+            </div>
+          </div>
+          <div class="fila-juego objetos-jugador">
+            <h4>Equipado</h4>
+            <div class="fila-objetos">
+              <img src="./media/images/objeto_vacio.png" alt="mano izq" width="100" height="100">
+              <img src="./media/images/objeto_vacio.png" alt="cuerpo" width="100" height="100">
+              <img src="./media/images/objeto_vacio.png" alt="mano derecha" width="100" height="100">
+            </div>
+          </div>
+          <div class="fila-juego estadisticas-3">
+            <p>Nombre: <span id="nombre-hud"></span></p>
+            <p>Raza: <span id="raza-hud"></span></p>
+            <p>Sexo: <span id="sexo-hud"></span></p>
+            <p>Rol: <span id="rol-hud"></span></p>
+          </div>
         </section>
       </section>
     </section>

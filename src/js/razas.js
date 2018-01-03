@@ -79,3 +79,28 @@ function defineRazas() {
     }
   });
 }
+
+function getNombre(raza) {
+  switch (raza) {
+    case 'altmer':
+      return altmer.nombre;
+    case 'bosmer':
+      return bosmer.nombre;
+    case 'dunmer':
+      return dunmer.nombre;
+    case 'orco':
+      return orco.nombre;
+    case 'imperial':
+      return imperial.nombre;
+    case 'nordico':
+      return nordico.nombre;
+    case 'breton':
+      return breton.nombre;
+    case 'guardiaRojo':
+      return guardiaRojo.nombre;
+    case 'argoniano':
+      return argoniano.nombre;
+    case 'khajita':
+      return khajita.nombre;
+  }
+}

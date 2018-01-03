@@ -144,9 +144,10 @@
       "sexo": "",
       "rol": "",
       "vida": 10,
+      "vidaMax":10,
       "oro": 0,
-      "nivel": 0,
-      "xp": 100,
+      "nivel": 1,
+      "xp": 0,
       "ataque": 2,
       "tipoAtaque": "",
       "armadura": 1,
@@ -161,7 +162,8 @@
         "nivel": -2,
         "direccion": 0,
         "alma": false,
-        "grito": false
+        "grito": false,
+        "enemigosMuertos": 0
       }
     },
     "enemigos": [{

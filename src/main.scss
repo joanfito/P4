@@ -6,6 +6,17 @@ $color-principal: #2C2D2E;
 $color-secundario: #B5B5B5;
 $color-letra: #C3C9C9;
 
+@mixin color-vida($vida) {
+  //Cambiamos el color de la barra de vida en funcion de la vida actual
+  @if $vida <= 10{
+    background-color: red;
+  } @else if $vida <= 50 {
+    background-color: lemonchiffon;
+  } @else {
+    background-color: green;
+  }
+}
+
 #video-body {
   background-color: black;
 }
@@ -197,19 +208,30 @@ form {
 
 //juego
 
+header {
+  background-color: black;
+  color: $color-letra;
+}
+
 .juego{
-  display: table;
+  background-color: black;
+  font-family: $fuente-principal;
+  color: $color-letra;
   height: 100%;
   width: 100%;
 }
 
-.col-juego{
-  display: table-cell;
+.col-juego-r{
+  float: right;
+  width: 50%;
+}
+
+.col-juego-l{
+  float: left;
   width: 50%;
 }
 
 .fila-juego{
-  //display: table-row;
   width: 100%;
 }
 
@@ -226,13 +248,68 @@ form {
 #controllers {
   display: table;
   margin: auto;
+  padding-top: 20px;
 }
 
 #texto-juego {
-  background-color: lemonchiffon;
-  font-family: $fuente-principal;
+  background-color: $color-secundario;
+  color: $color-principal;
   height: 50px;
   padding-top: 10px;
   text-align: center;
   width: 100%;
+}
+
+#titulo-juego {
+  font-family: $fuente-principal;
+  font-size: 30px;
+  padding: 20px;
+  text-align: center;
+}
+
+.barra-vida {
+  padding: 10px 0 0 10px;
+}
+
+.barra-nivel {
+  padding: 10px 0 0 10px;
+}
+
+.objetos-jugador {
+  padding: 10px 0 0 10px;
+}
+
+.lista-objetos {
+  padding: 10px 0 0 10px;
+}
+
+.fila-objetos {
+  margin: auto;
+}
+
+p {
+  padding: 10px 10px 0 10px;
+}
+
+h4 {
+  font-size: 20px;
+  padding-top: 5px;
+}
+
+.barra-nivel, .estadisticas-1, .estadisticas-2 {
+  p {
+    display: inline-block;
+  }
+}
+
+.estadisticas-3 {
+  text-align: left;
+}
+
+#equipocarac {
+  background-color: $color-principal;
+  display: table;
+  margin: auto;
+  padding: 10px;
+  text-align: center;
 }

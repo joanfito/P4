@@ -1,7 +1,5 @@
 var cofres, armas, escudos, armaduras, pociones, moneda, botas, mapas, hechizos;
-var gameover = false,
-  espera = true,
-  cargasDunmer = 0;
+var gameover = false, cargasDunmer = 0, accionTerminada = true;
 
 
 /* Inicializar el juego */
@@ -109,16 +107,16 @@ function cargaMapa(nivel) {
 function cargaPosicion(x, y, orientacion) {
   switch (orientacion) {
     case 0:
-      pintaPosicion(x, y - 1);
+      pintaPosicion(x - 1, y);
       break;
     case 1:
-      pintaPosicion(x, y + 1);
-      break;
-    case 2:
       pintaPosicion(x + 1, y);
       break;
+    case 2:
+      pintaPosicion(x, y + 1);
+      break;
     case 3:
-      pintaPosicion(x - 1, y);
+      pintaPosicion(x, y - 1);
       break;
   }
 }
@@ -158,104 +156,149 @@ function mapaToImg(x, y) {
   }
 }
 
-function muevePlayer(x, y, direccion) {
-  switch (player.estadoPartida.direccion) {
-    //Norte
-    case 0:
-      //Direccion NORTE
-      switch (direccion) {
-        //Norte
-        case 0:
-          movimiento(x - 1, y);
-          break;
-          //Sur
-        case 1:
-          movimiento(x + 1, y);
-          break;
-          //Este
-        case 2:
-          movimiento(x, y + 1);
-          break;
-          //Oeste
-        case 3:
-          movimiento(x, y - 1);
-          break;
-      }
-      break;
-      //Sur
-    case 1:
-      //Direccion SUR
-      switch (direccion) {
-        //Norte
-        case 0:
-          movimiento(x + 1, y);
-          break;
-          //Sur
-        case 1:
-          movimiento(x - 1, y);
-          break;
-          //Este
-        case 2:
-          movimiento(x, y - 1);
-          break;
-          //Oeste
-        case 3:
-          movimiento(x, y + 1);
-          break;
-      }
-      break;
-      //Este
-    case 2:
-      //Direccion ESTE
-      switch (direccion) {
-        //Norte
-        case 0:
-          movimiento(x, y + 1);
-          break;
-          //Sur
-        case 1:
-          movimiento(x, y - 1);
-          break;
-          //Este
-        case 2:
-          movimiento(x + 1, y);
-          break;
-          //Oeste
-        case 3:
-          movimiento(x - 1, y);
-          break;
-      }
-      break;
-      //Oeste
-    case 3:
-      //Direccion OESTE
-      switch (direccion) {
-        //Norte
-        case 0:
-          movimiento(x, y - 1);
-          break;
-          //Sur
-        case 1:
-          movimiento(x, y + 1);
-          break;
-          //Este
-        case 2:
-          movimiento(x - 1, y);
-          break;
-          //Oeste
-        case 3:
-          movimiento(x + 1, y);
-          break;
-      }
-      break;
+function muevePlayer(direccion) {
+
+  if (accionTerminada) {
+    switch (player.estadoPartida.direccion) {
+      case 0:
+        //Direccion NORTE
+        switch (direccion) {
+          case 0:
+            //Adelante
+            if (player.estadoPartida.x > 0) {
+              $('#texto-juego').html(player.nombre + ' avanza hacia adelante');
+              movimiento(player.estadoPartida.x - 1, player.estadoPartida.y);
+            }
+            break;
+          case 1:
+            //Atras
+            if (player.estadoPartida.x < 9) {
+              $('#texto-juego').html(player.nombre + ' retrocede');
+              movimiento(player.estadoPartida.x + 1, player.estadoPartida.y);
+            }
+            break;
+          case 2:
+            //Derecha
+            if (player.estadoPartida.y < 9) {
+              $('#texto-juego').html(player.nombre + ' avanza hacia la derecha');
+              movimiento(player.estadoPartida.x, player.estadoPartida.y + 1);
+            }
+            break;
+          case 3:
+            //Izquierda
+            if (player.estadoPartida.y > 0) {
+              $('#texto-juego').html(player.nombre + ' avanza hacia la izquierda');
+              movimiento(player.estadoPartida.x, player.estadoPartida.y - 1);
+            }
+            break;
+        }
+        break;
+      case 1:
+        //Direccion SUR
+        switch (direccion) {
+          //Norte
+          case 0:
+            //Adelante
+            if (player.estadoPartida.x < 9) {
+              $('#texto-juego').html(player.nombre + ' avanza hacia adelante');
+              movimiento(player.estadoPartida.x + 1, player.estadoPartida.y);
+            }
+            break;
+          case 1:
+            //Atras
+            if (player.estadoPartida.x > 0) {
+              $('#texto-juego').html(player.nombre + ' retrocede');
+              movimiento(player.estadoPartida.x - 1, player.estadoPartida.y);
+            }
+            break;
+          case 2:
+            //Derecha
+            if (player.estadoPartida.y > 0) {
+              $('#texto-juego').html(player.nombre + ' avanza hacia la derecha');
+              movimiento(player.estadoPartida.x, player.estadoPartida.y - 1);
+            }
+            break;
+          case 3:
+            //Izquierda
+            if (player.estadoPartida.y < 9) {
+              $('#texto-juego').html(player.nombre + ' avanza hacia la izquierda');
+              movimiento(player.estadoPartida.x, player.estadoPartida.y + 1);
+            }
+            break;
+        }
+        break;
+      case 2:
+        //Direccion ESTE
+        switch (direccion) {
+          case 0:
+            //Adelante
+            if (player.estadoPartida.y < 9) {
+              $('#texto-juego').html(player.nombre + ' avanza hacia adelante');
+              movimiento(player.estadoPartida.x, player.estadoPartida.y + 1);
+            }
+            break;
+          case 1:
+            //Atras
+            if (player.estadoPartida.y > 0) {
+              $('#texto-juego').html(player.nombre + ' retrocede');
+              movimiento(player.estadoPartida.x, player.estadoPartida.y - 1);
+            }
+            break;
+          case 2:
+            //Derecha
+            if (player.estadoPartida.x < 9) {
+              $('#texto-juego').html(player.nombre + ' avanza hacia la derecha');
+              movimiento(player.estadoPartida.x + 1, player.estadoPartida.y);
+            }
+            break;
+          case 3:
+            //Izquierda
+            if (player.estadoPartida.x > 0) {
+              $('#texto-juego').html(player.nombre + ' avanza hacia la izquierda');
+              movimiento(player.estadoPartida.x - 1, player.estadoPartida.y);
+            }
+            break;
+        }
+        break;
+      case 3:
+        //Direccion OESTE
+        switch (direccion) {
+          case 0:
+            //Adelante
+            if (player.estadoPartida.y > 0) {
+              $('#texto-juego').html(player.nombre + ' avanza hacia adelante');
+              movimiento(player.estadoPartida.x, player.estadoPartida.y - 1);
+            }
+            break;
+          case 1:
+            //Atras
+            if (player.estadoPartida.y < 9) {
+              $('#texto-juego').html(player.nombre + ' retrocede');
+              movimiento(player.estadoPartida.x, player.estadoPartida.y + 1);
+            }
+            break;
+          case 2:
+            //Derecha
+            if (player.estadoPartida.x > 0) {
+              $('#texto-juego').html(player.nombre + ' avanza hacia la derecha');
+              movimiento(player.estadoPartida.x - 1, player.estadoPartida.y);
+            }
+            break;
+          case 3:
+            //Izquierda
+            if (player.estadoPartida.x < 9) {
+              $('#texto-juego').html(player.nombre + ' avanza hacia la izquierda');
+              movimiento(player.estadoPartida.x + 1, player.estadoPartida.y);
+            }
+            break;
+        }
+        break;
+    }
   }
 }
 
 /* Trata el movimiento del jugador */
 function movimiento(x, y) {
-  console.log(player.estadoPartida.x);
-  console.log(player.estadoPartida.y);
-  console.log(player.estadoPartida.direccion);
   //Entran x, y que serian la posicion siguiente dependiendo de la tecla que pulsemos --> x+1,y , etc.
   switch (mapa[x][y]) {
     case "V":
@@ -265,7 +308,7 @@ function movimiento(x, y) {
 
       break;
     case "X":
-      /*TODO Mostrar Mensaje?*/
+      $('#texto-juego').html('No puedes avanzar por la pared');
       break;
     case "O":
       if (player.estadoPartida.nivel == -5) {
@@ -353,31 +396,49 @@ function movimiento(x, y) {
     case "T":
       player.estadoPartida.x = x;
       player.estadoPartida.y = y;
+
+      //Bloqueamos el movimiento mientras compramos
+      accionTerminada = false;
       creaTienda();
       break;
     case "C":
       player.estadoPartida.x = x;
       player.estadoPartida.y = y;
+
+      //Bloqueamos el movimiento mientras abrimos el cofre
+      accionTerminada = false;
       creaCofre();
       break;
     case "J":
       player.estadoPartida.x = x;
       player.estadoPartida.y = y;
+
+      //Bloqueamos el movimiento mientras luchamos
+      accionTerminada = false;
       combate(enemigo[3]);
       break;
     case "G":
       player.estadoPartida.x = x;
       player.estadoPartida.y = y;
+
+      //Bloqueamos el movimiento mientras luchamos
+      accionTerminada = false;
       combate(enemigo[2]);
       break;
     case "E":
       player.estadoPartida.x = x;
       player.estadoPartida.y = y;
+
+      //Bloqueamos el movimiento mientras luchamos
+      accionTerminada = false;
       combate(enemigo[0]);
       break;
     case "M":
       player.estadoPartida.x = x;
       player.estadoPartida.y = y;
+
+      //Bloqueamos el movimiento mientras luchamos
+      accionTerminada = false;
       combate(enemigo[1]);
       break;
     case "A":
@@ -395,30 +456,38 @@ function girarCamara(derecha) {
     switch (player.estadoPartida.direccion) {
       case 0:
         player.estadoPartida.direccion = 2;
+        $('#texto-juego').html(player.nombre + ' está mirando al este');
         break;
       case 1:
         player.estadoPartida.direccion = 3;
+        $('#texto-juego').html(player.nombre + ' está mirando al oeste');
         break;
       case 2:
         player.estadoPartida.direccion = 1;
+        $('#texto-juego').html(player.nombre + ' está mirando al sud');
         break;
       case 3:
         player.estadoPartida.direccion = 0;
+        $('#texto-juego').html(player.nombre + ' está mirando al norte');
         break;
     }
   } else {
     switch (player.estadoPartida.direccion) {
       case 0:
         player.estadoPartida.direccion = 3;
+        $('#texto-juego').html(player.nombre + ' está mirando al oeste');
         break;
       case 1:
         player.estadoPartida.direccion = 2;
+        $('#texto-juego').html(player.nombre + ' está mirando al este');
         break;
       case 2:
         player.estadoPartida.direccion = 0;
+        $('#texto-juego').html(player.nombre + ' está mirando al norte');
         break;
       case 3:
         player.estadoPartida.direccion = 1;
+        $('#texto-juego').html(player.nombre + ' está mirando al sud');
         break;
     }
   }
@@ -430,18 +499,19 @@ function girarCamara(derecha) {
 /* Creamos el menu de la Tienda con los items*/
 function creaTienda() {
   alert('patata');
-  $("visor").remove();
+  //$("visor").remove();
+  accionTerminada = true;
 }
 
 /* Creamos el menu de la Tienda con los items*/
 function creaCofre() {
-
+  //Al salir --> accionTerminada = true;
+  accionTerminada = true;
 }
 
 /* Ejecuta el combate entre el jugador y el enemigo */
 function combate(rival) {
-  var huir = false,
-    esquivar = false;
+  var huir = false;
 
   //Comprobamos que el combate sea posible, sino, el jugador huye del combate
   if (player.tipoAtaque == 'AD' && player.ataque <= rival.armadura) {
@@ -458,32 +528,32 @@ function combate(rival) {
 
     //Empieza el combate
     $('#texto-juego').html('Te enfrentas a un ' + rival.nombre);
-    turnosCombate(rival, esquivar, 0, 0);
+    turnosCombate(rival, 0, 0, rival.vida);
 
   }
 }
 
-function turnosCombate(rival, esquivar, turno, vidaPerdida) {
+function turnosCombate(rival, turno, vidaPerdida, vidaInicial) {
   //Empieza el combate (2 segundos entre turno y turno)
   if (player.vida > 0 && rival.vida > 0) {
     if (turno % 2 == 0) {
       //Primero ataca el jugador
       if (player.raza == 'dunmer' && cargasDunmer == 10) {
         setTimeout(dunmer.habilidad, 2000, rival, cargasDunmer);
-        setTimeout(turnoJugador, 4000, rival, esquivar, turno, vidaPerdida);
+        setTimeout(turnoJugador, 4000, rival, turno, vidaPerdida, vidaInicial);
         cargasDunmer = 0;
       } else {
-        setTimeout(turnoJugador, 2000, rival, esquivar, turno, vidaPerdida);
+        setTimeout(turnoJugador, 2000, rival, turno, vidaPerdida, vidaInicial);
       }
 
     } else {
       //Despues ataca el enemigo
-      setTimeout(turnoRival, 2000, rival, esquivar, turno, vidaPerdida);
+      setTimeout(turnoRival, 2000, rival, turno, vidaPerdida, vidaInicial);
     }
   } else {
     //Si el enemigo muere, augmentamos la XP y dropeamos los objetos
     if (rival.vida <= 0) {
-      setTimeout(victoriaCombate, 2000, rival, vidaPerdida);
+      setTimeout(victoriaCombate, 2000, rival, vidaPerdida, vidaInicial);
     }
 
     if (player.vida <= 0) {
@@ -493,7 +563,7 @@ function turnosCombate(rival, esquivar, turno, vidaPerdida) {
 }
 
 /* Turno del jugador */
-function turnoJugador(rival, esquivar, turno, vidaPerdida) {
+function turnoJugador(rival, turno, vidaPerdida, vidaInicial) {
   //TODO ACTUALIZAR STATS ENEMIGO
 
   var dano;
@@ -509,13 +579,13 @@ function turnoJugador(rival, esquivar, turno, vidaPerdida) {
   turno++;
 
   //Si el rival tiene vida, volvemos a llamar a la funcion
-  turnosCombate(rival, esquivar, turno, vidaPerdida);
+  turnosCombate(rival, turno, vidaPerdida, vidaInicial);
 }
 
 /* Turno del rival */
-function turnoRival(rival, esquivar, turno, vidaPerdida) {
+function turnoRival(rival, turno, vidaPerdida, vidaInicial) {
   //TODO ACTUALIZAR STATS JUGADOR
-  var dano;
+  var dano, esquivar;
   if (player.raza == 'khajita') {
     esquivar = khajita.habilidad();
   }
@@ -540,11 +610,11 @@ function turnoRival(rival, esquivar, turno, vidaPerdida) {
   turno++;
 
   //Si el jugador tiene vida, volvemos a llamar a la funcion
-  turnosCombate(rival, esquivar, turno, vidaPerdida);
+  turnosCombate(rival, turno, vidaPerdida, vidaInicial);
 }
 
 /* Gestiona la victoria en un combate */
-function victoriaCombate(rival, vidaPerdida) {
+function victoriaCombate(rival, vidaPerdida, vidaInicial) {
   $('#texto-juego').html(player.nombre + ' ha vencido el combate contra el ' + rival.nombre);
   augmentaXP(rival.xp);
   recogeObjetos(rival.objetos);
@@ -552,6 +622,12 @@ function victoriaCombate(rival, vidaPerdida) {
   if (player.raza == 'argoniano') {
     player.vida = player.vida + argoniano.habilidad(vidaPerdida);
   }
+
+  //Restauramos la vida del rival para proximos combates
+  rival.vida = vidaInicial;
+
+  //Indicamos que ya nos podemos volver a mover
+  accionTerminada = true;
 }
 
 /* Gestiona la derrota en un combate */

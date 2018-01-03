@@ -658,7 +658,7 @@ function derrotaCombate(rival) {
 
 /* Gestiona la experiencia y el nivel del jugador */
 function augmentaXP(xp) {
-  
+
   actualizaNivel();
 }
 
@@ -700,10 +700,10 @@ function actualizaHUD() {
   actualizaStats();
 
   //Actualizamos los objetos de la mochila
-
+  actualizaMochila();
 
   //Actualizamos los objetos equipados
-
+  actualizaEquipo();
 
   //Actualizamos el nombre, sexo, rol y raza
   $('#nombre-hud').html(player.nombre);
@@ -746,7 +746,72 @@ function actualizaStats() {
   $('#enemigos-hud').html(player.estadoPartida.enemigosMuertos);
 }
 
+/* Actualiza la mochila en el HUD */
+function actualizaMochila() {
+  var id;
+  for (var i = 0; i < player.mochila.length; i++) {
+    id = '#objeto' + (i+1);
+    $(id).attr('src', './media/images/' + getObjectImg(player.mochila[i]));
+  }
+}
+
+/* Actualiza los objetos equipados en el HUD */
+function actualizaEquipo() {
+  $('#mano-izq').attr('src', './media/images/' + getObjectImg(player.manoizquierda));
+  $('#mano-der').attr('src', './media/images/' + getObjectImg(player.manoderecha));
+  $('#cuerpo').attr('src', './media/images/' + getObjectImg(player.cuerpo));
+}
+
 /* Actualiza la vida del enemigo */
 function actualizaVidaEnemigo() {
 
+}
+
+/* Devuelve la imagen de un objeto */
+function getObjectImg(nombre) {
+  var obj;
+
+  //Buscamos en las armas
+  for (obj of armas) {
+    if (obj.nombre == nombre) {
+      return obj.img;
+    }
+  }
+
+  //Buscamos en los escudos
+  for (obj of escudos) {
+    if (obj.nombre == nombre) {
+      return obj.img;
+    }
+  }
+
+  //Buscamos en las armaduras
+  for (obj of armaduras) {
+    if (obj.nombre == nombre) {
+      return obj.img;
+    }
+  }
+
+  //Buscamos en las pociones
+  for (obj of pociones) {
+    if (obj.nombre == nombre) {
+      return obj.img;
+    }
+  }
+
+  //Buscamos en las botas
+  for (obj of botas) {
+    if (obj.nombre == nombre) {
+      return obj.img;
+    }
+  }
+
+  //Buscamos en los hechizos
+  for (obj of hechizos) {
+    if (obj.nombre == nombre) {
+      return obj.img;
+    }
+  }
+
+  return 'objeto_vacio.png';
 }

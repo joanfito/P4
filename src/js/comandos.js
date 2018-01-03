@@ -152,10 +152,10 @@
       "tipoAtaque": "",
       "armadura": 1,
       "resistenciaMagica": 1,
-      "manoderecha": "garrot",
+      "manoderecha": "",
       "manoizquierda": "",
       "cuerpo": "",
-      "mochila": [],
+      "mochila": ["","","","","",""],
       "estadoPartida": {
         "x": 3,
         "y": 1,
@@ -316,10 +316,10 @@
         "cantidad": 0
       }
     }, {
-      "botas": {
+      "botas": [{
         "nombre": "Boots trap",
         "img": "boots_trap.png"
-      }
+      }]
     }, {
       "hechizos": [{
         "nombre": "Llamas",

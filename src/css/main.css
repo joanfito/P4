@@ -335,3 +335,73 @@ h4 {
   padding: 10px;
   text-align: center;
 }
+
+#go-section {
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  width: 100%;
+  height: 100%;
+}
+
+#go-volverjugarvictoria {
+  font-family: "Inknut Antiqua", serif;
+  font-size: 60px;
+  color: #455454;
+  text-shadow: 2px 2px 8px green;
+}
+
+#go-volverjugarderrota {
+  font-family: "Inknut Antiqua", serif;
+  font-size: 60px;
+  color: #455454;
+  text-shadow: 2px 2px 8px red;
+}
+
+#go-playagain {
+  text-align: center;
+  padding-top: 150px;
+}
+
+#go-titulo {
+  font-family: "Inknut Antiqua", serif;
+  font-size: 80px;
+  text-align: center;
+  padding-bottom: 150px;
+  text-transform: uppercase;
+}
+
+.go-victoria {
+  font-family: "Inknut Antiqua", serif;
+  font-size: 50px;
+  color: #455454;
+  padding-bottom: 50px;
+  text-align: center;
+  text-shadow: 2px 2px 2px white;
+}
+
+.go-victoria #go-titulo {
+  color: #2C2D2E;
+}
+
+.go-derrota {
+  font-family: "Inknut Antiqua", serif;
+  font-size: 50px;
+  color: #B5B5B5;
+  padding-bottom: 50px;
+  text-align: center;
+  text-shadow: 2px 2px 2px white;
+}
+
+.go-derrota #go-titulo {
+  color: #B5B5B5;
+}
+
+#go-error {
+  font-family: "Inknut Antiqua", serif;
+  font-size: 200px;
+  color: #B5B5B5;
+  padding-top: 250px;
+  text-align: center;
+  text-shadow: 4px 4px 6px red;
+}

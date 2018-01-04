@@ -17,8 +17,8 @@ function iniciarJuego() {
       $.when(cargaFichero(slot)).done(function() {
         //Funciones del juego
         actualizaHUD();
-        // TODO movimiento (ADRI)
-        // TODO cambiar de nivel (de mapa) (ADRI)
+        //  movimiento (ADRI)
+        //  cambiar de nivel (de mapa) (ADRI)
         //lucha (FITO)
         //TODO crear 'stats' eneigo en hud (FITO)
         //TODO gestionar nivel personaje (augmentar las stats siguendo el enunciado + subir un punto en una de las stats (definido en rubrica.rtf)) (ADRI --> funcion creada: augmentaXP)
@@ -28,12 +28,12 @@ function iniciarJuego() {
         //TODO gestionar mochila (FITO)
         //TODO gestionar objetos equipados (MARC -- llegeix extras.rtf)
         //TODO visor (canvas) (ADRI)
-        //TODO HUD (FITO)
+        // HUD (FITO)
         //TODO guardar partida (sobreescribir si ya existe una en el slot) (FITO)
         //musica (ADRI)
-        //TODO alduin (drop 'alma' + aprender grito) (MARC)
-        //TODO abrir puerta salida (MARC)
-        //TODO game over (por muerte o abriendo puerta) (MARC (gameover.html))
+        // alduin (drop 'alma' + aprender grito) (MARC)
+        // abrir puerta salida (MARC)
+        // game over (por muerte o abriendo puerta) (MARC (gameover.html))
       });
     } else {
       alert('Slot no válido, no modifiques la URL.');

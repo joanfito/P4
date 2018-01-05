@@ -241,7 +241,7 @@
       }, {
         "nombre": "Espada JS",
         "img": "espada_js.png",
-        "armadura": 5000,
+        "ataque": 5000,
         "precio": 3000000}]
     },{
       "escudos": [{
@@ -317,8 +317,9 @@
       }
     }, {
       "botas": [{
-        "nombre": "Boots trap",
-        "img": "boots_trap.png"
+        "nombre": "Boots-trap",
+        "img": "boots_trap.png",
+        "precio": 3000000
       }]
     }, {
       "hechizos": [{

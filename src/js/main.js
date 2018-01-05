@@ -393,9 +393,6 @@ function movimiento(x, y) {
       }
       break;
     case "T":
-      player.estadoPartida.x = x;
-      player.estadoPartida.y = y;
-
       //Bloqueamos el movimiento mientras compramos
       accionTerminada = false;
       creaTienda();
@@ -498,9 +495,296 @@ function girarCamara(derecha) {
 
 /* Creamos el menu de la Tienda con los items*/
 function creaTienda() {
-  alert('patata');
-  //$("visor").remove();
-  accionTerminada = true;
+  $('#visor').remove();
+  creaMenuTienda();
+}
+
+function creaMenuTienda(){
+  $('#tienda').remove();
+  $('#navegacion').append('<div id = "tienda"></div>');
+  $('#tienda').append('<h3>Que deseas Comprar?</h3>');
+  $('#tienda').append('<table id ="productos"></table>');
+  $('#productos').append('<tr id ="fila1"></tr>');
+  if (player.rol == 'mago'){
+    $('#fila1').append('<td><button class = "botontienda2" disabled>Armas</button></td>');
+  }else{
+    $('#fila1').append('<td><button class = "botontienda" onclick = creaTableArmas();>Armas</button></td>');
+  }
+  $('#fila1').append('<td><button class = "botontienda" onclick = creaTableEscudos();>Escudos</button></td>');
+  $('#fila1').append('<td><button class = "botontienda" onclick = creaTableArmaduras();>Armaduras</button></td>');
+  $('#productos').append('<tr id ="fila2"></tr>');
+  $('#fila2').append('<td><button class = "botontienda" onclick = creaTablePociones();>Pociones</button></td>');
+  $('#fila2').append('<td><button class = "botontienda" onclick = creaTableBotas();>Botas</button></td>');
+  if (player.rol == 'mago'){
+    $('#fila2').append('<td><button class = "botontienda" onclick = creaTableHechizos();>Hechizos</button></td>');
+  }else{
+    $('#fila2').append('<td><button disabled class = "botontienda2">Hechizos</button></td>');
+  }
+  $('#tienda').append('<button id = "volverjuegotienda" onclick = volverJuegoTienda();>Salir</button>');
+}
+
+function creaTableArmas(){
+  $('#tienda').remove();
+  $('#navegacion').append('<div id = "tienda"></div>');
+  $('#tienda').append('<h3>Que arma deseas Comprar?</h3>');
+  $('#tienda').append('<table id ="productos"></table>');
+  $('#tienda').append('<tr id ="fila0"></tr>');
+  $('#fila0').append('<td>Nombre</td>');
+  $('#fila0').append('<td>Ataque</td>');
+  $('#fila0').append('<td>Precio</td>');
+  $('#fila0').append('<td>Comprar</td>');
+
+  var i = 0;
+  while(armas[i] != null){
+    var fila = 'fila';
+    var numfila = 1 + i;
+    var strnumfila = numfila.toString();
+
+    var idfila = fila.concat(strnumfila);
+    var idnombre = 'nombre'.concat(idfila);
+    var idataque = 'ataque'.concat(idfila);
+    var idprecio = 'precio'.concat(idfila);
+
+    var tr = '<tr id = "' + idfila + '"></tr>';
+    var tdnombre = '<td id = "' + idnombre + '"></td>';
+    var tdataque = '<td id = "' + idataque + '"></td>';
+    var tdprecio = '<td id = "' + idprecio + '"></td>';
+
+    $('#tienda').append(tr);
+    $('#'+idfila).append(tdnombre);
+    $('#'+idnombre).html(armas[i].nombre);
+    $('#'+idfila).append(tdataque);
+    $('#'+idataque).html(armas[i].ataque);
+    $('#'+idfila).append(tdprecio);
+    $('#'+idprecio).html(armas[i].precio);
+
+    var comprar = '<td><button onclick = compraentienda(armas[' + i + '].precio,0,armas[' + i + '].ataque);>Comprar!</button></td>';
+    $('#'+idfila).append(comprar);
+
+    i++;
+  }
+  $('#tienda').append('<button id = "volverjuegotienda" onclick = creaMenuTienda();>Salir</button>');
+}
+
+function creaTableEscudos(){
+  $('#tienda').remove();
+  $('#navegacion').append('<div id = "tienda"></div>');
+  $('#tienda').append('<h3>Que escudo deseas Comprar?</h3>');
+  $('#tienda').append('<table id ="productos"></table>');
+  $('#tienda').append('<tr id ="fila0"></tr>');
+  $('#fila0').append('<td>Nombre</td>');
+  $('#fila0').append('<td>Armadura</td>');
+  $('#fila0').append('<td>Precio</td>');
+  $('#fila0').append('<td>Comprar</td>');
+
+  var i = 0;
+  while(escudos[i] != null){
+    var fila = 'fila';
+    var numfila = 1 + i;
+    var strnumfila = numfila.toString();
+
+    var idfila = fila.concat(strnumfila);
+    var idnombre = 'nombre'.concat(idfila);
+    var idarmadura = 'armadura'.concat(idfila);
+    var idprecio = 'precio'.concat(idfila);
+
+    var tr = '<tr id = "' + idfila + '"></tr>';
+    var tdnombre = '<td id = "' + idnombre + '"></td>';
+    var tdarmadura = '<td id = "' + idarmadura + '"></td>';
+    var tdprecio = '<td id = "' + idprecio + '"></td>';
+
+    $('#tienda').append(tr);
+    $('#'+idfila).append(tdnombre);
+    $('#'+idnombre).html(escudos[i].nombre);
+    $('#'+idfila).append(tdarmadura);
+    $('#'+idarmadura).html(escudos[i].armadura);
+    $('#'+idfila).append(tdprecio);
+    $('#'+idprecio).html(escudos[i].precio);
+
+    var comprar = '<td><button onclick = compraentienda(escudos[' + i + '].precio,1,escudos[' + i + '].armadura);>Comprar!</button></td>';
+    $('#'+idfila).append(comprar);
+    i++;
+  }
+  $('#tienda').append('<button id = "volverjuegotienda" onclick = creaMenuTienda();>Salir</button>');
+}
+
+function creaTableArmaduras(){
+  $('#tienda').remove();
+  $('#navegacion').append('<div id = "tienda"></div>');
+  $('#tienda').append('<h3>Que armadura deseas Comprar?</h3>');
+  $('#tienda').append('<table id ="productos"></table>');
+  $('#tienda').append('<tr id ="fila0"></tr>');
+  $('#fila0').append('<td>Nombre</td>');
+  $('#fila0').append('<td>Armadura</td>');
+  $('#fila0').append('<td>Precio</td>');
+  $('#fila0').append('<td>Comprar</td>');
+
+  var i = 0;
+  while(armaduras[i] != null){
+    var fila = 'fila';
+    var numfila = 1 + i;
+    var strnumfila = numfila.toString();
+
+    var idfila = fila.concat(strnumfila);
+    var idnombre = 'nombre'.concat(idfila);
+    var idarmadura = 'armadura'.concat(idfila);
+    var idprecio = 'precio'.concat(idfila);
+
+    var tr = '<tr id = "' + idfila + '"></tr>';
+    var tdnombre = '<td id = "' + idnombre + '"></td>';
+    var tdarmadura = '<td id = "' + idarmadura + '"></td>';
+    var tdprecio = '<td id = "' + idprecio + '"></td>';
+
+    $('#tienda').append(tr);
+    $('#'+idfila).append(tdnombre);
+    $('#'+idnombre).html(armaduras[i].nombre);
+    $('#'+idfila).append(tdarmadura);
+    $('#'+idarmadura).html(armaduras[i].armadura);
+    $('#'+idfila).append(tdprecio);
+    $('#'+idprecio).html(armaduras[i].precio);
+
+    var comprar = '<td><button onclick = compraentienda(armaduras[' + i + '].precio,1,armaduras[' + i + '].armadura);>Comprar!</button></td>';
+    $('#'+idfila).append(comprar);
+    i++;
+  }
+  $('#tienda').append('<button id = "volverjuegotienda" onclick = creaMenuTienda();>Salir</button>');
+}
+
+function creaTablePociones(){
+  $('#tienda').remove();
+  $('#navegacion').append('<div id = "tienda"></div>');
+  $('#tienda').append('<h3>Que pocion deseas Comprar?</h3>');
+  $('#tienda').append('<table id ="productos"></table>');
+  $('#tienda').append('<tr id ="fila0"></tr>');
+  $('#fila0').append('<td>Nombre</td>');
+  $('#fila0').append('<td>Curacion</td>');
+  $('#fila0').append('<td>Precio</td>');
+  $('#fila0').append('<td>Comprar</td>');
+
+  var i = 0;
+  while(pociones[i] != null){
+    var fila = 'fila';
+    var numfila = 1 + i;
+    var strnumfila = numfila.toString();
+
+    var idfila = fila.concat(strnumfila);
+    var idnombre = 'nombre'.concat(idfila);
+    var idcuracion = 'curacion'.concat(idfila);
+    var idprecio = 'precio'.concat(idfila);
+
+    var tr = '<tr id = "' + idfila + '"></tr>';
+    var tdnombre = '<td id = "' + idnombre + '"></td>';
+    var tdcuracion = '<td id = "' + idcuracion + '"></td>';
+    var tdprecio = '<td id = "' + idprecio + '"></td>';
+
+    $('#tienda').append(tr);
+    $('#'+idfila).append(tdnombre);
+    $('#'+idnombre).html(pociones[i].nombre);
+    $('#'+idfila).append(tdcuracion);
+    $('#'+idcuracion).html(pociones[i].curacion);
+    $('#'+idfila).append(tdprecio);
+    $('#'+idprecio).html(pociones[i].precio);
+
+    var comprar = '<td><button onclick = compraentienda(pociones[' + i + '].precio,2,pociones[' + i + '].curacion);>Comprar!</button></td>';
+    $('#'+idfila).append(comprar);
+    i++;
+  }
+  $('#tienda').append('<button id = "volverjuegotienda" onclick = creaMenuTienda();>Salir</button>');
+}
+
+function creaTableBotas(){
+  $('#tienda').remove();
+  $('#navegacion').append('<div id = "tienda"></div>');
+  $('#tienda').append('<h3>Que botas deseas Comprar?</h3>');
+  $('#tienda').append('<table id ="productos"></table>');
+  $('#tienda').append('<tr id ="fila0"></tr>');
+  $('#fila0').append('<td>Nombre</td>');
+  $('#fila0').append('<td>Precio</td>');
+  $('#fila0').append('<td>Comprar</td>');
+
+  var i = 0;
+  while(botas[i] != null){
+    var fila = 'fila';
+    var numfila = 1 + i;
+    var strnumfila = numfila.toString();
+
+    var idfila = fila.concat(strnumfila);
+    var idnombre = 'nombre'.concat(idfila);
+    var idprecio = 'precio'.concat(idfila);
+
+    var tr = '<tr id = "' + idfila + '"></tr>';
+    var tdnombre = '<td id = "' + idnombre + '"></td>';
+    var tdprecio = '<td id = "' + idprecio + '"></td>';
+
+    $('#tienda').append(tr);
+    $('#'+idfila).append(tdnombre);
+    $('#'+idnombre).html(botas[i].nombre);
+    $('#'+idfila).append(tdprecio);
+    $('#'+idprecio).html(botas[i].precio);
+
+    var comprar = '<td><button onclick = compraentienda(botas[' + i + '].precio,0,0);>Comprar!</button></td>';
+    $('#'+idfila).append(comprar);
+
+    i++;
+  }
+  $('#tienda').append('<button id = "volverjuegotienda" onclick = creaMenuTienda();>Salir</button>');
+}
+
+function creaTableHechizos(){
+  $('#tienda').remove();
+  $('#navegacion').append('<div id = "tienda"></div>');
+  $('#tienda').append('<h3>Que hechizo deseas Comprar?</h3>');
+  $('#tienda').append('<table id ="productos"></table>');
+  $('#tienda').append('<tr id ="fila0"></tr>');
+  $('#fila0').append('<td>Nombre</td>');
+  $('#fila0').append('<td>Ataque</td>');
+  $('#fila0').append('<td>Precio</td>');
+  $('#fila0').append('<td>Comprar</td>');
+
+  var i = 0;
+  while(hechizos[i] != null){
+    var fila = 'fila';
+    var numfila = 1 + i;
+    var strnumfila = numfila.toString();
+
+    var idfila = fila.concat(strnumfila);
+    var idnombre = 'nombre'.concat(idfila);
+    var idataque = 'ataque'.concat(idfila);
+    var idprecio = 'precio'.concat(idfila);
+
+    var tr = '<tr id = "' + idfila + '"></tr>';
+    var tdnombre = '<td id = "' + idnombre + '"></td>';
+    var tdataque = '<td id = "' + idataque + '"></td>';
+    var tdprecio = '<td id = "' + idprecio + '"></td>';
+
+    $('#tienda').append(tr);
+    $('#'+idfila).append(tdnombre);
+    $('#'+idnombre).html(hechizos[i].nombre);
+    $('#'+idfila).append(tdataque);
+    $('#'+idataque).html(hechizos[i].ataque);
+    $('#'+idfila).append(tdprecio);
+    $('#'+idprecio).html(hechizos[i].precio);
+
+    var comprar = '<td><button onclick = compraentienda(hechizos[' + i + '].precio,0,hechizos[' + i + '].ataque);>Comprar!</button></td>';
+    $('#'+idfila).append(comprar);
+    i++;
+  }
+  $('#tienda').append('<button id = "volverjuegotienda" onclick = creaMenuTienda();>Salir</button>');
+}
+
+function compraentienda (precio, tipo, valor){
+  /* TODO Comprar y volver al menu principal + Hacer el scroll de las table */
+  alert('comprando...');
+  creaMenuTienda();
+}
+
+function volverJuegoTienda(){
+    $('#tienda').remove();
+    $('#navegacion').append('<canvas id="visor" width="300" height="300"></canvas>');
+    cargaPosicion(player.estadoPartida.x, player.estadoPartida.y, player.estadoPartida.direccion);
+
+    accionTerminada = true;
+
 }
 
 /* Creamos el menu de la Tienda con los items*/

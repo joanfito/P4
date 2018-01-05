@@ -19,15 +19,19 @@ function iniciarJuego() {
         actualizaHUD();
         //  movimiento (ADRI)
         //  cambiar de nivel (de mapa) (ADRI)
-        //lucha (FITO)
+        //  lucha (FITO)
+        //TODO movimiento con teclas (WASD - Q E) // (flechas + L R)
         //TODO crear 'stats' eneigo en hud (FITO)
         //TODO gestionar nivel personaje (augmentar las stats siguendo el enunciado + subir un punto en una de las stats (definido en rubrica.rtf)) (ADRI --> funcion creada: augmentaXP)
         //TODO recoger objetos (que dropean los enemigos) (FITO)
         //TODO comprar en tienda (ADRI -- aplicar pasiva Orco)
+        /*
+        if (player.raza == 'orco') orco.habilidad();
+         */
         //TODO abrir cofre (MARC: onclick en canvas per a "obrirlo")
         //TODO gestionar mochila (FITO)
         //TODO gestionar objetos equipados (MARC -- llegeix extras.rtf)
-        //TODO visor (canvas) (ADRI)
+        // visor (canvas) (ADRI)
         // HUD (FITO)
         //TODO guardar partida (sobreescribir si ya existe una en el slot) (FITO)
         //musica (ADRI)
@@ -798,8 +802,10 @@ function creaCofre() {
 function aprendeGrito() {
   if (player.estadoPartida.alma == true) {
     player.estadoPartida.grito = true;
+    $('#texto-juego').html('Has aprendido el grito');
   } else {
     player.estadoPartida.grito = false;
+    $('#texto-juego').html('Necesitas un alma de dragón para aprender el grito');
   }
 }
 
@@ -922,7 +928,7 @@ function victoriaCombate(rival, vidaPerdida, vidaInicial) {
   }
 
   //Comprobamos que el enemigo sea Alduin
-  if (player.estadoPartida.x  == 4 && player.estadoPartida.y == 6 && player.estadoPartida.nivel == -5) {
+  if (rival.nombre == 'Alduin') {
     player.estadoPartida.alma = true;
   }
 
@@ -1019,7 +1025,7 @@ function actualizaVida() {
 function actualizaNivel() {
   $('.barra-nivel').children('p').html(player.nivel);
   $('.barra-nivel').children('progress').attr('value',player.xp);
-  $('.barra-nivel').children('progress').attr('max',10 * player.nivel);
+  $('.barra-nivel').children('progress').attr('max',10 * player.nivel + 10 * (player.nivel -1));
 }
 
 /* Actualiza las estadisticas del hud */

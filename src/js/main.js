@@ -105,19 +105,23 @@ function cargaMapa(nivel) {
 
 /* Carga la imagen que corresponde segun la posicion del jugador */
 function cargaPosicion(x, y, orientacion) {
-  switch (orientacion) {
-    case 0:
-      pintaPosicion(x - 1, y);
-      break;
-    case 1:
-      pintaPosicion(x + 1, y);
-      break;
-    case 2:
-      pintaPosicion(x, y + 1);
-      break;
-    case 3:
-      pintaPosicion(x, y - 1);
-      break;
+  try {
+    switch (orientacion) {
+      case 0:
+        pintaPosicion(x - 1, y);
+        break;
+      case 1:
+        pintaPosicion(x + 1, y);
+        break;
+      case 2:
+        pintaPosicion(x, y + 1);
+        break;
+      case 3:
+        pintaPosicion(x, y - 1);
+        break;
+    }
+  } catch (e){
+
   }
 }
 
@@ -398,9 +402,6 @@ function movimiento(x, y) {
       creaTienda();
       break;
     case "C":
-      player.estadoPartida.x = x;
-      player.estadoPartida.y = y;
-
       //Bloqueamos el movimiento mientras abrimos el cofre
       accionTerminada = false;
       creaCofre();

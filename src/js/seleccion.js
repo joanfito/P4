@@ -24,6 +24,7 @@ window.onload = function() {
     $.when(defineRazas()).done(function() {
       cambioRaza();
       cambioRol();
+      cambioSexo();
     });
 
     //Creamos los roles
@@ -43,6 +44,10 @@ window.onload = function() {
 
   $('#rol').change(function() {
     cambioRol();
+  });
+
+  $('#sexo').change(function() {
+    cambioSexo();
   });
 };
 
@@ -141,13 +146,23 @@ function cambioRol() {
 
 function cambioRaza() {
   var raza = $('#raza').val();
+  var sexo = $('#sexo').val();
 
   //Cambiamos la imagen del personaje
-  var src = './media/images/' + raza + '_char.png';
-  $('#visor-personaje').get(0).src='./media/images/dungeon_door.png';
+  var src = './media/images/' + raza + '_' + sexo +'.jpg';
+  $('#visor-personaje').get(0).src=src;
 
   //Mostramos la información del nuevo raza
   $('#descripcion-raza').html(descripcionRaza(raza));
+}
+
+function cambioSexo() {
+  var raza = $('#raza').val();
+  var sexo = $('#sexo').val();
+
+  //Cambiamos la imagen del personaje
+  var src = './media/images/' + raza + '_' + sexo +'.jpg';
+  $('#visor-personaje').get(0).src=src;
 }
 
 function descripcionRaza(raza) {

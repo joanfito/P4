@@ -496,6 +496,7 @@ function girarCamara(derecha) {
 /* Creamos el menu de la Tienda con los items*/
 function creaTienda() {
   $('#visor').remove();
+  $('#texto-juego').html(player.nombre + ' abre la tienda');
   creaMenuTienda();
 }
 

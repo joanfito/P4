@@ -371,6 +371,7 @@ function movimiento(x, y) {
       }
       break;
     case "S":
+      $('#texto-juego').html(player.nombre + ' ha subido de nivel');
       player.estadoPartida.nivel++;
       switch (player.estadoPartida.nivel) {
         case -1:
@@ -394,8 +395,10 @@ function movimiento(x, y) {
           player.estadoPartida.direccion = 3;
           break;
       }
+      actualizaHUD();
       break;
     case "B":
+      $('#texto-juego').html(player.nombre + ' ha bajado de nivel');
       player.estadoPartida.nivel--;
       switch (player.estadoPartida.nivel) {
         case -2:
@@ -419,6 +422,7 @@ function movimiento(x, y) {
           player.estadoPartida.direccion = 3;
           break;
       }
+      actualizaHUD();
       break;
     case "F":
       if (player.estadoPartida.grito == true) {
@@ -1018,10 +1022,17 @@ function augmentaXP(xp) {
   while (player.xp + xp > maxnivel){
     maxnivel = 10 * player.nivel + 10 * (player.nivel -1);
     player.nivel++;
+    if(!(player.nivel % 2 == 0)){
+      player.ataque++;
+    }
+    player.armadura++;
+    player.resistenciaMagica++;
+    player.vida = player.vida + (player.nivel * 10);
     nivelesaugmentados++;
     xp = xp - maxnivel;
   }
   if(nivelesaugmentados != 0){
+    actualizaHUD();
     $('#visor').remove();
     augmentaNivel(nivelesaugmentados);
   }

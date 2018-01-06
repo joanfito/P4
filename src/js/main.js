@@ -4,6 +4,8 @@ var gameover = false, cargasDunmer = 0, accionTerminada = true;
 
 /* Inicializar el juego */
 function iniciarJuego() {
+  //Cargamos la musica del juego
+  cargaMusica('juego');
   //Comprobamos que el slot que se va a cargar es un valor válido (nueva, 1, 2)
   var slot;
   try {

@@ -2,7 +2,8 @@
 var musica = {
   c1:'media/music/DragonBorn.mp3',
   c2:'media/music/FromPastToPresent.mp3',
-  c3:'media/music/WatchTheSkies.mp3'
+  c3:'media/music/WatchTheSkies.mp3',
+  c4: 'media/music/Masser.mp3'
 };
 
 
@@ -12,14 +13,18 @@ function cargaMusica(pantalla){
   switch (pantalla){
     case "index":
       music.src = musica.c1;
-    break;
+      break;
     case "seleccion":
       music.src = musica.c2;
-    break;
+      break;
     case "cargaPartida":
       music.src = musica.c3;
-    break;
+      break;
+    case "juego":
+      music.src = musica.c4;
+      break;
   }
+  music.setAttribute('loop','true');
   music.id = "backgroundmusic";
   document.getElementById('musicaindex').appendChild(music);
   music.play();

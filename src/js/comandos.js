@@ -175,7 +175,7 @@
       "resistenciaMagica": 2,
       "xp": 20,
       "img": "draug.png",
-      "objetos": []
+      "objetos": [100]
     },{
       "nombre": "Nigromante",
       "vida": 10,
@@ -185,7 +185,7 @@
       "resistenciaMagica": 2,
       "xp": 20,
       "img": "nigromante.png",
-      "objetos": []
+      "objetos": [100]
     }, {
       "nombre": "Trol",
       "vida": 20,
@@ -195,7 +195,7 @@
       "resistenciaMagica": 4,
       "xp": 40,
       "img": "troll.png",
-      "objetos": []
+      "objetos": [200]
     }, {
       "nombre": "Alduin",
       "vida": 50,
@@ -205,7 +205,7 @@
       "resistenciaMagica": 10,
       "xp": 400,
       "img": "alduin.png",
-      "objetos": ["alma"]
+      "objetos": [1000]
     }],
     "objetos": [ {
       "armas": [{
@@ -240,7 +240,7 @@
         "precio": 700
       }, {
         "nombre": "Hacha JS",
-        "img": "hacha.png",
+        "img": "hacha_js.png",
         "ataque": 5000,
         "precio": 3000000}]
     },{

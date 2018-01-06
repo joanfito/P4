@@ -20,7 +20,7 @@ function iniciarJuego() {
         //  movimiento (ADRI)
         //  cambiar de nivel (de mapa) (ADRI)
         //  lucha (FITO)
-        //TODO movimiento con teclas (WASD - Q E) // (flechas + L R)
+        //  movimiento con teclas (WASD - Q E - G)
         //TODO crear 'stats' eneigo en hud (FITO)
         //  gestionar nivel personaje (augmentar las stats siguendo el enunciado + subir un punto en una de las stats (definido en rubrica.rtf)) (ADRI --> funcion creada: augmentaXP)
         //TODO recoger objetos (que dropean los enemigos) (FITO)
@@ -104,6 +104,35 @@ function cargaMapa(nivel) {
     }
   }
 }
+
+/* Listener del teclado, para poder moverse sin tener que pulsar la tecla */
+window.onkeypress = function (event) {
+  var key = event.keyCode;
+
+  //Dependiendo de la tecla pulsada, se movera, girara la camara o guardara partida
+  if (key == 87 || key == 119) {
+    //W
+    muevePlayer(0);
+  } else if (key == 65 || key == 97) {
+    //A
+    muevePlayer(3);
+  } else if (key == 83 || key == 115) {
+    //S
+    muevePlayer(1);
+  } else if (key == 68 || key == 100) {
+    //D
+    muevePlayer(2);
+  } else if (key == 81 || key == 113) {
+    //Q
+    girarCamara(false);
+  } else if (key == 69 || key == 101) {
+    //E
+    girarCamara(true);
+  } else if (key == 71 || key == 103) {
+    //G
+    guardarPartida();
+  }
+};
 
 /* Carga la imagen que corresponde segun la posicion del jugador */
 function cargaPosicion(x, y, orientacion) {
@@ -840,6 +869,9 @@ function aprendeGrito() {
 function combate(rival) {
   var huir = false;
 
+  //Assignamos objetos al enemigo
+  asignaObjetos(rival.objetos);
+
   //Comprobamos que el combate sea posible, sino, el jugador huye del combate
   if (player.tipoAtaque == 'AD' && player.ataque <= rival.armadura) {
     huir = true;
@@ -948,7 +980,7 @@ function turnoRival(rival, turno, vidaPerdida, vidaInicial) {
 function victoriaCombate(rival, vidaPerdida, vidaInicial) {
   $('#texto-juego').html(player.nombre + ' ha vencido el combate contra el ' + rival.nombre);
   augmentaXP(rival.xp);
-  recogeObjetos(rival.objetos);
+  recogeObjetos(rival.objetos, rival.objetos[0]);
 
   if (player.raza == 'argoniano') {
     player.vida = player.vida + argoniano.habilidad(vidaPerdida);
@@ -962,8 +994,12 @@ function victoriaCombate(rival, vidaPerdida, vidaInicial) {
   //Augmentamos el numero de enemigos muertos
   player.estadoPartida.enemigosMuertos++;
 
-  //Restauramos la vida del rival para proximos combates
+  //Restauramos la vida y los objetos del rival para proximos combates
   rival.vida = vidaInicial;
+
+  while (rival.objetos.length > 1) {
+    rival.objetos.pop();
+  }
 
   //Indicamos que ya nos podemos volver a mover
   accionTerminada = true;
@@ -972,7 +1008,7 @@ function victoriaCombate(rival, vidaPerdida, vidaInicial) {
 /* Gestiona la derrota en un combate */
 function derrotaCombate(rival) {
   $('#texto-juego').html(player.nombre + ' ha perdido el combate contra el ' + rival.nombre);
-  //setGameover(false);
+  setGameover(false);
 }
 
 /* Gestiona la experiencia y el nivel del jugador */
@@ -1038,10 +1074,76 @@ function ejecutaMejora (tipo, nivelesaugmentados){
   }
 }
 
+/* Asigna objetos aleatorios en funcion del nivel a los enemigos */
+function asignaObjetos(objetos) {
+  var num, i;
+
+  if (player.nivel >= 1 && player.nivel < 4) {
+    //Un único objetos, de los más básicos
+    //objetos.push('Espada de Hierro');
+  }
+
+  if (player.nivel >= 4 && player.nivel < 6) {
+    //Entre 1 y 2 objetos intermedios
+    num = Math.floor(Math.random() * 2) + 1;
+
+    for (i = 0; i < num; i++) {
+
+    }
+  }
+
+  if (player.nivel >= 6 && player.nivel < 9) {
+    //Entre 2 y 4 objetos intermedios y poción pequeña
+    num = Math.floor(Math.random() * 3) + 2;
+
+    for (i = 0; i < num; i++) {
+    }
+    objetos.push(pociones[0]);
+  }
+
+  if (player.nivel >= 9) {
+    //Entre 2 y 4 objetos, de los más fuertes y poción
+    num = Math.floor(Math.random() * 3) + 2;
+
+    for (i = 0; i < num; i++) {
+    }
+    objetos.push(pociones[1]);
+  }
+
+}
+
+function objetoAleatorio() {
+  var num = Math.floor(Math.random() * 4);
+
+  switch (num) {
+    case 0:
+      //Arma
+      break;
+    case 1:
+      //Escudo
+      break;
+    case 2:
+      //
+      break;
+    case 3:
+      //Hechizo
+
+      break;
+  }
+}
+
 /* Gestiona la recogida de objetos de un enemigo */
-function recogeObjetos(objetos) {
+function recogeObjetos(objetos, oro) {
   //Añadir objetos a la mochila
-  //Añadir el oro que da el enemigo (pasiva imperial)
+
+  //Añadimos el oro
+  if (player.raza == 'imperial') {
+    player.oro = player.oro + imperial.habilidad(oro);
+  } else {
+    player.oro = player.oro + oro;
+  }
+
+  actualizaHUD();
 }
 
 /* Indicamos que se ha acabado la partida */

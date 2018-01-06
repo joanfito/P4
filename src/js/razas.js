@@ -53,20 +53,21 @@ function defineRazas() {
 
           case 1:
             //Escudos
-            producto.armadura = producto.armadura + Math.round(producto.armadura * 0.2);
+            producto.armadura = producto.armadura + Math.floor(producto.armadura * 0.2);
             break;
 
           case 2:
             //Armaduras
-            producto.armadura = producto.armadura + Math.round(producto.armadura * 0.2);
-            producto.resistenciaMagica = producto.resistenciaMagica + Math.round(producto.resistenciaMagica * 0.2);
+            producto.armadura = producto.armadura + Math.floor(producto.armadura * 0.2);
+            producto.resistenciaMagica = producto.resistenciaMagica + Math.floor(producto.resistenciaMagica * 0.2);
             break;
         }
       });
 
-      imperial = new Raza(info.razas[4].nombre, info.razas[4].habilidad, info.razas[4].descripcion, function () {
+      imperial = new Raza(info.razas[4].nombre, info.razas[4].habilidad, info.razas[4].descripcion, function (oro) {
         // 25% de oro
-        console.log("ATAQUEEEE IMPERIAL");
+        var extra = Math.floor(oro * 0.25);
+        return oro + extra;
       });
 
       nordico = new Raza(info.razas[5].nombre, info.razas[5].habilidad, info.razas[5].descripcion, function () {

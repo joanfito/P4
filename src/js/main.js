@@ -16,19 +16,16 @@ function iniciarJuego() {
       //Cargamos el fichero correspondiente
       $.when(cargaFichero(slot)).done(function() {
         //Funciones del juego
-        player.oro = 10000;
         actualizaHUD();
         //  movimiento (ADRI)
         //  cambiar de nivel (de mapa) (ADRI)
         //  lucha (FITO)
         //TODO movimiento con teclas (WASD - Q E) // (flechas + L R)
         //TODO crear 'stats' eneigo en hud (FITO)
-        //TODO gestionar nivel personaje (augmentar las stats siguendo el enunciado + subir un punto en una de las stats (definido en rubrica.rtf)) (ADRI --> funcion creada: augmentaXP)
+        //  gestionar nivel personaje (augmentar las stats siguendo el enunciado + subir un punto en una de las stats (definido en rubrica.rtf)) (ADRI --> funcion creada: augmentaXP)
         //TODO recoger objetos (que dropean los enemigos) (FITO)
-        //TODO comprar en tienda (ADRI -- aplicar pasiva Orco)
-        /*
-        if (player.raza == 'orco') orco.habilidad();
-         */
+        // comprar en tienda (ADRI)
+
         //TODO abrir cofre (MARC: onclick en canvas per a "obrirlo")
         //TODO gestionar mochila (FITO)
         //TODO gestionar objetos equipados (MARC -- llegeix extras.rtf)
@@ -508,34 +505,42 @@ function creaTienda() {
 
 function creaMenuTienda(){
   $('#tienda').remove();
+
   $('#navegacion').append('<div id = "tienda"></div>');
   $('#tienda').append('<h3>Que deseas Comprar?</h3>');
   $('#tienda').append('<table id ="productos"></table>');
   $('#productos').append('<tr id ="fila1"></tr>');
+
   if (player.rol == 'mago'){
     $('#fila1').append('<td><button class = "botontienda2" disabled>Armas</button></td>');
   }else{
     $('#fila1').append('<td><button class = "botontienda" onclick = creaTableArmas();>Armas</button></td>');
   }
+
   $('#fila1').append('<td><button class = "botontienda" onclick = creaTableEscudos();>Escudos</button></td>');
   $('#fila1').append('<td><button class = "botontienda" onclick = creaTableArmaduras();>Armaduras</button></td>');
+
   $('#productos').append('<tr id ="fila2"></tr>');
   $('#fila2').append('<td><button class = "botontienda" onclick = creaTablePociones();>Pociones</button></td>');
   $('#fila2').append('<td><button class = "botontienda" onclick = creaTableBotas();>Botas</button></td>');
+
   if (player.rol == 'mago'){
     $('#fila2').append('<td><button class = "botontienda" onclick = creaTableHechizos();>Hechizos</button></td>');
   }else{
     $('#fila2').append('<td><button disabled class = "botontienda2">Hechizos</button></td>');
   }
+
   $('#tienda').append('<button id = "volverjuegotienda" onclick = volverJuegoTienda();>Salir</button>');
 }
 
 function creaTableArmas(){
   $('#tienda').remove();
+
   $('#navegacion').append('<div id = "tienda"></div>');
   $('#tienda').append('<h3>Que arma deseas Comprar?</h3>');
   $('#tienda').append('<table id ="productos"></table>');
   $('#tienda').append('<tr id ="fila0"></tr>');
+
   $('#fila0').append('<td>Nombre</td>');
   $('#fila0').append('<td>Ataque</td>');
   $('#fila0').append('<td>Precio</td>');
@@ -579,6 +584,7 @@ function creaTableEscudos(){
   $('#tienda').append('<h3>Que escudo deseas Comprar?</h3>');
   $('#tienda').append('<table id ="productos"></table>');
   $('#tienda').append('<tr id ="fila0"></tr>');
+
   $('#fila0').append('<td>Nombre</td>');
   $('#fila0').append('<td>Armadura</td>');
   $('#fila0').append('<td>Precio</td>');
@@ -623,6 +629,7 @@ function creaTableArmaduras(){
   $('#tienda').append('<tr id ="fila0"></tr>');
   $('#fila0').append('<td>Nombre</td>');
   $('#fila0').append('<td>Armadura</td>');
+  $('#fila0').append('<td>Resistencia Magica</td>');
   $('#fila0').append('<td>Precio</td>');
   $('#fila0').append('<td>Comprar</td>');
 
@@ -635,11 +642,13 @@ function creaTableArmaduras(){
     var idfila = fila.concat(strnumfila);
     var idnombre = 'nombre'.concat(idfila);
     var idarmadura = 'armadura'.concat(idfila);
+    var idmr = 'resistenciaMagica'.concat(idfila);
     var idprecio = 'precio'.concat(idfila);
 
     var tr = '<tr id = "' + idfila + '"></tr>';
     var tdnombre = '<td id = "' + idnombre + '"></td>';
     var tdarmadura = '<td id = "' + idarmadura + '"></td>';
+    var tdmr = '<td id = "' + idmr + '"></td>';
     var tdprecio = '<td id = "' + idprecio + '"></td>';
 
     $('#tienda').append(tr);
@@ -647,10 +656,12 @@ function creaTableArmaduras(){
     $('#'+idnombre).html(armaduras[i].nombre);
     $('#'+idfila).append(tdarmadura);
     $('#'+idarmadura).html(armaduras[i].armadura);
+    $('#'+idfila).append(tdmr);
+    $('#'+idmr).html(armaduras[i].resistenciaMagica);
     $('#'+idfila).append(tdprecio);
     $('#'+idprecio).html(armaduras[i].precio);
 
-    var comprar = '<td><button onclick = compraentienda(armaduras[' + i + '],1);>Comprar!</button></td>';
+    var comprar = '<td><button onclick = compraentienda(armaduras[' + i + '],2);>Comprar!</button></td>';
     $('#'+idfila).append(comprar);
     i++;
   }
@@ -692,7 +703,7 @@ function creaTablePociones(){
     $('#'+idfila).append(tdprecio);
     $('#'+idprecio).html(pociones[i].precio);
 
-    var comprar = '<td><button onclick = compraentienda(pociones[' + i + '],2);>Comprar!</button></td>';
+    var comprar = '<td><button onclick = compraentienda(pociones[' + i + '],3);>Comprar!</button></td>';
     $('#'+idfila).append(comprar);
     i++;
   }
@@ -729,7 +740,7 @@ function creaTableBotas(){
     $('#'+idfila).append(tdprecio);
     $('#'+idprecio).html(botas[i].precio);
 
-    var comprar = '<td><button onclick = compraentienda(botas[' + i + '],3);>Comprar!</button></td>';
+    var comprar = '<td><button onclick = compraentienda(botas[' + i + '],4);>Comprar!</button></td>';
     $('#'+idfila).append(comprar);
 
     i++;
@@ -772,39 +783,23 @@ function creaTableHechizos(){
     $('#'+idfila).append(tdprecio);
     $('#'+idprecio).html(hechizos[i].precio);
 
-    var comprar = '<td><button onclick = compraentienda(hechizos[' + i + '],1);>Comprar!</button></td>';
+    var comprar = '<td><button onclick = compraentienda(hechizos[' + i + '],0);>Comprar!</button></td>';
     $('#'+idfila).append(comprar);
     i++;
   }
   $('#tienda').append('<button id = "volverjuegotienda" onclick = creaMenuTienda();>Salir</button>');
 }
 
-function compraentienda (producto,caracteristica){
+function compraentienda (producto, tipo){
   if (player.mochila.indexOf("") < 6 && player.mochila.indexOf("") > -1){
     if(player.oro >= producto.precio){
-      /*TODO Cerrar Pasica Orco --> Falla el Math.floor, devuelve 0 siempre*/
       if(player.raza == 'orco'){
-        switch(caracteristica){
-          case 0:
-            alert (producto.ataque);
-            producto.ataque = producto.ataque + Math.floor(producto.ataque * 0,2);
-            alert (producto.ataque);
-            break;
-
-          case 1:
-            producto.armadura = producto.armadura + Math.round(producto.armadura * 0,2);
-            break;
-
-          case 2:
-            producto.curacion = producto.curacion + Math.round(producto.curacion * 0,2);
-            break;
-
-          default:
-            break;
-        }
+        orco.habilidad(producto, tipo);
       }
+
       player.oro = player.oro - producto.precio;
       player.mochila[player.mochila.indexOf("")] = producto;
+
       actualizaHUD();
       $('#texto-juego').html('Gracias por comprar!');
     }else{
@@ -995,7 +990,7 @@ function augmentaXP(xp) {
     augmentaNivel(nivelesaugmentados);
   }
   player.xp = player.xp + xp;
-  actualizaNivel();
+
   actualizaHUD();
 }
 
@@ -1020,9 +1015,10 @@ function ejecutaMejora (tipo, nivelesaugmentados){
   switch (tipo){
     case 0:
       player.vida++;
+      player.vidaMax++;
       break;
     case 1:
-    player.ataque++;
+      player.ataque++;
       break;
     case 2:
       player.armadura++;
@@ -1031,6 +1027,7 @@ function ejecutaMejora (tipo, nivelesaugmentados){
       player.resistenciaMagica++;
       break;
   }
+
   actualizaHUD();
   $('#mejora').remove();
   if(nivelesaugmentados == 0){
@@ -1043,7 +1040,8 @@ function ejecutaMejora (tipo, nivelesaugmentados){
 
 /* Gestiona la recogida de objetos de un enemigo */
 function recogeObjetos(objetos) {
-
+  //Añadir objetos a la mochila
+  //Añadir el oro que da el enemigo (pasiva imperial)
 }
 
 /* Indicamos que se ha acabado la partida */

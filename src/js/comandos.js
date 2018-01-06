@@ -239,8 +239,8 @@
         "ataque": 12,
         "precio": 700
       }, {
-        "nombre": "Espada JS",
-        "img": "espada_js.png",
+        "nombre": "Hacha JS",
+        "img": "hacha.png",
         "ataque": 5000,
         "precio": 3000000}]
     },{

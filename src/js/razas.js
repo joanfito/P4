@@ -43,9 +43,25 @@ function defineRazas() {
         return false;
       });
 
-      orco = new Raza(info.razas[3].nombre, info.razas[3].habilidad, info.razas[3].descripcion, function () {
+      orco = new Raza(info.razas[3].nombre, info.razas[3].habilidad, info.razas[3].descripcion, function (producto, tipo) {
         // 20% mejores
-        console.log("ATAQUEEEE ORCO");
+        switch(tipo){
+          case 0:
+            //Armas y Hechizos
+            producto.ataque = producto.ataque + Math.floor(producto.ataque * 0.2);
+            break;
+
+          case 1:
+            //Escudos
+            producto.armadura = producto.armadura + Math.round(producto.armadura * 0.2);
+            break;
+
+          case 2:
+            //Armaduras
+            producto.armadura = producto.armadura + Math.round(producto.armadura * 0.2);
+            producto.resistenciaMagica = producto.resistenciaMagica + Math.round(producto.resistenciaMagica * 0.2);
+            break;
+        }
       });
 
       imperial = new Raza(info.razas[4].nombre, info.razas[4].habilidad, info.razas[4].descripcion, function () {

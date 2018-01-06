@@ -16,6 +16,7 @@ function iniciarJuego() {
       //Cargamos el fichero correspondiente
       $.when(cargaFichero(slot)).done(function() {
         //Funciones del juego
+        player.oro = 10000;
         actualizaHUD();
         //  movimiento (ADRI)
         //  cambiar de nivel (de mapa) (ADRI)
@@ -564,7 +565,7 @@ function creaTableArmas(){
     $('#'+idfila).append(tdprecio);
     $('#'+idprecio).html(armas[i].precio);
 
-    var comprar = '<td><button onclick = compraentienda(armas[' + i + '].precio,0,armas[' + i + '].ataque);>Comprar!</button></td>';
+    var comprar = '<td><button onclick = compraentienda(armas[' + i + '],0);>Comprar!</button></td>';
     $('#'+idfila).append(comprar);
 
     i++;
@@ -607,7 +608,7 @@ function creaTableEscudos(){
     $('#'+idfila).append(tdprecio);
     $('#'+idprecio).html(escudos[i].precio);
 
-    var comprar = '<td><button onclick = compraentienda(escudos[' + i + '].precio,1,escudos[' + i + '].armadura);>Comprar!</button></td>';
+    var comprar = '<td><button onclick = compraentienda(escudos[' + i + '],1);>Comprar!</button></td>';
     $('#'+idfila).append(comprar);
     i++;
   }
@@ -649,7 +650,7 @@ function creaTableArmaduras(){
     $('#'+idfila).append(tdprecio);
     $('#'+idprecio).html(armaduras[i].precio);
 
-    var comprar = '<td><button onclick = compraentienda(armaduras[' + i + '].precio,1,armaduras[' + i + '].armadura);>Comprar!</button></td>';
+    var comprar = '<td><button onclick = compraentienda(armaduras[' + i + '],1);>Comprar!</button></td>';
     $('#'+idfila).append(comprar);
     i++;
   }
@@ -691,7 +692,7 @@ function creaTablePociones(){
     $('#'+idfila).append(tdprecio);
     $('#'+idprecio).html(pociones[i].precio);
 
-    var comprar = '<td><button onclick = compraentienda(pociones[' + i + '].precio,2,pociones[' + i + '].curacion);>Comprar!</button></td>';
+    var comprar = '<td><button onclick = compraentienda(pociones[' + i + '],2);>Comprar!</button></td>';
     $('#'+idfila).append(comprar);
     i++;
   }
@@ -728,7 +729,7 @@ function creaTableBotas(){
     $('#'+idfila).append(tdprecio);
     $('#'+idprecio).html(botas[i].precio);
 
-    var comprar = '<td><button onclick = compraentienda(botas[' + i + '].precio,0,0);>Comprar!</button></td>';
+    var comprar = '<td><button onclick = compraentienda(botas[' + i + '],3);>Comprar!</button></td>';
     $('#'+idfila).append(comprar);
 
     i++;
@@ -771,16 +772,47 @@ function creaTableHechizos(){
     $('#'+idfila).append(tdprecio);
     $('#'+idprecio).html(hechizos[i].precio);
 
-    var comprar = '<td><button onclick = compraentienda(hechizos[' + i + '].precio,0,hechizos[' + i + '].ataque);>Comprar!</button></td>';
+    var comprar = '<td><button onclick = compraentienda(hechizos[' + i + '],1);>Comprar!</button></td>';
     $('#'+idfila).append(comprar);
     i++;
   }
   $('#tienda').append('<button id = "volverjuegotienda" onclick = creaMenuTienda();>Salir</button>');
 }
 
-function compraentienda (precio, tipo, valor){
-  /* TODO Comprar y volver al menu principal + Hacer el scroll de las table */
-  alert('comprando...');
+function compraentienda (producto,caracteristica){
+  if (player.mochila.indexOf("") < 6 && player.mochila.indexOf("") > -1){
+    if(player.oro >= producto.precio){
+      /*TODO Cerrar Pasica Orco --> Falla el Math.floor, devuelve 0 siempre*/
+      if(player.raza == 'orco'){
+        switch(caracteristica){
+          case 0:
+            alert (producto.ataque);
+            producto.ataque = producto.ataque + Math.floor(producto.ataque * 0,2);
+            alert (producto.ataque);
+            break;
+
+          case 1:
+            producto.armadura = producto.armadura + Math.round(producto.armadura * 0,2);
+            break;
+
+          case 2:
+            producto.curacion = producto.curacion + Math.round(producto.curacion * 0,2);
+            break;
+
+          default:
+            break;
+        }
+      }
+      player.oro = player.oro - producto.precio;
+      player.mochila[player.mochila.indexOf("")] = producto;
+      actualizaHUD();
+      $('#texto-juego').html('Gracias por comprar!');
+    }else{
+      $('#texto-juego').html('No tienes suficiente dinero');
+    }
+  }else{
+    $('#texto-juego').html('Tienes la mochila llena!');
+  }
   creaMenuTienda();
 }
 
@@ -950,8 +982,63 @@ function derrotaCombate(rival) {
 
 /* Gestiona la experiencia y el nivel del jugador */
 function augmentaXP(xp) {
-
+  var maxnivel = 10 * player.nivel + 10 * (player.nivel -1);
+  var nivelesaugmentados = 0;
+  while (player.xp + xp > maxnivel){
+    maxnivel = 10 * player.nivel + 10 * (player.nivel -1);
+    player.nivel++;
+    nivelesaugmentados++;
+    xp = xp - maxnivel;
+  }
+  if(nivelesaugmentados != 0){
+    $('#visor').remove();
+    augmentaNivel(nivelesaugmentados);
+  }
+  player.xp = player.xp + xp;
   actualizaNivel();
+  actualizaHUD();
+}
+
+function augmentaNivel(nivelesaugmentados){
+  $('#navegacion').append('<div id = "mejora"></div>');
+  $('#mejora').append('<h3>Que deseas mejorar?'+ nivelesaugmentados + ' mejoras disponible</h3>');
+  $('#mejora').append('<table id ="mejoras"></table>');
+  $('#mejoras').append('<tr id ="fila1"></tr>');
+  $('#fila1').append('<td><img class="imgmejora" src="./media/images/mejora.png" alt="mejoraVida" onclick="ejecutaMejora(0,' + nivelesaugmentados +');"></td>');
+  $('#fila1').append('<td><img class="imgmejora" src="./media/images/mejora.png" alt="mejoraVida" onclick="ejecutaMejora(1,' + nivelesaugmentados +');"></td>');
+  $('#fila1').append('<td><img class="imgmejora" src="./media/images/mejora.png" alt="mejoraVida" onclick="ejecutaMejora(2,' + nivelesaugmentados +');"></td>');
+  $('#fila1').append('<td><img class="imgmejora" src="./media/images/mejora.png" alt="mejoraVida" onclick="ejecutaMejora(3,' + nivelesaugmentados +');"></td>');
+  $('#mejoras').append('<tr id ="fila2"></tr>');
+  $('#fila2').append('<td>Vida</td>');
+  $('#fila2').append('<td>Ataque</td>');
+  $('#fila2').append('<td>Armadura</td>');
+  $('#fila2').append('<td>Resitencia Magica</td>');
+}
+
+function ejecutaMejora (tipo, nivelesaugmentados){
+  nivelesaugmentados--;
+  switch (tipo){
+    case 0:
+      player.vida++;
+      break;
+    case 1:
+    player.ataque++;
+      break;
+    case 2:
+      player.armadura++;
+      break;
+    case 3:
+      player.resistenciaMagica++;
+      break;
+  }
+  actualizaHUD();
+  $('#mejora').remove();
+  if(nivelesaugmentados == 0){
+    $('#navegacion').append('<canvas id="visor" width="300" height="300"></canvas>');
+    cargaPosicion(player.estadoPartida.x, player.estadoPartida.y, player.estadoPartida.direccion);
+  }else{
+    augmentaNivel(nivelesaugmentados);
+  }
 }
 
 /* Gestiona la recogida de objetos de un enemigo */
@@ -1043,7 +1130,7 @@ function actualizaMochila() {
   var id;
   for (var i = 0; i < player.mochila.length; i++) {
     id = '#objeto' + (i+1);
-    $(id).attr('src', './media/images/' + getObjectImg(player.mochila[i]));
+    $(id).attr('src', './media/images/' + getObjectImg(player.mochila[i].nombre));
   }
 }
 

@@ -893,22 +893,22 @@ function creaItemsCofre() {
       $('#'+idfila).append(tdnombre);
       $('#'+idnombre).html(cofres[random].objetos[i]);
 
-      var coger = '<td><button onclick = cogerdeCofre('+ random + ' , ' + i + ', #' + idfila + ' );>Coger!</button></td>';
+      var coger = '<td><button onclick=cogerdeCofre('+ random +',' + i + ',' + idfila +  ');>Coger</button></td>';
       $('#'+idfila).append(coger);
     }
     $('#cofre').append('<button id = "volverjuegocofre" onclick = volverJuegoCofre();>Salir</button>');
 }
 
 function cogerdeCofre(cofre, item, idfila) {
-  alert("hola");
+  //alert("hola");
   if(item == 0) {
-    alert("hola0");
+    //alert("hola0");
     player.oro = player.oro + cofres[cofre].objetos[item];
   } else {
-    alert("hola1");
+    //alert("hola1");
     if (player.mochila.indexOf("") < 6 && player.mochila.indexOf("") > -1){
       var objeto = getObjectByName(cofre);
-      alert(objeto);
+      //alert(objeto);
       player.mochila[player.mochila.indexOf("")] = objeto;
       actualizaHUD();
       $(idfila).attr("disabled","disabled");

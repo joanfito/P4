@@ -422,7 +422,7 @@ h3 {
   padding: 15px;
 }
 
-.botontienda, .botontienda2 {
+.botontienda, .botontienda2, .botoncompraitem {
   font-family: "Inknut Antiqua", serif;
 }
 
@@ -460,7 +460,7 @@ td, th {
   padding: 10px;
   position: absolute;
   text-align: center;
-  width: 100px;
+  width: 200px;
 }
 
 .opcion-menu {

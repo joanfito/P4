@@ -396,7 +396,7 @@ h3{
   padding: 15px;
 }
 
-.botontienda, .botontienda2{
+.botontienda, .botontienda2, .botoncompraitem{
   font-family: $fuente-principal;
 }
 
@@ -407,6 +407,7 @@ h3{
 .botontienda2:hover{
   color: red;
 }
+
 
 #volverjuegotienda, #volverjuegocofre{
   font-family: $fuente-principal;
@@ -434,7 +435,7 @@ td, th {
   padding: 10px;
   position: absolute;
   text-align: center;
-  width: 100px;
+  width: 200px;
 }
 
 .opcion-menu {

@@ -59,6 +59,25 @@ function iniciarJuego() {
               break;
           }
         });
+
+        //  movimiento (ADRI)
+        //  cambiar de nivel (de mapa) (ADRI)
+        //  lucha (FITO)
+        //  movimiento con teclas (WASD - Q E - G)
+        //  crear 'stats' eneigo en hud (FITO)
+        //  gestionar nivel personaje (augmentar las stats siguendo el enunciado + subir un punto en una de las stats (definido en rubrica.rtf)) (ADRI --> funcion creada: augmentaXP)
+        //  recoger objetos (que dropean los enemigos) (FITO)
+        // comprar en tienda (ADRI)
+        //TODO abrir cofre (MARC: onclick en canvas per a "obrirlo")
+        // gestionar mochila (FITO)
+        // gestionar objetos equipados (MARC -- llegeix extras.rtf)
+        // visor (canvas) (ADRI)
+        // HUD (FITO)
+        // guardar partida (sobreescribir si ya existe una en el slot) (FITO)
+        //musica (ADRI)
+        // alduin (drop 'alma' + aprender grito) (MARC)
+        // abrir puerta salida (MARC)
+        // game over (por muerte o abriendo puerta) (MARC (gameover.html))
       });
     } else {
       alert('Slot no válido, no modifiques la URL.');
@@ -621,7 +640,7 @@ function creaTableArmas(){
   $('#navegacion').append('<div id = "tienda"></div>');
   $('#tienda').append('<h3>Que arma deseas Comprar?</h3>');
   $('#tienda').append('<table id ="productos"></table>');
-  $('#tienda').append('<tr id ="fila0"></tr>');
+  $('#productos').append('<tr id ="fila0"></tr>');
 
   $('#fila0').append('<td>Nombre</td>');
   $('#fila0').append('<td>Ataque</td>');
@@ -644,7 +663,7 @@ function creaTableArmas(){
     var tdataque = '<td id = "' + idataque + '"></td>';
     var tdprecio = '<td id = "' + idprecio + '"></td>';
 
-    $('#tienda').append(tr);
+    $('#productos').append(tr);
     $('#'+idfila).append(tdnombre);
     $('#'+idnombre).html(armas[i].nombre);
     $('#'+idfila).append(tdataque);
@@ -652,7 +671,7 @@ function creaTableArmas(){
     $('#'+idfila).append(tdprecio);
     $('#'+idprecio).html(armas[i].precio);
 
-    var comprar = '<td><button onclick = compraentienda(armas[' + i + '],0);>Comprar!</button></td>';
+    var comprar = '<td><button class = "botoncompraitem" onclick = compraentienda(armas[' + i + '],0);>Comprar!</button></td>';
     $('#'+idfila).append(comprar);
 
     i++;
@@ -665,7 +684,7 @@ function creaTableEscudos(){
   $('#navegacion').append('<div id = "tienda"></div>');
   $('#tienda').append('<h3>Que escudo deseas Comprar?</h3>');
   $('#tienda').append('<table id ="productos"></table>');
-  $('#tienda').append('<tr id ="fila0"></tr>');
+  $('#productos').append('<tr id ="fila0"></tr>');
 
   $('#fila0').append('<td>Nombre</td>');
   $('#fila0').append('<td>Armadura</td>');
@@ -688,7 +707,7 @@ function creaTableEscudos(){
     var tdarmadura = '<td id = "' + idarmadura + '"></td>';
     var tdprecio = '<td id = "' + idprecio + '"></td>';
 
-    $('#tienda').append(tr);
+    $('#productos').append(tr);
     $('#'+idfila).append(tdnombre);
     $('#'+idnombre).html(escudos[i].nombre);
     $('#'+idfila).append(tdarmadura);
@@ -696,7 +715,7 @@ function creaTableEscudos(){
     $('#'+idfila).append(tdprecio);
     $('#'+idprecio).html(escudos[i].precio);
 
-    var comprar = '<td><button onclick = compraentienda(escudos[' + i + '],1);>Comprar!</button></td>';
+    var comprar = '<td><button class = "botoncompraitem" onclick = compraentienda(escudos[' + i + '],1);>Comprar!</button></td>';
     $('#'+idfila).append(comprar);
     i++;
   }
@@ -708,7 +727,7 @@ function creaTableArmaduras(){
   $('#navegacion').append('<div id = "tienda"></div>');
   $('#tienda').append('<h3>Que armadura deseas Comprar?</h3>');
   $('#tienda').append('<table id ="productos"></table>');
-  $('#tienda').append('<tr id ="fila0"></tr>');
+  $('#productos').append('<tr id ="fila0"></tr>');
   $('#fila0').append('<td>Nombre</td>');
   $('#fila0').append('<td>Armadura</td>');
   $('#fila0').append('<td>Resistencia Magica</td>');
@@ -733,7 +752,7 @@ function creaTableArmaduras(){
     var tdmr = '<td id = "' + idmr + '"></td>';
     var tdprecio = '<td id = "' + idprecio + '"></td>';
 
-    $('#tienda').append(tr);
+    $('#productos').append(tr);
     $('#'+idfila).append(tdnombre);
     $('#'+idnombre).html(armaduras[i].nombre);
     $('#'+idfila).append(tdarmadura);
@@ -743,7 +762,7 @@ function creaTableArmaduras(){
     $('#'+idfila).append(tdprecio);
     $('#'+idprecio).html(armaduras[i].precio);
 
-    var comprar = '<td><button onclick = compraentienda(armaduras[' + i + '],2);>Comprar!</button></td>';
+    var comprar = '<td><button class = "botoncompraitem" onclick = compraentienda(armaduras[' + i + '],2);>Comprar!</button></td>';
     $('#'+idfila).append(comprar);
     i++;
   }
@@ -755,7 +774,7 @@ function creaTablePociones(){
   $('#navegacion').append('<div id = "tienda"></div>');
   $('#tienda').append('<h3>Que pocion deseas Comprar?</h3>');
   $('#tienda').append('<table id ="productos"></table>');
-  $('#tienda').append('<tr id ="fila0"></tr>');
+  $('#productos').append('<tr id ="fila0"></tr>');
   $('#fila0').append('<td>Nombre</td>');
   $('#fila0').append('<td>Curacion</td>');
   $('#fila0').append('<td>Precio</td>');
@@ -777,7 +796,7 @@ function creaTablePociones(){
     var tdcuracion = '<td id = "' + idcuracion + '"></td>';
     var tdprecio = '<td id = "' + idprecio + '"></td>';
 
-    $('#tienda').append(tr);
+    $('#productos').append(tr);
     $('#'+idfila).append(tdnombre);
     $('#'+idnombre).html(pociones[i].nombre);
     $('#'+idfila).append(tdcuracion);
@@ -785,7 +804,7 @@ function creaTablePociones(){
     $('#'+idfila).append(tdprecio);
     $('#'+idprecio).html(pociones[i].precio);
 
-    var comprar = '<td><button onclick = compraentienda(pociones[' + i + '],3);>Comprar!</button></td>';
+    var comprar = '<td><button class = "botoncompraitem" onclick = compraentienda(pociones[' + i + '],3);>Comprar!</button></td>';
     $('#'+idfila).append(comprar);
     i++;
   }
@@ -797,7 +816,7 @@ function creaTableBotas(){
   $('#navegacion').append('<div id = "tienda"></div>');
   $('#tienda').append('<h3>Que botas deseas Comprar?</h3>');
   $('#tienda').append('<table id ="productos"></table>');
-  $('#tienda').append('<tr id ="fila0"></tr>');
+  $('#productos').append('<tr id ="fila0"></tr>');
   $('#fila0').append('<td>Nombre</td>');
   $('#fila0').append('<td>Precio</td>');
   $('#fila0').append('<td>Comprar</td>');
@@ -816,13 +835,13 @@ function creaTableBotas(){
     var tdnombre = '<td id = "' + idnombre + '"></td>';
     var tdprecio = '<td id = "' + idprecio + '"></td>';
 
-    $('#tienda').append(tr);
+    $('#productos').append(tr);
     $('#'+idfila).append(tdnombre);
     $('#'+idnombre).html(botas[i].nombre);
     $('#'+idfila).append(tdprecio);
     $('#'+idprecio).html(botas[i].precio);
 
-    var comprar = '<td><button onclick = compraentienda(botas[' + i + '],4);>Comprar!</button></td>';
+    var comprar = '<td><button class = "botoncompraitem" onclick = compraentienda(botas[' + i + '],4);>Comprar!</button></td>';
     $('#'+idfila).append(comprar);
 
     i++;
@@ -835,7 +854,7 @@ function creaTableHechizos(){
   $('#navegacion').append('<div id = "tienda"></div>');
   $('#tienda').append('<h3>Que hechizo deseas Comprar?</h3>');
   $('#tienda').append('<table id ="productos"></table>');
-  $('#tienda').append('<tr id ="fila0"></tr>');
+  $('#productos').append('<tr id ="fila0"></tr>');
   $('#fila0').append('<td>Nombre</td>');
   $('#fila0').append('<td>Ataque</td>');
   $('#fila0').append('<td>Precio</td>');
@@ -857,7 +876,7 @@ function creaTableHechizos(){
     var tdataque = '<td id = "' + idataque + '"></td>';
     var tdprecio = '<td id = "' + idprecio + '"></td>';
 
-    $('#tienda').append(tr);
+    $('#productos').append(tr);
     $('#'+idfila).append(tdnombre);
     $('#'+idnombre).html(hechizos[i].nombre);
     $('#'+idfila).append(tdataque);
@@ -865,7 +884,7 @@ function creaTableHechizos(){
     $('#'+idfila).append(tdprecio);
     $('#'+idprecio).html(hechizos[i].precio);
 
-    var comprar = '<td><button onclick = compraentienda(hechizos[' + i + '],0);>Comprar!</button></td>';
+    var comprar = '<td><button class = "botoncompraitem" onclick = compraentienda(hechizos[' + i + '],0);>Comprar!</button></td>';
     $('#'+idfila).append(comprar);
     i++;
   }
@@ -937,11 +956,11 @@ function creaItemsCofre(tipoCofre) {
     var tr = '<tr id = "' + idfila + '"></tr>';
     var tdnombre = '<td id = "' + idnombre + '"></td>';
 
-    $('#cofre').append(tr);
+    $('#items').append(tr);
     $('#'+idfila).append(tdnombre);
     $('#'+idnombre).html(cofres[tipoCofre].objetos[i]);
 
-    var coger = '<td><button id="btn'+ i +'" onclick=cogerdeCofre('+ tipoCofre +',' + i + ');>Coger</button></td>';
+    var coger = '<td><button class = "botoncompraitem" id="btn'+ i +'" onclick=cogerdeCofre('+ tipoCofre +',' + i + ');>Coger</button></td>';
     $('#'+idfila).append(coger);
     if(itemsCofre[i] == false) {
       $('#btn' + i).attr("disabled","true");

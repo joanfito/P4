@@ -854,10 +854,107 @@ function volverJuegoTienda(){
 
 }
 
-/* Creamos el menu de la Tienda con los items*/
 function creaCofre() {
-  //Al salir --> accionTerminada = true;
-  accionTerminada = true;
+  $('#visor').remove();
+  $('#texto-juego').html(player.nombre + ' abre el cofre');
+  creaItemsCofre();
+}
+
+function creaItemsCofre() {
+  $('#cofre').remove();
+  $('#navegacion').append('<div id="cofre"></div>');
+  $('#cofre').append('<h3>Cofre</h3>');
+  $('#cofre').append('<table id="items"></table>');
+  $('#items').append('<tr id="fila0"></tr>');
+  $('#fila0').append('<td>Nombre</td>');
+  $('#fila0').append('<td>Coger</td>');
+
+
+  var random = Math.floor((Math.random() * 2));
+    for(var i = 0; i < cofres[random].objetos.length; i++){
+      var fila = 'fila';
+      var numfila = 1 + i;
+      var strnumfila = numfila.toString();
+
+      var idfila = fila.concat(strnumfila);
+      var idnombre = 'nombre'.concat(idfila);
+
+      var tr = '<tr id = "' + idfila + '"></tr>';
+      var tdnombre = '<td id = "' + idnombre + '"></td>';
+
+      $('#cofre').append(tr);
+      $('#'+idfila).append(tdnombre);
+      $('#'+idnombre).html(cofres[random].objetos[i]);
+
+      var coger = '<td><button onclick = cogerdeCofre('+ random + ' , ' + i + ', #' + idfila + ' );>Coger!</button></td>';
+      $('#'+idfila).append(coger);
+    }
+    $('#cofre').append('<button id = "volverjuegocofre" onclick = volverJuegoCofre();>Salir</button>');
+}
+
+function cogerdeCofre(cofre, item, idfila) {
+  if(item == 0) {
+    player.oro = player.oro + cofres[cofre].objetos[item];
+  } else {
+    if (player.mochila.indexOf("") < 6 && player.mochila.indexOf("") > -1){
+      var objeto;
+      for (var i = 0; i < objetos.length; i++) {
+        for (var j = 0; j < objetos[i].length; j++) {
+          switch(i) {
+            case 0:
+              if (objetos[i].armas[j].nombre == cofres[cofre].objetos[item]) {
+                objeto = objetos[i][j];
+              }
+            break;
+            case 1:
+              if (objetos[i].escudos[j].nombre == cofres[cofre].objetos[item]) {
+                objeto = objetos[i][j];
+              }
+            break;
+            case 2:
+              if (objetos[i].armaduras[j].nombre == cofres[cofre].objetos[item]) {
+                objeto = objetos[i][j];
+              }
+            break;
+            case 3:
+              if (objetos[i].pociones[j].nombre == cofres[cofre].objetos[item]) {
+                objeto = objetos[i][j];
+              }
+            break;
+            case 4:
+              if (objetos[i].moneda[j].nombre == cofres[cofre].objetos[item]) {
+                objeto = objetos[i][j];
+              }
+            break;
+            case 5:
+              if (objetos[i].botas[j].nombre == cofres[cofre].objetos[item]) {
+                objeto = objetos[i][j];
+              }
+            break;
+            case 6:
+              if (objetos[i].hechizos[j].nombre == cofres[cofre].objetos[item]) {
+                objeto = objetos[i][j];
+              }
+            break;
+          }
+        }
+      }
+      player.mochila[player.mochila.indexOf("")] = objeto;
+      actualizaHUD();
+      $(idfila).attr("disabled","disabled");
+    }else{
+      $('#texto-juego').html('Tienes la mochila llena!');
+    }
+  }
+  creaItemsCofre();
+}
+
+function volverJuegoCofre(){
+    $('#cofre').remove();
+    $('#navegacion').append('<canvas id="visor" width="300" height="300"></canvas>');
+    cargaPosicion(player.estadoPartida.x, player.estadoPartida.y, player.estadoPartida.direccion);
+
+    accionTerminada = true;
 }
 
 function aprendeGrito() {

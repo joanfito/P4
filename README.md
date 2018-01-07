@@ -89,3 +89,8 @@ Información de datos: HUD mejorado que muestra las imágenes de los objetos de 
 Diseño: video de introducción, música de fondo en las diferentes pantallas, pantalla de gameover, texto que informa sobre las acciones del juego, etc
 
 Nivel mazmorra: portales para saltar diversos niveles
+
+## Autores
+[Joan Fitó Martínez](https://github.com/joanfito) - joan.fito.2015
+[Adrián Garcia Garrido](https://github.com/adrig-geek) - adrian.garcia.2015
+[Marc Salinero Roig](https://github.com/SlamMark) - marc.salinero.2015

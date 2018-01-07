@@ -110,11 +110,6 @@ function creaPersonaje() {
     ficheroConfig.player.armadura = armadura;
     ficheroConfig.player.resistenciaMagica = resistenciaMagica;
 
-    if (tipoAtaque == 'AD') {
-      ficheroConfig.player.manoderecha = 'Espada de Hierro';
-    } else {
-      ficheroConfig.player.manoderecha = 'Llamas';
-    }
     //Actualizamos el fichero de nueva partida con los datos
     $.when(eliminaJSON()).done(function() {
       $.ajax({

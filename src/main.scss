@@ -289,6 +289,7 @@ p {
 h4 {
   font-size: 20px;
   padding-top: 5px;
+  padding-bottom: 5px;
 }
 
 .barra-nivel, .estadisticas-1, .estadisticas-2 {
@@ -414,4 +415,28 @@ td, th {
     border: 1px solid #dddddd;
     text-align: center;
     padding: 8px;
+}
+
+#menu-mochila {
+  background-color: white;
+  box-shadow: 0 0 3px $color-secundario;
+  display: none;
+  font-family: $fuente-principal;
+  padding: 10px;
+  position: absolute;
+  text-align: center;
+  width: 100px;
+}
+
+.opcion-menu {
+  padding: 5px;
+  cursor: pointer;
+}
+
+.opcion-menu:hover {
+  color: $color-letra;
+}
+
+#origen-menu {
+  display: none;
 }

@@ -70,16 +70,28 @@ function defineRazas() {
         return oro + extra;
       });
 
-      nordico = new Raza(info.razas[5].nombre, info.razas[5].habilidad, info.razas[5].descripcion, function () {
+      nordico = new Raza(info.razas[5].nombre, info.razas[5].habilidad, info.razas[5].descripcion, function (izq, der) {
         // 20% de daño extra
-        console.log("ATAQUEEEE NORDICO");
+        if ((/escudo/i).test(izq.nombre) && (/espada/i).test(der.nombre)) {
+          return Math.floor(der.ataque * 0.2);
+        } else if ((/escudo/i).test(der.nombre) && (/espada/i).test(izq.nombre)) {
+          return Math.floor(izq.ataque * 0.2);
+        }
+        return 0;
       });
 
       breton = new Raza(info.razas[6].nombre, info.razas[6].habilidad, info.razas[6].descripcion, undefined);
 
-      guardiaRojo = new Raza(info.razas[7].nombre, info.razas[7].habilidad, info.razas[7].descripcion, function () {
+      guardiaRojo = new Raza(info.razas[7].nombre, info.razas[7].habilidad, info.razas[7].descripcion, function (izq, der) {
         // +3 daño si no lleva escudo
-        console.log("ATAQUEEEE ROJO");
+        if ((/escudo/i).test(izq.nombre) || (/escudo/i).test(der.nombre)) {
+          if ((/espada/i).test(izq.nombre) || (/espada/i).test(der.nombre)) {
+            return -3;
+          }
+          return 0;
+        } else {
+          return 3;
+        }
       });
 
       argoniano = new Raza(info.razas[8].nombre, info.razas[8].habilidad, info.razas[8].descripcion, function (vida) {

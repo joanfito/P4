@@ -4,5 +4,5 @@ window.onload = function videoInicial() {
   //Cuando el video acabe, pasaremos a la selección de personaje
   video.onended = function () {
     location.href = 'seleccion.html';
-  }
+  };
 };

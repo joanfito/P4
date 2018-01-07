@@ -25,6 +25,7 @@ function compruebaSlots() {
     }
   });
 }
+
 function rellenaDatos() {
   if (existe1) {
     var urlGet1 = 'http://puigpedros.salleurl.edu/pwi/pac4/partida.php?token=0aee8310-0212-424d-b2b2-8e7771e4982d&slot=1';

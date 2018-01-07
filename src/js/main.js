@@ -134,10 +134,12 @@ window.onkeypress = function (event) {
 window.onkeyup = function(event) {
   if (event.keyCode == 27) {
     //ESC
-    $("#menu-mochila").css('display', 'none');
-    $("#menu-equipo").css('display', 'none');
+    $('#menu-mochila').css('display', 'none');
+    $('#menu-equipo').css('display', 'none');
+    $('#menu-guardar').css('display', 'none');
   }
-}
+};
+
 /* Carga la imagen que corresponde segun la posicion del jugador */
 function cargaPosicion(x, y, orientacion) {
   try {
@@ -1307,7 +1309,120 @@ function setGameover(victoria) {
 
 /* Guarda la partida actual en un slot */
 function guardarPartida() {
-  //Substitumos el panel de información por el menu de guardar partida
+  //Cargamos las partidas guardadas
+  $.when(creaSlots()).done(function() {
+    //Mostramos el menu de guardar partida
+    $('#menu-guardar').css({'left': ($(window).width() / 2 - $('#menu-guardar').width() / 2) + 'px','top': ($(window).height() / 2 - $('#menu-guardar').height() / 2) + 'px'});
+    $('#menu-guardar').css('display', 'block');
+
+  });
+
+
+
+  //alert('Partida guadada');
+  //$('#menu-guardar').css('display', 'none');
+}
+
+/* Comprueba los slots */
+function creaSlots() {
+  var url = 'http://puigpedros.salleurl.edu/pwi/pac4/partida.php?token=0aee8310-0212-424d-b2b2-8e7771e4982d';
+
+  return $.get(url, function(data) {
+    var slots = JSON.parse(data);
+
+    if (slots[1] == 1) {
+      //Obtenemos el nombre del slot 1
+      var urlGet1 = 'http://puigpedros.salleurl.edu/pwi/pac4/partida.php?token=0aee8310-0212-424d-b2b2-8e7771e4982d&slot=1';
+      $.get(urlGet1, function(data) {
+        var slot = JSON.parse(data);
+        //Rellenamos el nombre del slot
+        $('#nombre-slot1').html(slot.nombre);
+
+        //Añadimos la opcion de eliminar y deshabilitamos la opcion de guardar
+        $('#eliminar-slot1').click(function () {
+          eliminaSlot(1);
+        });
+
+        $('#guardar-slot1').click(function () {
+          $('#texto-guardar').html('No puedes guardar en un slot ocupado');
+        });
+      });
+    } else {
+      $('#nombre-slot1').html('Slot 1 (vacío)');
+
+      //Añadimos la opcion de guardar y deshabilitamos la opcion de eliminar
+      $('#guardar-slot1').click(function () {
+        guardaSlot(1);
+      });
+
+      $('#eliminar-slot1').click(function () {
+        $('#texto-guardar').html('No puedes eliminar un slot vacio');
+      });
+    }
+
+    if (slots[2] == 2) {
+      //Obtenemos el nombre del slot 2
+      var urlGet2 = 'http://puigpedros.salleurl.edu/pwi/pac4/partida.php?token=0aee8310-0212-424d-b2b2-8e7771e4982d&slot=2';
+      $.get(urlGet2, function(data) {
+        var slot = JSON.parse(data);
+        //Rellenamos el nombre del slot
+        $('#nombre-slot2').html(slot.nombre);
+
+        //Añadimos la opcion de eliminar y deshabilitamos la opcion de guardar
+        $('#eliminar-slot2').click(function () {
+          eliminaSlot(2);
+        });
+
+        $('#guardar-slot2').click(function () {
+          $('#texto-guardar').html('No puedes guardar en un slot ocupado');
+        });
+      });
+    } else {
+      $('#nombre-slot2').html('Slot 2 (vacío)');
+
+      //Añadimos la opcion de guardar y deshabilitamos la opcion de eliminar
+      $('#guardar-slot2').click(function () {
+        guardaSlot(2);
+      });
+
+      $('#eliminar-slot2').click(function () {
+        $('#texto-guardar').html('No puedes eliminar un slot vacio');
+      });
+
+    }
+  });
+}
+
+/* Elimina el slot seleccionado */
+function eliminaSlot(slot) {
+  return $.ajax({
+    url: 'http://puigpedros.salleurl.edu/pwi/pac4/partida.php?token=0aee8310-0212-424d-b2b2-8e7771e4982d&slot=' + slot,
+    type: 'DELETE',
+    success: function(result) {
+        creaSlots();
+    }
+  });
+}
+
+/* Guarda el slot seleccionado */
+function guardaSlot(slot) {
+ var url = 'http://puigpedros.salleurl.edu/pwi/pac4/partida.php?token=0aee8310-0212-424d-b2b2-8e7771e4982d&slot=' + slot;
+
+ //Actualizamos la informacion del jugador
+ partida.player = player;
+
+ //Le damos un nombre a la partida
+ partida.nombre = 'ei';
+ 
+ //Subimos el json
+ $.ajax({
+   type: 'POST',
+   url: url,
+   data: {json: JSON.stringify(partida)},
+   success: function() {
+     console.log('guardao');
+   }
+ });
 
 }
 

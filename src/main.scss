@@ -417,7 +417,7 @@ td, th {
     padding: 8px;
 }
 
-#menu-mochila, #menu-equipo {
+#menu-mochila, #menu-equipo, #menu-guardar {
   background-color: white;
   box-shadow: 0 0 3px $color-secundario;
   display: none;
@@ -439,4 +439,42 @@ td, th {
 
 #origen-menu, #id-equipo {
   display: none;
+}
+
+#menu-guardar {
+  width: 500px;
+}
+
+#menu-slot1 {
+  float: left;
+  padding: 20px 0;
+  width: 50%;
+}
+
+#menu-slot2 {
+  float: right;
+  padding: 20px 0;
+  width: 50%;
+}
+
+#nombre-slot1, #nombre-slot2 {
+  font-size: 20px;
+  display: block;
+}
+
+#guardar-slot1, #guardar-slot2 {
+  display: inline-block;
+  font-size: 16px;
+  margin: 10px;
+}
+
+#eliminar-slot1, #eliminar-slot2 {
+  display: inline-block;
+  font-size: 16px;
+  margin: 10px;
+}
+
+#guardar-slot1:hover, #guardar-slot2:hover, #eliminar-slot1:hover, #eliminar-slot2:hover {
+  text-shadow: 1px 1px $color-secundario;
+  cursor: pointer;
 }

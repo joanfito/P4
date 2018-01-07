@@ -390,5 +390,5 @@ function eliminaJSON() {
     success: function(result) {
         console.log('JSON inicial eliminado');
     }
-});
+  });
 }

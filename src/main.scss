@@ -392,15 +392,20 @@ h3{
   padding: 15px;
 }
 
+.botontienda, .botontienda2{
+  font-family: $fuente-principal;
+}
+
 .botontienda:hover{
-  background-color: green;
+  color: green;
 }
 
 .botontienda2:hover{
-  background-color: red;
+  color: red;
 }
 
 #volverjuegotienda, #volverjuegocofre{
+  font-family: $fuente-principal;
   float:right;
   margin-top: 25px;
   width: 100px;

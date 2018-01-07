@@ -21,12 +21,12 @@ En el juego te encontraras con diferentes enemigos que derrotar, tiendas donde p
 ### Funcionamiento del movimiento
 
 Puedes moverte con los botones incorporados en el HUD, o con el teclado:
-	* W: Movimiento hacia delante
-	* A: Movimiento hacia la izquierda
-	* S: Movimiento hacia atras
-	* D: Movimiento hacia derecha
-	* Q: Girar la cámara hacia la izquierda
-	* E: Girar la cámara hacia la derecha
+* W: Movimiento hacia delante
+* A: Movimiento hacia la izquierda
+* S: Movimiento hacia atras
+* D: Movimiento hacia derecha
+* Q: Girar la cámara hacia la izquierda
+* E: Girar la cámara hacia la derecha
 
 ### Funcionamiento del combate
 
@@ -72,7 +72,7 @@ El slot debe estar vacío, si no, antes se tendrá que borrar y después guardar
 * G  Enemigo tanque
 * A  Pared grito
 
-### xExtras
+### Extras
 
 Movimiento: Moverse izquierda/derecha (sin girar) + movimiento con teclado
 

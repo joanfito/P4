@@ -85,11 +85,11 @@
     }, {
       "nombre": "Imperial",
       "habilidad": "Astucia de Cyrodiil",
-      "descripcion": "Los imperiales, nativos de Cyrodiil, sobresalen sobre las demadas razas por su astucia. Por eso, son capaces de conseguir un 25% más de oro."
+      "descripcion": "Los imperiales, nativos de Cyrodiil, sobresalen sobre las demás razas por su astucia. Por eso, son capaces de conseguir un 25% más de oro."
     }, {
       "nombre": "Nórdico",
       "habilidad": "Fuerza de Skyrim",
-      "descripcion": "Los nordicos son una de las grandes razas guerreras de Tamriel. Su excelente habilidad para con la espada, les otorga un 20% más de daño si llevan equipados una espada y un escudo."
+      "descripcion": "Los nordicos son una de las grandes razas guerreras de Tamriel. Su excelente habilidad con la espada, les otorga un 20% más de daño si llevan equipados una espada y un escudo."
     }, {
       "nombre": "Bretón",
       "habilidad": "Piel de dragón",

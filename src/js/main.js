@@ -1,5 +1,6 @@
 var cofres, armas, escudos, armaduras, pociones, moneda, botas, mapas, hechizos;
-var gameover = false, cargasDunmer = 0, accionTerminada = true, random, itemsCofre;
+var gameover = false, cargasDunmer = 0, accionTerminada = true, tipoCofre;
+var itemsCofre;
 
 
 /* Inicializar el juego */
@@ -443,7 +444,13 @@ function movimiento(x, y) {
     case "C":
       //Bloqueamos el movimiento mientras abrimos el cofre
       accionTerminada = false;
-      creaCofre();
+      creaCofre(0);
+      break;
+
+    case "K":
+      //Bloqueamos el movimiento mientras abrimos el cofre
+      accionTerminada = false;
+      creaCofre(1);
       break;
     case "J":
       player.estadoPartida.x = x;
@@ -857,19 +864,22 @@ function volverJuegoTienda(){
 
 }
 
-function creaCofre() {
-  random = Math.floor((Math.random() * 2));
-  itemsCofre = new Array(cofres[random].objetos.length);
-  for(var i = 0; i < cofres[random].objetos.length; i++) {
-    itemsCofre[i] = true;
+function creaCofre(tipoCofre) {
+  console.log(cofres[tipoCofre]);
+  if (cofres[tipoCofre].usado == false){
+    cofres[tipoCofre].usado = true;
+    itemsCofre = new Array(cofres[tipoCofre].objetos.length);
+    for(var i = 0; i < cofres[tipoCofre].objetos.length; i++) {
+      itemsCofre[i] = true;
+    }
   }
   $('#visor').remove();
   $('#texto-juego').html(player.nombre + ' abre el cofre');
   console.log(itemsCofre);
-  creaItemsCofre(random);
+  creaItemsCofre(tipoCofre);
 }
 
-function creaItemsCofre(random) {
+function creaItemsCofre(tipoCofre) {
 
   $('#cofre').remove();
   $('#navegacion').append('<div id="cofre"></div>');
@@ -880,7 +890,7 @@ function creaItemsCofre(random) {
   $('#fila0').append('<td>Coger</td>');
 
 
-  for(var i = 0; i < cofres[random].objetos.length; i++){
+  for(var i = 0; i < cofres[tipoCofre].objetos.length; i++){
     var fila = 'fila';
     var numfila = 1 + i;
     var strnumfila = numfila.toString();
@@ -893,9 +903,9 @@ function creaItemsCofre(random) {
 
     $('#cofre').append(tr);
     $('#'+idfila).append(tdnombre);
-    $('#'+idnombre).html(cofres[random].objetos[i]);
+    $('#'+idnombre).html(cofres[tipoCofre].objetos[i]);
 
-    var coger = '<td><button id="btn'+ i +'" onclick=cogerdeCofre('+ random +',' + i + ');>Coger</button></td>';
+    var coger = '<td><button id="btn'+ i +'" onclick=cogerdeCofre('+ tipoCofre +',' + i + ');>Coger</button></td>';
     $('#'+idfila).append(coger);
     if(itemsCofre[i] == false) {
       $('#btn' + i).attr("disabled","true");
@@ -904,15 +914,15 @@ function creaItemsCofre(random) {
   $('#cofre').append('<button id = "volverjuegocofre" onclick = volverJuegoCofre();>Salir</button>');
 }
 
-function cogerdeCofre(cofre, item) {
+function cogerdeCofre(tipoCofre, item) {
   console.log(itemsCofre);
   itemsCofre[item] = false;
   console.log(itemsCofre);
   if(item == 0) {
-    player.oro = player.oro + cofres[cofre].objetos[item];
+    player.oro = player.oro + cofres[tipoCofre].objetos[item];
   } else {
     if (player.mochila.indexOf("") < 6 && player.mochila.indexOf("") > -1){
-      var objeto = getObjectByName(cofres[cofre].objetos[item]);
+      var objeto = getObjectByName(cofres[tipoCofre].objetos[item]);
       player.mochila[player.mochila.indexOf("")] = objeto;
       actualizaHUD();
 
@@ -921,7 +931,7 @@ function cogerdeCofre(cofre, item) {
     }
   }
   actualizaHUD();
-  creaItemsCofre(random);
+  creaItemsCofre(tipoCofre);
 }
 
 function volverJuegoCofre(){

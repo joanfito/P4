@@ -356,10 +356,12 @@
     }],
     "cofre": [{
       "img": "cofre1.png",
-      "objetos": [100, "Poción de salud", "Escudo Élfico"]
+      "objetos": [100, "Poción de salud", "Escudo Élfico"],
+      "usado": false
     }, {
       "img": "cofre1.png",
-      "objetos": [100, "Gran poción de salud", "Armadura Élfica"]
+      "objetos": [100, "Gran poción de salud", "Armadura Élfica"],
+      "usado": false
     }]
   });
 

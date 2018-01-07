@@ -21,11 +21,10 @@ function iniciarJuego() {
         //  cambiar de nivel (de mapa) (ADRI)
         //  lucha (FITO)
         //  movimiento con teclas (WASD - Q E - G)
-        //TODO crear 'stats' eneigo en hud (FITO)
+        //  crear 'stats' eneigo en hud (FITO)
         //  gestionar nivel personaje (augmentar las stats siguendo el enunciado + subir un punto en una de las stats (definido en rubrica.rtf)) (ADRI --> funcion creada: augmentaXP)
-        //TODO recoger objetos (que dropean los enemigos) (FITO)
+        //  recoger objetos (que dropean los enemigos) (FITO)
         // comprar en tienda (ADRI)
-
         //TODO abrir cofre (MARC: onclick en canvas per a "obrirlo")
         //TODO gestionar mochila (FITO)
         //TODO gestionar objetos equipados (MARC -- llegeix extras.rtf)
@@ -455,7 +454,7 @@ function movimiento(x, y) {
 
       //Bloqueamos el movimiento mientras luchamos
       accionTerminada = false;
-      combate(enemigo[2]);
+      combate(Object.assign({}, enemigo[2]));
       break;
     case "E":
       player.estadoPartida.x = x;
@@ -463,7 +462,7 @@ function movimiento(x, y) {
 
       //Bloqueamos el movimiento mientras luchamos
       accionTerminada = false;
-      combate(enemigo[0]);
+      combate(Object.assign({}, enemigo[0]));
       break;
     case "M":
       player.estadoPartida.x = x;
@@ -471,7 +470,7 @@ function movimiento(x, y) {
 
       //Bloqueamos el movimiento mientras luchamos
       accionTerminada = false;
-      combate(enemigo[1]);
+      combate(Object.assign({}, enemigo[1]));
       break;
     case "A":
       player.estadoPartida.x = x;
@@ -876,6 +875,12 @@ function combate(rival) {
   //Assignamos objetos al enemigo
   asignaObjetos(rival.objetos);
 
+  //Augmentamos sus estadisticas en funcion del nivel del jugador
+  rival.vida = rival.vida + Math.floor(rival.vida * (player.nivel)/10);
+  rival.ataque = rival.ataque + Math.floor(rival.ataque * (player.nivel)/10);
+  rival.armadura = rival.armadura + Math.floor(rival.armadura * (player.nivel)/10);
+  rival.resistenciaMagica = rival.resistenciaMagica + Math.floor(rival.resistenciaMagica * (player.nivel)/10);
+
   //Comprobamos que el combate sea posible, sino, el jugador huye del combate
   if (player.tipoAtaque == 'AD' && player.ataque <= rival.armadura) {
     huir = true;
@@ -888,6 +893,9 @@ function combate(rival) {
     if (player.raza == 'bosmer') {
       setTimeout(bosmer.habilidad, 500, rival);
     }
+
+    //Mostramos en el HUD las estadisticas del enemigo
+    muestraHudEnemigo(rival);
 
     //Empieza el combate
     $('#texto-juego').html('Te enfrentas a un ' + rival.nombre);
@@ -933,7 +941,12 @@ function turnoJugador(rival, turno, vidaPerdida, vidaInicial) {
     dano = player.ataque - rival.armadura;
   } else dano = player.ataque - rival.resistenciaMagica;
 
-  rival.vida = rival.vida - dano;
+  if (rival.vida >= dano) {
+    rival.vida = rival.vida - dano;
+  } else {
+    dano = rival.vida;
+    rival.vida = 0;
+  }
   $('#texto-juego').html(player.nombre + ' inflinge ' + dano + ' de daño al ' + rival.nombre);
 
   //Augmentamos el turno
@@ -941,7 +954,7 @@ function turnoJugador(rival, turno, vidaPerdida, vidaInicial) {
   turno++;
 
   //Actualizamos la vida del enemigo en el HUD
-  actualizaVidaEnemigo();
+  actualizaVidaEnemigo(rival);
 
   //Si el rival tiene vida, volvemos a llamar a la funcion
   turnosCombate(rival, turno, vidaPerdida, vidaInicial);
@@ -998,15 +1011,11 @@ function victoriaCombate(rival, vidaPerdida, vidaInicial) {
   //Augmentamos el numero de enemigos muertos
   player.estadoPartida.enemigosMuertos++;
 
-  //Restauramos la vida y los objetos del rival para proximos combates
-  rival.vida = vidaInicial;
-
-  while (rival.objetos.length > 1) {
-    rival.objetos.pop();
-  }
-
   //Indicamos que ya nos podemos volver a mover
   accionTerminada = true;
+
+  muestraHudMochila();
+  actualizaHUD();
 }
 
 /* Gestiona la derrota en un combate */
@@ -1022,15 +1031,21 @@ function augmentaXP(xp) {
   while (player.xp + xp > maxnivel){
     maxnivel = 10 * player.nivel + 10 * (player.nivel -1);
     player.nivel++;
+
+    //Augmentamos las estadisticas
     if(!(player.nivel % 2 == 0)){
       player.ataque++;
     }
     player.armadura++;
     player.resistenciaMagica++;
-    player.vida = player.vida + (player.nivel * 10);
+    player.vidaMax = player.vidaMax + (player.nivel * 10);
     nivelesaugmentados++;
     xp = xp - maxnivel;
+
+    //Restauramos el 50% de la vida restante
+    player.vida = player.vida + Math.floor((player.vidaMax - player.vida) * 0.5);
   }
+
   if(nivelesaugmentados != 0){
     actualizaHUD();
     $('#visor').remove();
@@ -1091,7 +1106,7 @@ function asignaObjetos(objetos) {
 
   if (player.nivel >= 1 && player.nivel < 4) {
     //Un único objetos, de los más básicos
-    //objetos.push('Espada de Hierro');
+    objetos.push(objetoAleatorio('basico'));
   }
 
   if (player.nivel >= 4 && player.nivel < 6) {
@@ -1099,7 +1114,7 @@ function asignaObjetos(objetos) {
     num = Math.floor(Math.random() * 2) + 1;
 
     for (i = 0; i < num; i++) {
-
+      objetos.push(objetoAleatorio('intermedio'));
     }
   }
 
@@ -1108,6 +1123,7 @@ function asignaObjetos(objetos) {
     num = Math.floor(Math.random() * 3) + 2;
 
     for (i = 0; i < num; i++) {
+      objetos.push(objetoAleatorio('intermedio'));
     }
     objetos.push(pociones[0]);
   }
@@ -1117,35 +1133,95 @@ function asignaObjetos(objetos) {
     num = Math.floor(Math.random() * 3) + 2;
 
     for (i = 0; i < num; i++) {
+      objetos.push(objetoAleatorio('fuerte'));
     }
     objetos.push(pociones[1]);
   }
 
 }
 
-function objetoAleatorio() {
-  var num = Math.floor(Math.random() * 4);
+/* Devuelve un objeto aleatorio segun su tipo */
+function objetoAleatorio(tipo) {
+  var num = Math.floor(Math.random() * 3);
+  var objeto;
 
   switch (num) {
     case 0:
       //Arma
-      break;
+      switch (tipo) {
+        case 'basico':
+          //Arma/Hechizo '0' o '1'
+          if (player.tipoAtaque == 'AD') {
+            objeto = armas[Math.floor(Math.random() * 2)];
+          } else {
+              objeto = hechizos[Math.floor(Math.random() * 2)];
+          }
+          break;
+        case 'intermedio':
+          //Arma/Hechizo '2' o '3'
+          if (player.tipoAtaque == 'AD') {
+            objeto = armas[Math.floor(Math.random() * 2) + 2];
+          } else {
+              objeto = hechizos[Math.floor(Math.random() * 2) + 2];
+          }
+          break;
+        case 'fuerte':
+          //Arma/Hechizo '4' o '5'
+          if (player.tipoAtaque == 'AD') {
+            objeto = armas[Math.floor(Math.random() * 2) + 3];
+          } else {
+              objeto = hechizos[Math.floor(Math.random() * 2) + 3];
+          }
+          break;
+      }
+      return objeto;
     case 1:
       //Escudo
-      break;
+      switch (tipo) {
+        case 'basico':
+          objeto = escudos[0];
+          break;
+        case 'intermedio':
+          //Escudo '1' o '2'
+          objeto = escudos[Math.floor(Math.random() * 2) + 1];
+          break;
+        case 'fuerte':
+          objeto = escudos[3];
+          break;
+      }
+      return objeto;
     case 2:
-      //
-      break;
-    case 3:
-      //Hechizo
-
-      break;
+      //Armadura
+      switch (tipo) {
+        case 'basico':
+          objeto = armaduras[0];
+          break;
+        case 'intermedio':
+          //Armaduras '1' o '2'
+          objeto = armaduras[Math.floor(Math.random() * 2) + 1];
+          break;
+        case 'fuerte':
+          objeto = armaduras[3];
+          break;
+      }
+      return objeto;
   }
 }
 
 /* Gestiona la recogida de objetos de un enemigo */
 function recogeObjetos(objetos, oro) {
+  var i = 1;
+
   //Añadir objetos a la mochila
+  while (player.mochila.indexOf('') < 7 && player.mochila.indexOf('') != -1 && i < objetos.length) {
+    player.mochila[player.mochila.indexOf('')] = objetos[i];
+    i++;
+  }
+
+  //Eliminamos los objetos del enemigo
+  while (objetos.length > 1) {
+    objetos.pop();
+  }
 
   //Añadimos el oro
   if (player.raza == 'imperial') {
@@ -1153,8 +1229,6 @@ function recogeObjetos(objetos, oro) {
   } else {
     player.oro = player.oro + oro;
   }
-
-  actualizaHUD();
 }
 
 /* Indicamos que se ha acabado la partida */
@@ -1253,8 +1327,8 @@ function actualizaEquipo() {
 }
 
 /* Actualiza la vida del enemigo */
-function actualizaVidaEnemigo() {
-
+function actualizaVidaEnemigo(rival) {
+  $('#vida-enemigo').html(rival.vida);
 }
 
 /* Devuelve la imagen de un objeto */
@@ -1304,4 +1378,21 @@ function getObjectImg(nombre) {
   }
 
   return 'objeto_vacio.png';
+}
+
+/* Muestra las estadisticas del enemigo en el HUD */
+function muestraHudEnemigo(rival) {
+
+  $($('.lista-objetos')[0]).html('<div id="hud-enemigo"></div>');
+  $('#hud-enemigo').append('<h4>' + rival.nombre + '</h4>');
+  $('#hud-enemigo').append('<p>Vida: <span id="vida-enemigo">' + rival.vida + '</span></p>');
+  $('#hud-enemigo').append('<p>Ataque: ' + rival.ataque + '</p>');
+  $('#hud-enemigo').append('<p>Tipo de daño: ' + rival.tipoAtaque + '</p>');
+  $('#hud-enemigo').append('<p>Armadura: ' + rival.armadura + '</p>');
+  $('#hud-enemigo').append('<p>Resistencia magica: ' + rival.resistenciaMagica + '</p>');
+}
+
+/* Muestra la mochila del jugador en el HUD */
+function muestraHudMochila() {
+  $($('.lista-objetos')[0]).html('<h4>Mochila</h4><div><img id="objeto1" src="./media/images/objeto_vacio.png" alt="objeto 1" width="100" height="100"><img id="objeto2" src="./media/images/objeto_vacio.png" alt="objeto 2" width="100" height="100"><img id="objeto3" src="./media/images/objeto_vacio.png" alt="objeto 3" width="100" height="100"></div><div><img id="objeto4" src="./media/images/objeto_vacio.png" alt="objeto 4" width="100" height="100"><img id="objeto5" src="./media/images/objeto_vacio.png" alt="objeto 5" width="100" height="100"><img id="objeto6" src="./media/images/objeto_vacio.png" alt="objeto 6" width="100" height="100"></div></div>');
 }

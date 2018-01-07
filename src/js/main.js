@@ -17,8 +17,10 @@ function iniciarJuego() {
 
       //Cargamos el fichero correspondiente
       $.when(cargaFichero(slot)).done(function() {
-        //Funciones del juego
+
         actualizaHUD();
+        creaMenuMochila();
+
         //  movimiento (ADRI)
         //  cambiar de nivel (de mapa) (ADRI)
         //  lucha (FITO)
@@ -28,7 +30,7 @@ function iniciarJuego() {
         //  recoger objetos (que dropean los enemigos) (FITO)
         // comprar en tienda (ADRI)
         //TODO abrir cofre (MARC: onclick en canvas per a "obrirlo")
-        //TODO gestionar mochila (FITO)
+        // gestionar mochila (FITO)
         //TODO gestionar objetos equipados (MARC -- llegeix extras.rtf)
         // visor (canvas) (ADRI)
         // HUD (FITO)
@@ -109,7 +111,6 @@ function cargaMapa(nivel) {
 /* Listener del teclado, para poder moverse sin tener que pulsar la tecla */
 window.onkeypress = function (event) {
   var key = event.keyCode;
-
   //Dependiendo de la tecla pulsada, se movera, girara la camara o guardara partida
   if (key == 87 || key == 119) {
     //W
@@ -135,6 +136,12 @@ window.onkeypress = function (event) {
   }
 };
 
+window.onkeyup = function(event) {
+  if (event.keyCode == 27) {
+    //ESC
+    $("#menu-mochila").css('display', 'none');
+  }
+}
 /* Carga la imagen que corresponde segun la posicion del jugador */
 function cargaPosicion(x, y, orientacion) {
   try {
@@ -1017,6 +1024,7 @@ function victoriaCombate(rival, vidaPerdida, vidaInicial) {
   accionTerminada = true;
 
   muestraHudMochila();
+  creaMenuMochila();
   actualizaHUD();
 }
 
@@ -1323,9 +1331,9 @@ function actualizaMochila() {
 
 /* Actualiza los objetos equipados en el HUD */
 function actualizaEquipo() {
-  $('#mano-izq').attr('src', './media/images/' + getObjectImg(player.manoizquierda));
-  $('#mano-der').attr('src', './media/images/' + getObjectImg(player.manoderecha));
-  $('#cuerpo').attr('src', './media/images/' + getObjectImg(player.cuerpo));
+  $('#mano-izq').attr('src', './media/images/' + getObjectImg(player.manoizquierda.nombre));
+  $('#mano-der').attr('src', './media/images/' + getObjectImg(player.manoderecha.nombre));
+  $('#cuerpo').attr('src', './media/images/' + getObjectImg(player.cuerpo.nombre));
 }
 
 /* Actualiza la vida del enemigo */
@@ -1397,4 +1405,156 @@ function muestraHudEnemigo(rival) {
 /* Muestra la mochila del jugador en el HUD */
 function muestraHudMochila() {
   $($('.lista-objetos')[0]).html('<h4>Mochila</h4><div><img id="objeto1" src="./media/images/objeto_vacio.png" alt="objeto 1" width="100" height="100"><img id="objeto2" src="./media/images/objeto_vacio.png" alt="objeto 2" width="100" height="100"><img id="objeto3" src="./media/images/objeto_vacio.png" alt="objeto 3" width="100" height="100"></div><div><img id="objeto4" src="./media/images/objeto_vacio.png" alt="objeto 4" width="100" height="100"><img id="objeto5" src="./media/images/objeto_vacio.png" alt="objeto 5" width="100" height="100"><img id="objeto6" src="./media/images/objeto_vacio.png" alt="objeto 6" width="100" height="100"></div></div>');
+}
+
+/* Menu para gestionar la mochila */
+function creaMenuMochila() {
+  //Si hacemos click en un objeto, se mostrara el menu
+  $('#objeto1').click(function (e) {
+    if ($('#objeto1').attr('src') != './media/images/objeto_vacio.png') {
+      $('#menu-mochila').css({'display':'block', 'left':e.pageX, 'top':e.pageY});
+      $('#origen-menu').html('0');
+    }
+  });
+
+  $('#objeto2').click(function (e) {
+    if ($('#objeto2').attr('src') != './media/images/objeto_vacio.png') {
+      $('#menu-mochila').css({'display':'block', 'left':e.pageX, 'top':e.pageY});
+      $('#origen-menu').html('1');
+    }
+  });
+
+  $('#objeto3').click(function (e) {
+    if ($('#objeto3').attr('src') != './media/images/objeto_vacio.png') {
+      $('#menu-mochila').css({'display':'block', 'left':e.pageX, 'top':e.pageY});
+      $('#origen-menu').html('2');
+    }
+  });
+
+  $('#objeto4').click(function (e) {
+    if ($('#objeto4').attr('src') != './media/images/objeto_vacio.png') {
+      $('#menu-mochila').css({'display':'block', 'left':e.pageX, 'top':e.pageY});
+      $('#origen-menu').html('3');
+    }
+  });
+
+  $('#objeto5').click(function (e) {
+    if ($('#objeto5').attr('src') != './media/images/objeto_vacio.png') {
+      $('#menu-mochila').css({'display':'block', 'left':e.pageX, 'top':e.pageY});
+      $('#origen-menu').html('4');
+    }
+  });
+
+  $('#objeto6').click(function (e) {
+    if ($('#objeto6').attr('src') != './media/images/objeto_vacio.png') {
+      $('#menu-mochila').css({'display':'block', 'left':e.pageX, 'top':e.pageY});
+      $('#origen-menu').html('5');
+    }
+  });
+
+  //Si hacemos click en una de las opciones, la ejecutamos y hacemos desaparecer el menu
+  $('#menu-mochila').click(function (e) {
+    var idObjeto = $('#origen-menu').text();
+
+    if (e.target.id == 'equipar-objeto') {
+      equiparObjeto(idObjeto);
+
+    } else if (e.target.id == 'tirar-objeto') {
+      //Eliminamos el objeto
+      player.mochila[idObjeto] = '';
+      actualizaMochila();
+    }
+
+    //Ocultamos el menu
+    $("#menu-mochila").css('display', 'none');
+  });
+}
+
+/* Equipa un objeto de la mochila */
+function equiparObjeto(idObjeto) {
+  var objeto = player.mochila[idObjeto];
+
+  if ((/espada/i).test(objeto.nombre) || (/hacha/i).test(objeto.nombre)) {
+    //Es un arma, miramos que mano derecha o mano izquierda esten libres
+    if (player.manoderecha == '' && player.tipoAtaque == 'AD') {
+      //Equipamos el objeto
+      player.manoderecha = objeto;
+
+      //Actualizamos las estadisticas correspondientes
+      player.ataque = player.ataque + objeto.ataque;
+
+      //Lo eliminamos de la mochila
+      player.mochila[idObjeto] = '';
+
+    } else if (player.manoizquierda == '' && player.tipoAtaque == 'AD') {
+      player.manoizquierda = objeto;
+      player.ataque = player.ataque + objeto.ataque;
+      player.mochila[idObjeto] = '';
+
+    } else {
+      $('#texto-juego').html('No puedes equiparte el arma');
+    }
+  } else if ((/escudo/i).test(objeto.nombre)) {
+    //Es un escudo, miramos que mano derecha o mano izquierda esten libres
+    if (player.manoderecha == '') {
+      player.manoderecha = objeto;
+      player.armadura = player.armadura + objeto.armadura;
+      player.mochila[idObjeto] = '';
+
+    } else if (player.manoizquierda == '') {
+      player.manoizquierda = objeto;
+      player.armadura = player.armadura + objeto.armadura;
+      player.mochila[idObjeto] = '';
+
+    } else {
+      $('#texto-juego').html('No puedes equiparte el escudo');
+    }
+  } else if ((/armadura/i).test(objeto.nombre) || (/capa/i).test(objeto.nombre)) {
+    //Es una armadura, miramos que cuerpo este libre
+    if (player.cuerpo == '') {
+      player.cuerpo = objeto;
+      player.armadura = player.armadura + objeto.armadura;
+      player.resistenciaMagica = player.resistenciaMagica + objeto.resistenciaMagica;
+      player.mochila[idObjeto] = '';
+
+    } else {
+      $('#texto-juego').html('No puedes equiparte la armadura');
+    }
+  } else if ((/poción/i).test(objeto.nombre)) {
+    //Es una pocion
+    var vidaRestante = player.vidaMax - player.vida;
+    if (vidaRestante > objeto.curacion) {
+      player.vida = player.vida + objeto.curacion;
+    } else {
+      player.vida = player.vidaMax;
+    }
+    player.mochila[idObjeto] = '';
+
+  } else if ((/hechizo/i).test(objeto.img)) {
+    //Es un hechizo, miramos que mano derecha o mano izquierda esten libres
+    if (player.manoderecha == '' && player.tipoAtaque == 'AP') {
+      player.manoderecha = objeto;
+      player.ataque = player.ataque + objeto.ataque;
+      player.mochila[idObjeto] = '';
+
+    } else if (player.manoizquierda == '' && player.tipoAtaque == 'AP') {
+      player.manoizquierda = objeto;
+      player.ataque = player.ataque + objeto.ataque;
+      player.mochila[idObjeto] = '';
+
+    } else {
+      $('#texto-juego').html('No puedes equiparte el hechizo');
+    }
+  }
+
+  //Aplicamos pasiva de Nordico y Guardia Rojo
+  if (player.raza == 'nordico') {
+    player.ataque = player.ataque + nordico.habilidad(player.manoizquierda, player.manoderecha);
+  }
+
+  if (player.raza == 'guardiaRojo') {
+    player.ataque = player.ataque + guardiaRojo.habilidad(player.manoizquierda, player.manoderecha);
+  }
+
+  actualizaHUD();
 }

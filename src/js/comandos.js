@@ -97,7 +97,7 @@
     }, {
       "nombre": "Imperial",
       "habilidad": "Astucia de Cyrodiil",
-      "descripcion": "Los imperiales, nativos de Cyrodiil, sobresalen sobre las demadas razas por su astucia. Por eso, son capaces de conseguir un 25% más de oro."
+      "descripcion": "Los imperiales, nativos de Cyrodiil, sobresalen sobre las demás razas por su astucia. Por eso, son capaces de conseguir un 25% más de oro."
     }, {
       "nombre": "Nórdico",
       "habilidad": "Fuerza de Skyrim",

@@ -466,3 +466,8 @@ td, th {
 #origen-menu {
   display: none;
 }
+
+#vida, #lvl {
+  width: 15px;
+  height: 15px;
+}

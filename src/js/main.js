@@ -24,7 +24,7 @@ function iniciarJuego() {
         creaMenuEquipo();
 
         //Creamos el listener para guardar
-        $('#menu-guardar').click(function (e) {
+        $('#menu-guardar').click(function(e) {
           var nombreSlot1 = $('#nombre-slot1').text();
           var nombreSlot2 = $('#nombre-slot2').text();
 
@@ -59,25 +59,6 @@ function iniciarJuego() {
               break;
           }
         });
-
-        //  movimiento (ADRI)
-        //  cambiar de nivel (de mapa) (ADRI)
-        //  lucha (FITO)
-        //  movimiento con teclas (WASD - Q E - G)
-        //  crear 'stats' eneigo en hud (FITO)
-        //  gestionar nivel personaje (augmentar las stats siguendo el enunciado + subir un punto en una de las stats (definido en rubrica.rtf)) (ADRI --> funcion creada: augmentaXP)
-        //  recoger objetos (que dropean los enemigos) (FITO)
-        // comprar en tienda (ADRI)
-        //TODO abrir cofre (MARC: onclick en canvas per a "obrirlo")
-        // gestionar mochila (FITO)
-        // gestionar objetos equipados (MARC -- llegeix extras.rtf)
-        // visor (canvas) (ADRI)
-        // HUD (FITO)
-        // guardar partida (sobreescribir si ya existe una en el slot) (FITO)
-        //musica (ADRI)
-        // alduin (drop 'alma' + aprender grito) (MARC)
-        // abrir puerta salida (MARC)
-        // game over (por muerte o abriendo puerta) (MARC (gameover.html))
       });
     } else {
       alert('Slot no válido, no modifiques la URL.');
@@ -143,7 +124,7 @@ function cargaMapa(nivel) {
 }
 
 /* Listener del teclado, para poder moverse sin tener que pulsar la tecla */
-window.onkeypress = function (event) {
+window.onkeypress = function(event) {
   var key = event.keyCode;
   //Dependiendo de la tecla pulsada, se movera, girara la camara o guardara partida
   if (key == 87 || key == 119) {
@@ -211,7 +192,7 @@ function cargaPosicion(x, y, orientacion) {
         pintaPosicion(x, y - 1);
         break;
     }
-  } catch (e){
+  } catch (e) {
 
   }
 }
@@ -252,6 +233,7 @@ function mapaToImg(x, y) {
   }
 }
 
+/* Ejecuta movimiento segun direccion*/
 function muevePlayer(direccion) {
 
   if (accionTerminada) {
@@ -397,16 +379,20 @@ function muevePlayer(direccion) {
 function movimiento(x, y) {
   //Entran x, y que serian la posicion siguiente dependiendo de la tecla que pulsemos --> x+1,y , etc.
   switch (mapa[x][y]) {
+    //Espacio Vacio
     case "V":
       //Actualizamos la posicion
       player.estadoPartida.x = x;
       player.estadoPartida.y = y;
 
       break;
+      //Pared
     case "X":
       $('#texto-juego').html('No puedes avanzar por la pared');
       break;
+      //Portal
     case "O":
+      $('#texto-juego').html(player.nombre + ' has utilizado un portal');
       if (player.estadoPartida.nivel == -5) {
         player.estadoPartida.nivel = -1;
         player.estadoPartida.x = 8;
@@ -418,9 +404,12 @@ function movimiento(x, y) {
         player.estadoPartida.y = 1;
         player.estadoPartida.direccion = 0;
       }
+      actualizaHUD();
       break;
+      //Portal
     case "P":
       if (player.estadoPartida.nivel == -4) {
+        $('#texto-juego').html(player.nombre + ' has utilizado un portal');
         player.estadoPartida.nivel = -2;
         player.estadoPartida.x = 8;
         player.estadoPartida.y = 4;
@@ -431,7 +420,9 @@ function movimiento(x, y) {
         player.estadoPartida.y = 6;
         player.estadoPartida.direccion = 0;
       }
+      actualizaHUD();
       break;
+      //Subir de nivel
     case "S":
       $('#texto-juego').html(player.nombre + ' ha subido de nivel');
       player.estadoPartida.nivel++;
@@ -459,6 +450,7 @@ function movimiento(x, y) {
       }
       actualizaHUD();
       break;
+      //Bajar de nivel
     case "B":
       $('#texto-juego').html(player.nombre + ' ha bajado de nivel');
       player.estadoPartida.nivel--;
@@ -486,6 +478,7 @@ function movimiento(x, y) {
       }
       actualizaHUD();
       break;
+      //Puerta final
     case "F":
       if (player.estadoPartida.grito == true) {
         setGameover(true);
@@ -493,22 +486,25 @@ function movimiento(x, y) {
         $('#texto-juego').html('Necesitas el grito para abrir la puerta');
       }
       break;
+      //Tienda
     case "T":
       //Bloqueamos el movimiento mientras compramos
       accionTerminada = false;
       creaTienda();
       break;
+      //Cofre
     case "C":
       //Bloqueamos el movimiento mientras abrimos el cofre
       accionTerminada = false;
       creaCofre(0);
       break;
-
+      //Cofre
     case "K":
       //Bloqueamos el movimiento mientras abrimos el cofre
       accionTerminada = false;
       creaCofre(1);
       break;
+      //Boss
     case "J":
       player.estadoPartida.x = x;
       player.estadoPartida.y = y;
@@ -517,6 +513,7 @@ function movimiento(x, y) {
       accionTerminada = false;
       combate(enemigo[3]);
       break;
+      //Enemigo Tanque
     case "G":
       player.estadoPartida.x = x;
       player.estadoPartida.y = y;
@@ -525,6 +522,7 @@ function movimiento(x, y) {
       accionTerminada = false;
       combate(Object.assign({}, enemigo[2]));
       break;
+      //Enemigo Asesino
     case "E":
       player.estadoPartida.x = x;
       player.estadoPartida.y = y;
@@ -533,6 +531,7 @@ function movimiento(x, y) {
       accionTerminada = false;
       combate(Object.assign({}, enemigo[0]));
       break;
+      //Enemigo Mago
     case "M":
       player.estadoPartida.x = x;
       player.estadoPartida.y = y;
@@ -541,6 +540,7 @@ function movimiento(x, y) {
       accionTerminada = false;
       combate(Object.assign({}, enemigo[1]));
       break;
+      //Alma
     case "A":
       player.estadoPartida.x = x;
       player.estadoPartida.y = y;
@@ -599,22 +599,26 @@ function girarCamara(derecha) {
 
 /* Creamos el menu de la Tienda con los items*/
 function creaTienda() {
+  //Quitamos el canvas del div
   $('#visor').remove();
   $('#texto-juego').html(player.nombre + ' abre la tienda');
+  //Creamos el menu principal de la tienda
   creaMenuTienda();
 }
 
-function creaMenuTienda(){
+/* Creamos el menu de la tienda*/
+function creaMenuTienda() {
+  //En caso de existir, lo removemos, para cuando volvemos de algun submenu
   $('#tienda').remove();
-
+  //Creamos la cabecera
   $('#navegacion').append('<div id = "tienda"></div>');
   $('#tienda').append('<h3>Que deseas Comprar?</h3>');
   $('#tienda').append('<table id ="productos"></table>');
   $('#productos').append('<tr id ="fila1"></tr>');
-
-  if (player.rol == 'mago'){
+  //En funcion si es mago o no le dejamos comprar armas o hechizos
+  if (player.rol == 'mago') {
     $('#fila1').append('<td><button class = "botontienda2" disabled>Armas</button></td>');
-  }else{
+  } else {
     $('#fila1').append('<td><button class = "botontienda" onclick = creaTableArmas();>Armas</button></td>');
   }
 
@@ -625,16 +629,18 @@ function creaMenuTienda(){
   $('#fila2').append('<td><button class = "botontienda" onclick = creaTablePociones();>Pociones</button></td>');
   $('#fila2').append('<td><button class = "botontienda" onclick = creaTableBotas();>Botas</button></td>');
 
-  if (player.rol == 'mago'){
+  if (player.rol == 'mago') {
     $('#fila2').append('<td><button class = "botontienda" onclick = creaTableHechizos();>Hechizos</button></td>');
-  }else{
+  } else {
     $('#fila2').append('<td><button disabled class = "botontienda2">Hechizos</button></td>');
   }
 
   $('#tienda').append('<button id = "volverjuegotienda" onclick = volverJuegoTienda();>Salir</button>');
 }
 
-function creaTableArmas(){
+/* Creamos la table de las Armas*/
+function creaTableArmas() {
+  //Hacemos remove del menu principal
   $('#tienda').remove();
 
   $('#navegacion').append('<div id = "tienda"></div>');
@@ -648,7 +654,8 @@ function creaTableArmas(){
   $('#fila0').append('<td>Comprar</td>');
 
   var i = 0;
-  while(armas[i] != null){
+  //Añadimos todos los objetos que tiene el submenu
+  while (armas[i] != null) {
     var fila = 'fila';
     var numfila = 1 + i;
     var strnumfila = numfila.toString();
@@ -664,22 +671,23 @@ function creaTableArmas(){
     var tdprecio = '<td id = "' + idprecio + '"></td>';
 
     $('#productos').append(tr);
-    $('#'+idfila).append(tdnombre);
-    $('#'+idnombre).html(armas[i].nombre);
-    $('#'+idfila).append(tdataque);
-    $('#'+idataque).html(armas[i].ataque);
-    $('#'+idfila).append(tdprecio);
-    $('#'+idprecio).html(armas[i].precio);
+    $('#' + idfila).append(tdnombre);
+    $('#' + idnombre).html(armas[i].nombre);
+    $('#' + idfila).append(tdataque);
+    $('#' + idataque).html(armas[i].ataque);
+    $('#' + idfila).append(tdprecio);
+    $('#' + idprecio).html(armas[i].precio);
 
     var comprar = '<td><button class = "botoncompraitem" onclick = compraentienda(armas[' + i + '],0);>Comprar!</button></td>';
-    $('#'+idfila).append(comprar);
+    $('#' + idfila).append(comprar);
 
     i++;
   }
   $('#tienda').append('<button id = "volverjuegotienda" onclick = creaMenuTienda();>Salir</button>');
 }
 
-function creaTableEscudos(){
+/* Creamos la table de los Escudos*/
+function creaTableEscudos() {
   $('#tienda').remove();
   $('#navegacion').append('<div id = "tienda"></div>');
   $('#tienda').append('<h3>Que escudo deseas Comprar?</h3>');
@@ -692,7 +700,7 @@ function creaTableEscudos(){
   $('#fila0').append('<td>Comprar</td>');
 
   var i = 0;
-  while(escudos[i] != null){
+  while (escudos[i] != null) {
     var fila = 'fila';
     var numfila = 1 + i;
     var strnumfila = numfila.toString();
@@ -708,21 +716,22 @@ function creaTableEscudos(){
     var tdprecio = '<td id = "' + idprecio + '"></td>';
 
     $('#productos').append(tr);
-    $('#'+idfila).append(tdnombre);
-    $('#'+idnombre).html(escudos[i].nombre);
-    $('#'+idfila).append(tdarmadura);
-    $('#'+idarmadura).html(escudos[i].armadura);
-    $('#'+idfila).append(tdprecio);
-    $('#'+idprecio).html(escudos[i].precio);
+    $('#' + idfila).append(tdnombre);
+    $('#' + idnombre).html(escudos[i].nombre);
+    $('#' + idfila).append(tdarmadura);
+    $('#' + idarmadura).html(escudos[i].armadura);
+    $('#' + idfila).append(tdprecio);
+    $('#' + idprecio).html(escudos[i].precio);
 
     var comprar = '<td><button class = "botoncompraitem" onclick = compraentienda(escudos[' + i + '],1);>Comprar!</button></td>';
-    $('#'+idfila).append(comprar);
+    $('#' + idfila).append(comprar);
     i++;
   }
   $('#tienda').append('<button id = "volverjuegotienda" onclick = creaMenuTienda();>Salir</button>');
 }
 
-function creaTableArmaduras(){
+/* Creamos la table de las Armaduras*/
+function creaTableArmaduras() {
   $('#tienda').remove();
   $('#navegacion').append('<div id = "tienda"></div>');
   $('#tienda').append('<h3>Que armadura deseas Comprar?</h3>');
@@ -735,7 +744,7 @@ function creaTableArmaduras(){
   $('#fila0').append('<td>Comprar</td>');
 
   var i = 0;
-  while(armaduras[i] != null){
+  while (armaduras[i] != null) {
     var fila = 'fila';
     var numfila = 1 + i;
     var strnumfila = numfila.toString();
@@ -753,23 +762,24 @@ function creaTableArmaduras(){
     var tdprecio = '<td id = "' + idprecio + '"></td>';
 
     $('#productos').append(tr);
-    $('#'+idfila).append(tdnombre);
-    $('#'+idnombre).html(armaduras[i].nombre);
-    $('#'+idfila).append(tdarmadura);
-    $('#'+idarmadura).html(armaduras[i].armadura);
-    $('#'+idfila).append(tdmr);
-    $('#'+idmr).html(armaduras[i].resistenciaMagica);
-    $('#'+idfila).append(tdprecio);
-    $('#'+idprecio).html(armaduras[i].precio);
+    $('#' + idfila).append(tdnombre);
+    $('#' + idnombre).html(armaduras[i].nombre);
+    $('#' + idfila).append(tdarmadura);
+    $('#' + idarmadura).html(armaduras[i].armadura);
+    $('#' + idfila).append(tdmr);
+    $('#' + idmr).html(armaduras[i].resistenciaMagica);
+    $('#' + idfila).append(tdprecio);
+    $('#' + idprecio).html(armaduras[i].precio);
 
     var comprar = '<td><button class = "botoncompraitem" onclick = compraentienda(armaduras[' + i + '],2);>Comprar!</button></td>';
-    $('#'+idfila).append(comprar);
+    $('#' + idfila).append(comprar);
     i++;
   }
   $('#tienda').append('<button id = "volverjuegotienda" onclick = creaMenuTienda();>Salir</button>');
 }
 
-function creaTablePociones(){
+/* Creamos la table de las Pociones*/
+function creaTablePociones() {
   $('#tienda').remove();
   $('#navegacion').append('<div id = "tienda"></div>');
   $('#tienda').append('<h3>Que pocion deseas Comprar?</h3>');
@@ -781,7 +791,7 @@ function creaTablePociones(){
   $('#fila0').append('<td>Comprar</td>');
 
   var i = 0;
-  while(pociones[i] != null){
+  while (pociones[i] != null) {
     var fila = 'fila';
     var numfila = 1 + i;
     var strnumfila = numfila.toString();
@@ -797,21 +807,22 @@ function creaTablePociones(){
     var tdprecio = '<td id = "' + idprecio + '"></td>';
 
     $('#productos').append(tr);
-    $('#'+idfila).append(tdnombre);
-    $('#'+idnombre).html(pociones[i].nombre);
-    $('#'+idfila).append(tdcuracion);
-    $('#'+idcuracion).html(pociones[i].curacion);
-    $('#'+idfila).append(tdprecio);
-    $('#'+idprecio).html(pociones[i].precio);
+    $('#' + idfila).append(tdnombre);
+    $('#' + idnombre).html(pociones[i].nombre);
+    $('#' + idfila).append(tdcuracion);
+    $('#' + idcuracion).html(pociones[i].curacion);
+    $('#' + idfila).append(tdprecio);
+    $('#' + idprecio).html(pociones[i].precio);
 
     var comprar = '<td><button class = "botoncompraitem" onclick = compraentienda(pociones[' + i + '],3);>Comprar!</button></td>';
-    $('#'+idfila).append(comprar);
+    $('#' + idfila).append(comprar);
     i++;
   }
   $('#tienda').append('<button id = "volverjuegotienda" onclick = creaMenuTienda();>Salir</button>');
 }
 
-function creaTableBotas(){
+/* Creamos la table de las Botas*/
+function creaTableBotas() {
   $('#tienda').remove();
   $('#navegacion').append('<div id = "tienda"></div>');
   $('#tienda').append('<h3>Que botas deseas Comprar?</h3>');
@@ -822,7 +833,7 @@ function creaTableBotas(){
   $('#fila0').append('<td>Comprar</td>');
 
   var i = 0;
-  while(botas[i] != null){
+  while (botas[i] != null) {
     var fila = 'fila';
     var numfila = 1 + i;
     var strnumfila = numfila.toString();
@@ -836,20 +847,21 @@ function creaTableBotas(){
     var tdprecio = '<td id = "' + idprecio + '"></td>';
 
     $('#productos').append(tr);
-    $('#'+idfila).append(tdnombre);
-    $('#'+idnombre).html(botas[i].nombre);
-    $('#'+idfila).append(tdprecio);
-    $('#'+idprecio).html(botas[i].precio);
+    $('#' + idfila).append(tdnombre);
+    $('#' + idnombre).html(botas[i].nombre);
+    $('#' + idfila).append(tdprecio);
+    $('#' + idprecio).html(botas[i].precio);
 
     var comprar = '<td><button class = "botoncompraitem" onclick = compraentienda(botas[' + i + '],4);>Comprar!</button></td>';
-    $('#'+idfila).append(comprar);
+    $('#' + idfila).append(comprar);
 
     i++;
   }
   $('#tienda').append('<button id = "volverjuegotienda" onclick = creaMenuTienda();>Salir</button>');
 }
 
-function creaTableHechizos(){
+/* Creamos la table de los Hechizos*/
+function creaTableHechizos() {
   $('#tienda').remove();
   $('#navegacion').append('<div id = "tienda"></div>');
   $('#tienda').append('<h3>Que hechizo deseas Comprar?</h3>');
@@ -861,7 +873,7 @@ function creaTableHechizos(){
   $('#fila0').append('<td>Comprar</td>');
 
   var i = 0;
-  while(hechizos[i] != null){
+  while (hechizos[i] != null) {
     var fila = 'fila';
     var numfila = 1 + i;
     var strnumfila = numfila.toString();
@@ -877,55 +889,60 @@ function creaTableHechizos(){
     var tdprecio = '<td id = "' + idprecio + '"></td>';
 
     $('#productos').append(tr);
-    $('#'+idfila).append(tdnombre);
-    $('#'+idnombre).html(hechizos[i].nombre);
-    $('#'+idfila).append(tdataque);
-    $('#'+idataque).html(hechizos[i].ataque);
-    $('#'+idfila).append(tdprecio);
-    $('#'+idprecio).html(hechizos[i].precio);
+    $('#' + idfila).append(tdnombre);
+    $('#' + idnombre).html(hechizos[i].nombre);
+    $('#' + idfila).append(tdataque);
+    $('#' + idataque).html(hechizos[i].ataque);
+    $('#' + idfila).append(tdprecio);
+    $('#' + idprecio).html(hechizos[i].precio);
 
     var comprar = '<td><button class = "botoncompraitem" onclick = compraentienda(hechizos[' + i + '],0);>Comprar!</button></td>';
-    $('#'+idfila).append(comprar);
+    $('#' + idfila).append(comprar);
     i++;
   }
   $('#tienda').append('<button id = "volverjuegotienda" onclick = creaMenuTienda();>Salir</button>');
 }
 
-function compraentienda (producto, tipo){
-  if (player.mochila.indexOf("") < 6 && player.mochila.indexOf("") > -1){
-    if(player.oro >= producto.precio){
-      if(player.raza == 'orco'){
+/* Gestiona la compra de los diferentes elementos de la tienda*/
+function compraentienda(producto, tipo) {
+  //Comprovamos que el objeto quepa en la mochila y que tenga suficiente dinero
+  if (player.mochila.indexOf("") < 6 && player.mochila.indexOf("") > -1) {
+    if (player.oro >= producto.precio) {
+      //En caso de ser el orco le aplicamos su habilidad pasiva
+      if (player.raza == 'orco') {
         orco.habilidad(producto, tipo);
       }
-
+      //Restamos el dinero del item i lo metemos en la mochila
       player.oro = player.oro - producto.precio;
       player.mochila[player.mochila.indexOf("")] = producto;
-
       actualizaHUD();
       $('#texto-juego').html('Gracias por comprar!');
-    }else{
+    } else {
       $('#texto-juego').html('No tienes suficiente dinero');
     }
-  }else{
+  } else {
     $('#texto-juego').html('Tienes la mochila llena!');
   }
+  //Volvemos en el menu principal
   creaMenuTienda();
 }
 
-function volverJuegoTienda(){
-    $('#tienda').remove();
-    $('#navegacion').append('<canvas id="visor" width="300" height="300"></canvas>');
-    cargaPosicion(player.estadoPartida.x, player.estadoPartida.y, player.estadoPartida.direccion);
+/*Nos permite crear de nuevo el canvas del juego*/
+function volverJuegoTienda() {
+  $('#tienda').remove();
+  $('#navegacion').append('<canvas id="visor" width="300" height="300"></canvas>');
+  cargaPosicion(player.estadoPartida.x, player.estadoPartida.y, player.estadoPartida.direccion);
 
-    accionTerminada = true;
+  accionTerminada = true;
 
 }
 
+/* Crea los cofres del juego*/
 function creaCofre(tipoCofre) {
-  if (cofres[tipoCofre].usado == false){
+  if (cofres[tipoCofre].usado == false) {
     cofres[tipoCofre].usado = true;
     itemsCofre = new Array(cofres[tipoCofre].objetos.length);
-    for(var i = 0; i < cofres[tipoCofre].objetos.length; i++) {
+    for (var i = 0; i < cofres[tipoCofre].objetos.length; i++) {
       itemsCofre[i] = true;
     }
   }
@@ -934,8 +951,9 @@ function creaCofre(tipoCofre) {
   creaItemsCofre(tipoCofre);
 }
 
+/* Crea los items de dentro del cofre*/
 function creaItemsCofre(tipoCofre) {
-
+  //Estructura similar a tienda
   $('#cofre').remove();
   $('#navegacion').append('<div id="cofre"></div>');
   $('#cofre').append('<h3>Cofre</h3>');
@@ -944,8 +962,8 @@ function creaItemsCofre(tipoCofre) {
   $('#fila0').append('<td>Nombre</td>');
   $('#fila0').append('<td>Coger</td>');
 
-
-  for(var i = 0; i < cofres[tipoCofre].objetos.length; i++){
+  //Añadimos todos los objetos del cofre
+  for (var i = 0; i < cofres[tipoCofre].objetos.length; i++) {
     var fila = 'fila';
     var numfila = 1 + i;
     var strnumfila = numfila.toString();
@@ -957,29 +975,30 @@ function creaItemsCofre(tipoCofre) {
     var tdnombre = '<td id = "' + idnombre + '"></td>';
 
     $('#items').append(tr);
-    $('#'+idfila).append(tdnombre);
-    $('#'+idnombre).html(cofres[tipoCofre].objetos[i]);
+    $('#' + idfila).append(tdnombre);
+    $('#' + idnombre).html(cofres[tipoCofre].objetos[i]);
 
-    var coger = '<td><button class = "botoncompraitem" id="btn'+ i +'" onclick=cogerdeCofre('+ tipoCofre +',' + i + ');>Coger</button></td>';
-    $('#'+idfila).append(coger);
-    if(itemsCofre[i] == false) {
-      $('#btn' + i).attr("disabled","true");
+    var coger = '<td><button class = "botoncompraitem" id="btn' + i + '" onclick=cogerdeCofre(' + tipoCofre + ',' + i + ');>Coger</button></td>';
+    $('#' + idfila).append(coger);
+    if (itemsCofre[i] == false) {
+      $('#btn' + i).attr("disabled", "true");
     }
   }
   $('#cofre').append('<button id = "volverjuegocofre" onclick = volverJuegoCofre();>Salir</button>');
 }
 
+/*Nos permite gestionr cuando cojemos un elemento del cofre*/
 function cogerdeCofre(tipoCofre, item) {
   itemsCofre[item] = false;
-  if(item == 0) {
+  //En caso de ser el oro del cofre lo sumamos
+  if (item == 0) {
     player.oro = player.oro + cofres[tipoCofre].objetos[item];
   } else {
-    if (player.mochila.indexOf("") < 6 && player.mochila.indexOf("") > -1){
+    //Comprobamos si la mochila esta llena antes de assignar el objeto
+    if (player.mochila.indexOf("") < 6 && player.mochila.indexOf("") > -1) {
       var objeto = getObjectByName(cofres[tipoCofre].objetos[item]);
       player.mochila[player.mochila.indexOf("")] = objeto;
-      actualizaHUD();
-
-    }else{
+    } else {
       $('#texto-juego').html('Tienes la mochila llena!');
     }
   }
@@ -987,15 +1006,18 @@ function cogerdeCofre(tipoCofre, item) {
   creaItemsCofre(tipoCofre);
 }
 
-function volverJuegoCofre(){
-    $('#cofre').remove();
-    $('#navegacion').append('<canvas id="visor" width="300" height="300"></canvas>');
-    cargaPosicion(player.estadoPartida.x, player.estadoPartida.y, player.estadoPartida.direccion);
+/* Nos recarga el canvas del juego*/
+function volverJuegoCofre() {
+  $('#cofre').remove();
+  $('#navegacion').append('<canvas id="visor" width="300" height="300"></canvas>');
+  cargaPosicion(player.estadoPartida.x, player.estadoPartida.y, player.estadoPartida.direccion);
 
-    accionTerminada = true;
+  accionTerminada = true;
 }
 
+/* Aprende el grito necesario para salir*/
 function aprendeGrito() {
+  //Comprovamos si se ha aprendido el alma
   if (player.estadoPartida.alma == true) {
     player.estadoPartida.grito = true;
     $('#texto-juego').html('Has aprendido el grito');
@@ -1013,10 +1035,10 @@ function combate(rival) {
   asignaObjetos(rival.objetos);
 
   //Augmentamos sus estadisticas en funcion del nivel del jugador
-  rival.vida = rival.vida + Math.floor(rival.vida * (player.nivel)/10);
-  rival.ataque = rival.ataque + Math.floor(rival.ataque * (player.nivel)/10);
-  rival.armadura = rival.armadura + Math.floor(rival.armadura * (player.nivel)/10);
-  rival.resistenciaMagica = rival.resistenciaMagica + Math.floor(rival.resistenciaMagica * (player.nivel)/10);
+  rival.vida = rival.vida + Math.floor(rival.vida * (player.nivel) / 10);
+  rival.ataque = rival.ataque + Math.floor(rival.ataque * (player.nivel) / 10);
+  rival.armadura = rival.armadura + Math.floor(rival.armadura * (player.nivel) / 10);
+  rival.resistenciaMagica = rival.resistenciaMagica + Math.floor(rival.resistenciaMagica * (player.nivel) / 10);
 
   //Comprobamos que el combate sea posible, sino, el jugador huye del combate
   if (player.tipoAtaque == 'AD' && player.ataque <= rival.armadura) {
@@ -1164,14 +1186,14 @@ function derrotaCombate(rival) {
 
 /* Gestiona la experiencia y el nivel del jugador */
 function augmentaXP(xp) {
-  var maxnivel = 10 * player.nivel + 10 * (player.nivel -1);
+  var maxnivel = 10 * player.nivel + 10 * (player.nivel - 1);
   var nivelesaugmentados = 0;
-  while (player.xp + xp > maxnivel){
-    maxnivel = 10 * player.nivel + 10 * (player.nivel -1);
+  while (player.xp + xp > maxnivel) {
+    maxnivel = 10 * player.nivel + 10 * (player.nivel - 1);
     player.nivel++;
 
     //Augmentamos las estadisticas
-    if(!(player.nivel % 2 == 0)){
+    if (!(player.nivel % 2 == 0)) {
       player.ataque++;
     }
     player.armadura++;
@@ -1184,7 +1206,7 @@ function augmentaXP(xp) {
     player.vida = player.vida + Math.floor((player.vidaMax - player.vida) * 0.5);
   }
 
-  if(nivelesaugmentados != 0){
+  if (nivelesaugmentados != 0) {
     actualizaHUD();
     $('#visor').remove();
     augmentaNivel(nivelesaugmentados);
@@ -1194,15 +1216,16 @@ function augmentaXP(xp) {
   actualizaHUD();
 }
 
-function augmentaNivel(nivelesaugmentados){
+/* Crea la tabla para seleccionar que atributo quieres mejorar*/
+function augmentaNivel(nivelesaugmentados) {
   $('#navegacion').append('<div id = "mejora"></div>');
-  $('#mejora').append('<h3>Que deseas mejorar?'+ nivelesaugmentados + ' mejoras disponible</h3>');
+  $('#mejora').append('<h3>Que deseas mejorar?' + nivelesaugmentados + ' mejoras disponible</h3>');
   $('#mejora').append('<table id ="mejoras"></table>');
   $('#mejoras').append('<tr id ="fila1"></tr>');
-  $('#fila1').append('<td><img class="imgmejora" src="./media/images/mejora.png" alt="mejoraVida" onclick="ejecutaMejora(0,' + nivelesaugmentados +');"></td>');
-  $('#fila1').append('<td><img class="imgmejora" src="./media/images/mejora.png" alt="mejoraVida" onclick="ejecutaMejora(1,' + nivelesaugmentados +');"></td>');
-  $('#fila1').append('<td><img class="imgmejora" src="./media/images/mejora.png" alt="mejoraVida" onclick="ejecutaMejora(2,' + nivelesaugmentados +');"></td>');
-  $('#fila1').append('<td><img class="imgmejora" src="./media/images/mejora.png" alt="mejoraVida" onclick="ejecutaMejora(3,' + nivelesaugmentados +');"></td>');
+  $('#fila1').append('<td><img class="imgmejora" src="./media/images/mejora.png" alt="mejoraVida" onclick="ejecutaMejora(0,' + nivelesaugmentados + ');"></td>');
+  $('#fila1').append('<td><img class="imgmejora" src="./media/images/mejora.png" alt="mejoraVida" onclick="ejecutaMejora(1,' + nivelesaugmentados + ');"></td>');
+  $('#fila1').append('<td><img class="imgmejora" src="./media/images/mejora.png" alt="mejoraVida" onclick="ejecutaMejora(2,' + nivelesaugmentados + ');"></td>');
+  $('#fila1').append('<td><img class="imgmejora" src="./media/images/mejora.png" alt="mejoraVida" onclick="ejecutaMejora(3,' + nivelesaugmentados + ');"></td>');
   $('#mejoras').append('<tr id ="fila2"></tr>');
   $('#fila2').append('<td>Vida</td>');
   $('#fila2').append('<td>Ataque</td>');
@@ -1210,9 +1233,10 @@ function augmentaNivel(nivelesaugmentados){
   $('#fila2').append('<td>Resitencia Magica</td>');
 }
 
-function ejecutaMejora (tipo, nivelesaugmentados){
+/* Ejectua la mejora seleccionada*/
+function ejecutaMejora(tipo, nivelesaugmentados) {
   nivelesaugmentados--;
-  switch (tipo){
+  switch (tipo) {
     case 0:
       player.vida++;
       player.vidaMax++;
@@ -1230,10 +1254,10 @@ function ejecutaMejora (tipo, nivelesaugmentados){
 
   actualizaHUD();
   $('#mejora').remove();
-  if(nivelesaugmentados == 0){
+  if (nivelesaugmentados == 0) {
     $('#navegacion').append('<canvas id="visor" width="300" height="300"></canvas>');
     cargaPosicion(player.estadoPartida.x, player.estadoPartida.y, player.estadoPartida.direccion);
-  }else{
+  } else {
     augmentaNivel(nivelesaugmentados);
   }
 }
@@ -1292,7 +1316,7 @@ function objetoAleatorio(tipo) {
           if (player.tipoAtaque == 'AD') {
             objeto = armas[Math.floor(Math.random() * 2)];
           } else {
-              objeto = hechizos[Math.floor(Math.random() * 2)];
+            objeto = hechizos[Math.floor(Math.random() * 2)];
           }
           break;
         case 'intermedio':
@@ -1300,7 +1324,7 @@ function objetoAleatorio(tipo) {
           if (player.tipoAtaque == 'AD') {
             objeto = armas[Math.floor(Math.random() * 2) + 2];
           } else {
-              objeto = hechizos[Math.floor(Math.random() * 2) + 2];
+            objeto = hechizos[Math.floor(Math.random() * 2) + 2];
           }
           break;
         case 'fuerte':
@@ -1308,7 +1332,7 @@ function objetoAleatorio(tipo) {
           if (player.tipoAtaque == 'AD') {
             objeto = armas[Math.floor(Math.random() * 2) + 3];
           } else {
-              objeto = hechizos[Math.floor(Math.random() * 2) + 3];
+            objeto = hechizos[Math.floor(Math.random() * 2) + 3];
           }
           break;
       }
@@ -1383,7 +1407,10 @@ function guardarPartida() {
   //Cargamos las partidas guardadas
   $.when(creaSlots()).done(function() {
     //Mostramos el menu de guardar partida
-    $('#menu-guardar').css({'left': ($(window).width() / 2 - $('#menu-guardar').width() / 2) + 'px','top': ($(window).height() / 2 - $('#menu-guardar').height() / 2) + 'px'});
+    $('#menu-guardar').css({
+      'left': ($(window).width() / 2 - $('#menu-guardar').width() / 2) + 'px',
+      'top': ($(window).height() / 2 - $('#menu-guardar').height() / 2) + 'px'
+    });
     $('#menu-guardar').css('display', 'block');
 
   });
@@ -1449,7 +1476,9 @@ function guardaSlot(slot) {
     $.ajax({
       type: 'POST',
       url: url,
-      data: {json: JSON.stringify(partida)},
+      data: {
+        json: JSON.stringify(partida)
+      },
       success: function() {
         $('#menu-guardar').css('display', 'none');
         accionTerminada = true;
@@ -1505,15 +1534,15 @@ function actualizaHUD() {
 
 /* Actualiza la vida del hud */
 function actualizaVida() {
-  $('.barra-vida').children('progress').attr('value',player.vida);
-  $('.barra-vida').children('progress').attr('max',player.vidaMax);
+  $('.barra-vida').children('progress').attr('value', player.vida);
+  $('.barra-vida').children('progress').attr('max', player.vidaMax);
 }
 
 /* Actualiza el nivel del hud */
 function actualizaNivel() {
   $('.barra-nivel').children('p').html(player.nivel);
-  $('.barra-nivel').children('progress').attr('value',player.xp);
-  $('.barra-nivel').children('progress').attr('max',10 * player.nivel + 10 * (player.nivel -1));
+  $('.barra-nivel').children('progress').attr('value', player.xp);
+  $('.barra-nivel').children('progress').attr('max', 10 * player.nivel + 10 * (player.nivel - 1));
 }
 
 /* Actualiza las estadisticas del hud */
@@ -1530,7 +1559,7 @@ function actualizaStats() {
 function actualizaMochila() {
   var id;
   for (var i = 0; i < player.mochila.length; i++) {
-    id = '#objeto' + (i+1);
+    id = '#objeto' + (i + 1);
     if (player.mochila[i] != '') {
       $(id).attr('src', './media/images/' + player.mochila[i].img);
     } else {
@@ -1634,50 +1663,74 @@ function muestraHudMochila() {
 /* Menu para gestionar la mochila */
 function creaMenuMochila() {
   //Si hacemos click en un objeto, se mostrara el menu
-  $('#objeto1').click(function (e) {
+  $('#objeto1').click(function(e) {
     if ($('#objeto1').attr('src') != './media/images/objeto_vacio.png') {
-      $('#menu-mochila').css({'display':'block', 'left':e.pageX, 'top':e.pageY});
+      $('#menu-mochila').css({
+        'display': 'block',
+        'left': e.pageX,
+        'top': e.pageY
+      });
       $('#origen-menu').html('0');
     }
   });
 
-  $('#objeto2').click(function (e) {
+  $('#objeto2').click(function(e) {
     if ($('#objeto2').attr('src') != './media/images/objeto_vacio.png') {
-      $('#menu-mochila').css({'display':'block', 'left':e.pageX, 'top':e.pageY});
+      $('#menu-mochila').css({
+        'display': 'block',
+        'left': e.pageX,
+        'top': e.pageY
+      });
       $('#origen-menu').html('1');
     }
   });
 
-  $('#objeto3').click(function (e) {
+  $('#objeto3').click(function(e) {
     if ($('#objeto3').attr('src') != './media/images/objeto_vacio.png') {
-      $('#menu-mochila').css({'display':'block', 'left':e.pageX, 'top':e.pageY});
+      $('#menu-mochila').css({
+        'display': 'block',
+        'left': e.pageX,
+        'top': e.pageY
+      });
       $('#origen-menu').html('2');
     }
   });
 
-  $('#objeto4').click(function (e) {
+  $('#objeto4').click(function(e) {
     if ($('#objeto4').attr('src') != './media/images/objeto_vacio.png') {
-      $('#menu-mochila').css({'display':'block', 'left':e.pageX, 'top':e.pageY});
+      $('#menu-mochila').css({
+        'display': 'block',
+        'left': e.pageX,
+        'top': e.pageY
+      });
       $('#origen-menu').html('3');
     }
   });
 
-  $('#objeto5').click(function (e) {
+  $('#objeto5').click(function(e) {
     if ($('#objeto5').attr('src') != './media/images/objeto_vacio.png') {
-      $('#menu-mochila').css({'display':'block', 'left':e.pageX, 'top':e.pageY});
+      $('#menu-mochila').css({
+        'display': 'block',
+        'left': e.pageX,
+        'top': e.pageY
+      });
       $('#origen-menu').html('4');
     }
   });
 
-  $('#objeto6').click(function (e) {
+  $('#objeto6').click(function(e) {
     if ($('#objeto6').attr('src') != './media/images/objeto_vacio.png') {
-      $('#menu-mochila').css({'display':'block', 'left':e.pageX, 'top':e.pageY});
+      $('#menu-mochila').css({
+        'display': 'block',
+        'left': e.pageX,
+        'top': e.pageY
+      });
       $('#origen-menu').html('5');
     }
   });
 
   //Si hacemos click en una de las opciones, la ejecutamos y hacemos desaparecer el menu
-  $('#menu-mochila').click(function (e) {
+  $('#menu-mochila').click(function(e) {
     var idObjeto = $('#origen-menu').text();
 
     if (e.target.id == 'equipar-objeto') {
@@ -1786,29 +1839,41 @@ function equiparObjeto(idObjeto) {
 /* Crea el menu del equipo */
 function creaMenuEquipo() {
   //Creamos los onclick en los 3 campos
-  $('#mano-izq').click(function (e) {
+  $('#mano-izq').click(function(e) {
     if ($('#mano-izq').attr('src') != './media/images/objeto_vacio.png') {
-      $('#menu-equipo').css({'display':'block', 'left':e.pageX, 'top':e.pageY});
+      $('#menu-equipo').css({
+        'display': 'block',
+        'left': e.pageX,
+        'top': e.pageY
+      });
       $('#id-equipo').html('manoizquierda');
     }
   });
 
-  $('#cuerpo').click(function (e) {
+  $('#cuerpo').click(function(e) {
     if ($('#cuerpo').attr('src') != './media/images/objeto_vacio.png') {
-      $('#menu-equipo').css({'display':'block', 'left':e.pageX, 'top':e.pageY});
+      $('#menu-equipo').css({
+        'display': 'block',
+        'left': e.pageX,
+        'top': e.pageY
+      });
       $('#id-equipo').html('cuerpo');
     }
   });
 
-  $('#mano-der').click(function (e) {
+  $('#mano-der').click(function(e) {
     if ($('#mano-der').attr('src') != './media/images/objeto_vacio.png') {
-      $('#menu-equipo').css({'display':'block', 'left':e.pageX, 'top':e.pageY});
+      $('#menu-equipo').css({
+        'display': 'block',
+        'left': e.pageX,
+        'top': e.pageY
+      });
       $('#id-equipo').html('manoderecha');
     }
   });
 
   //Si hacemos click en una de las opciones, la ejecutamos y hacemos desaparecer el menu
-  $('#menu-equipo').click(function (e) {
+  $('#menu-equipo').click(function(e) {
     var idObjeto = $('#id-equipo').text();
 
     if (e.target.id == 'desequipar-equipo') {
@@ -1894,7 +1959,7 @@ function desequipaMano(objeto, mano) {
     }
 
     //Eliminamos el objeto del equipo
-    player[mano]= '';
+    player[mano] = '';
   } else {
     $('#texto-juego').html('No puedes desequiparte, la mochila está llena');
   }

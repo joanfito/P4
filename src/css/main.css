@@ -443,7 +443,7 @@ td, th {
   padding: 8px;
 }
 
-#menu-mochila {
+#menu-mochila, #menu-equipo {
   background-color: white;
   box-shadow: 0 0 3px #B5B5B5;
   display: none;
@@ -463,6 +463,6 @@ td, th {
   color: #C3C9C9;
 }
 
-#origen-menu {
+#origen-menu, #id-equipo {
   display: none;
 }

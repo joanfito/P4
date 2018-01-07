@@ -20,7 +20,7 @@ function iniciarJuego() {
 
         actualizaHUD();
         creaMenuMochila();
-
+        creaMenuEquipo();
         //  movimiento (ADRI)
         //  cambiar de nivel (de mapa) (ADRI)
         //  lucha (FITO)
@@ -31,7 +31,7 @@ function iniciarJuego() {
         // comprar en tienda (ADRI)
         //TODO abrir cofre (MARC: onclick en canvas per a "obrirlo")
         // gestionar mochila (FITO)
-        //TODO gestionar objetos equipados (MARC -- llegeix extras.rtf)
+        // gestionar objetos equipados (MARC -- llegeix extras.rtf)
         // visor (canvas) (ADRI)
         // HUD (FITO)
         //TODO guardar partida (sobreescribir si ya existe una en el slot) (FITO)
@@ -48,11 +48,6 @@ function iniciarJuego() {
     alert('Slot no válido, no modifiques la URL.');
     location.href = 'index.html';
   }
-}
-
-/* Convierte lo que hay en el mapa en un archivo de imagen */
-function mapaToImg(x, y) {
-  /* TODO */
 }
 
 /* Muestra el fichero de la partida */
@@ -140,6 +135,7 @@ window.onkeyup = function(event) {
   if (event.keyCode == 27) {
     //ESC
     $("#menu-mochila").css('display', 'none');
+    $("#menu-equipo").css('display', 'none');
   }
 }
 /* Carga la imagen que corresponde segun la posicion del jugador */
@@ -164,7 +160,7 @@ function cargaPosicion(x, y, orientacion) {
   }
 }
 
-/* Transforma la posicion de la imagen a la propia imagen en si */
+/* Convierte lo que hay en el mapa en un archivo de imagen */
 function mapaToImg(x, y) {
   switch (mapa[x][y]) {
     case "V":
@@ -1635,4 +1631,121 @@ function equiparObjeto(idObjeto) {
   }
 
   actualizaHUD();
+}
+
+/* Crea el menu del equipo */
+function creaMenuEquipo() {
+  //Creamos los onclick en los 3 campos
+  $('#mano-izq').click(function (e) {
+    if ($('#mano-izq').attr('src') != './media/images/objeto_vacio.png') {
+      $('#menu-equipo').css({'display':'block', 'left':e.pageX, 'top':e.pageY});
+      $('#id-equipo').html('manoizquierda');
+    }
+  });
+
+  $('#cuerpo').click(function (e) {
+    if ($('#cuerpo').attr('src') != './media/images/objeto_vacio.png') {
+      $('#menu-equipo').css({'display':'block', 'left':e.pageX, 'top':e.pageY});
+      $('#id-equipo').html('cuerpo');
+    }
+  });
+
+  $('#mano-der').click(function (e) {
+    if ($('#mano-der').attr('src') != './media/images/objeto_vacio.png') {
+      $('#menu-equipo').css({'display':'block', 'left':e.pageX, 'top':e.pageY});
+      $('#id-equipo').html('manoderecha');
+    }
+  });
+
+  //Si hacemos click en una de las opciones, la ejecutamos y hacemos desaparecer el menu
+  $('#menu-equipo').click(function (e) {
+    var idObjeto = $('#id-equipo').text();
+
+    if (e.target.id == 'desequipar-equipo') {
+      desequiparObjeto(idObjeto);
+
+    } else if (e.target.id == 'tirar-equipo') {
+      //Eliminamos el objeto
+      player[idObjeto] = '';
+      actualizaEquipo();
+    }
+
+    //Ocultamos el menu
+    $("#menu-equipo").css('display', 'none');
+  });
+}
+
+/* Desequipa un objeto */
+function desequiparObjeto(idObjeto) {
+  var objeto = player[idObjeto];
+
+  switch (idObjeto) {
+    case 'manoizquierda':
+      //Puede ser arma, escudo o hechizo
+      desequipaMano(objeto, idObjeto);
+      break;
+    case 'cuerpo':
+      //Solo puede ser una armadura
+      if (player.mochila.indexOf('') < 7 && player.mochila.indexOf('') != -1) {
+        //La mochila tiene slots vacios, añadimos el objeto
+        player.mochila[player.mochila.indexOf('')] = objeto;
+
+        //Actualizamos las estadisticas
+        player.armadura = player.armadura - objeto.armadura;
+        player.resistenciaMagica = player.resistenciaMagica - objeto.resistenciaMagica;
+
+        //Eliminamos el objeto del equipo
+        player.cuerpo = '';
+      } else {
+        $('#texto-juego').html('No puedes desequiparte, la mochila está llena');
+      }
+
+      break;
+    case 'manoderecha':
+      desequipaMano(objeto, idObjeto);
+      break;
+  }
+
+  actualizaHUD();
+}
+
+/* Desequipa una mano del jugador */
+function desequipaMano(objeto, mano) {
+  if (player.mochila.indexOf('') < 7 && player.mochila.indexOf('') != -1) {
+    //La mochila tiene slots vacios, añadimos el objeto
+    player.mochila[player.mochila.indexOf('')] = objeto;
+
+    //Actualizamos las estadisticas en funcion del tipo de objeto
+    if ((/espada/i).test(objeto.nombre) || (/hacha/i).test(objeto.nombre) || (/hechizo/i).test(objeto.img)) {
+      //Es un arma o hechizo
+      player.ataque = player.ataque - objeto.ataque;
+
+      //Aplicamos pasiva de Nordico y Guardia Rojo
+      if (player.raza == 'nordico') {
+        player.ataque = player.ataque - nordico.habilidad(player.manoizquierda, player.manoderecha);
+      }
+
+      if (player.raza == 'guardiaRojo') {
+        player.ataque = player.ataque - guardiaRojo.habilidad(player.manoizquierda, player.manoderecha);
+      }
+
+    } else if ((/escudo/i).test(objeto.nombre)) {
+      //Es un escudo
+      player.armadura = player.armadura - objeto.armadura;
+
+      //Aplicamos pasiva de Nordico y Guardia Rojo
+      if (player.raza == 'nordico') {
+        player.ataque = player.ataque - nordico.habilidad(player.manoizquierda, player.manoderecha);
+      }
+
+      if (player.raza == 'guardiaRojo') {
+        player.ataque = player.ataque - guardiaRojo.habilidad(player.manoizquierda, player.manoderecha);
+      }
+    }
+
+    //Eliminamos el objeto del equipo
+    player[mano]= '';
+  } else {
+    $('#texto-juego').html('No puedes desequiparte, la mochila está llena');
+  }
 }

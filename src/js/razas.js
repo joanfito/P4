@@ -83,15 +83,11 @@ function defineRazas() {
       breton = new Raza(info.razas[6].nombre, info.razas[6].habilidad, info.razas[6].descripcion, undefined);
 
       guardiaRojo = new Raza(info.razas[7].nombre, info.razas[7].habilidad, info.razas[7].descripcion, function (izq, der) {
-        // +3 daño si no lleva escudo
-        if ((/escudo/i).test(izq.nombre) || (/escudo/i).test(der.nombre)) {
-          if ((/espada/i).test(izq.nombre) || (/espada/i).test(der.nombre)) {
-            return -3;
-          }
-          return 0;
-        } else {
+        // +3 daño si lleva dos armas equipadas
+        if ((/espada/i).test(izq.nombre) && (/espada/i).test(der.nombre)) {
           return 3;
         }
+        return 0;
       });
 
       argoniano = new Raza(info.razas[8].nombre, info.razas[8].habilidad, info.razas[8].descripcion, function (vida) {

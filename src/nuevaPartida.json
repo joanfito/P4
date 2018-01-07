@@ -97,7 +97,7 @@
     }, {
      "nombre": "Guardia Rojo",
       "habilidad": "Subida de adrenalina",
-      "descripcion": "Los guardia rojo, habitantes de Páramo del Martillo, son la mejor raza guerrera de toda Tamriel. Su gran envergadura les permite usar armaduras pesadas, por lo tanto, tienen +2 de armadura adicional, y su execelente habilidad con armas de gran envergadura, les otorga +3 de daño físico si no llevan escudo equipado."
+      "descripcion": "Los guardia rojo, habitantes de Páramo del Martillo, son la mejor raza guerrera de toda Tamriel. Su gran envergadura les permite usar armaduras pesadas, por lo tanto, tienen +2 de armadura adicional, y su execelente habilidad con armas de gran envergadura, les otorga +3 de daño físico si llevan dos armas equipadas."
     }, {
       "nombre": "Argoniano",
       "habilidad": "Piel de Hist",

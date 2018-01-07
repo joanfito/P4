@@ -24,7 +24,9 @@ function cargaMusica(pantalla){
       music.src = musica.c4;
       break;
   }
-  music.setAttribute('loop','true');
+  music.onended = function () {
+    music.play();
+  };
   music.id = "backgroundmusic";
   document.getElementById('musicaindex').appendChild(music);
   music.play();

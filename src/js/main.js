@@ -59,25 +59,6 @@ function iniciarJuego() {
               break;
           }
         });
-
-        //  movimiento (ADRI)
-        //  cambiar de nivel (de mapa) (ADRI)
-        //  lucha (FITO)
-        //  movimiento con teclas (WASD - Q E - G)
-        //  crear 'stats' eneigo en hud (FITO)
-        //  gestionar nivel personaje (augmentar las stats siguendo el enunciado + subir un punto en una de las stats (definido en rubrica.rtf)) (ADRI --> funcion creada: augmentaXP)
-        //  recoger objetos (que dropean los enemigos) (FITO)
-        // comprar en tienda (ADRI)
-        //TODO abrir cofre (MARC: onclick en canvas per a "obrirlo")
-        // gestionar mochila (FITO)
-        // gestionar objetos equipados (MARC -- llegeix extras.rtf)
-        // visor (canvas) (ADRI)
-        // HUD (FITO)
-        // guardar partida (sobreescribir si ya existe una en el slot) (FITO)
-        //musica (ADRI)
-        // alduin (drop 'alma' + aprender grito) (MARC)
-        // abrir puerta salida (MARC)
-        // game over (por muerte o abriendo puerta) (MARC (gameover.html))
       });
     } else {
       alert('Slot no válido, no modifiques la URL.');

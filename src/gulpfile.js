@@ -6,14 +6,14 @@ var htmlmin = require('gulp-html-minifier2');
 gulp.task('html', function(){
   return gulp.src('*.html')
     .pipe(htmlmin({collapseWhitespace: true}))
-    .pipe(gulp.dest('build'))
+    .pipe(gulp.dest('build'));
 });
 
 gulp.task('css', function(){
   return gulp.src('css/*.css')
     .pipe(less())
     .pipe(minifyCSS())
-    .pipe(gulp.dest('build/css'))
+    .pipe(gulp.dest('build/css'));
 });
 
 gulp.task('default', [ 'html', 'css' ]);

@@ -73,7 +73,7 @@ function iniciarJuego() {
         // gestionar objetos equipados (MARC -- llegeix extras.rtf)
         // visor (canvas) (ADRI)
         // HUD (FITO)
-        //TODO guardar partida (sobreescribir si ya existe una en el slot) (FITO)
+        // guardar partida (sobreescribir si ya existe una en el slot) (FITO)
         //musica (ADRI)
         // alduin (drop 'alma' + aprender grito) (MARC)
         // abrir puerta salida (MARC)
@@ -148,31 +148,46 @@ window.onkeypress = function (event) {
   //Dependiendo de la tecla pulsada, se movera, girara la camara o guardara partida
   if (key == 87 || key == 119) {
     //W
-    muevePlayer(0);
+    if (accionTerminada) {
+      muevePlayer(0);
+    }
   } else if (key == 65 || key == 97) {
     //A
-    muevePlayer(3);
+    if (accionTerminada) {
+      muevePlayer(3);
+    }
   } else if (key == 83 || key == 115) {
     //S
-    muevePlayer(1);
+    if (accionTerminada) {
+      muevePlayer(1);
+    }
   } else if (key == 68 || key == 100) {
     //D
-    muevePlayer(2);
+    if (accionTerminada) {
+      muevePlayer(2);
+    }
   } else if (key == 81 || key == 113) {
     //Q
-    girarCamara(false);
+    if (accionTerminada) {
+      girarCamara(false);
+    }
   } else if (key == 69 || key == 101) {
     //E
-    girarCamara(true);
+    if (accionTerminada) {
+      girarCamara(true);
+    }
   } else if (key == 71 || key == 103) {
     //G
-    guardarPartida();
+    if (accionTerminada) {
+      guardarPartida();
+    }
   }
 };
 
 window.onkeyup = function(event) {
   if (event.keyCode == 27) {
     //ESC
+    accionTerminada = true;
     $('#menu-mochila').css('display', 'none');
     $('#menu-equipo').css('display', 'none');
     $('#menu-guardar').css('display', 'none');
@@ -222,6 +237,8 @@ function mapaToImg(x, y) {
       return "tienda.png";
     case "C":
       return cofres[0].img;
+    case "K":
+      return cofres[1].img;
     case "J":
       return enemigo[3].img;
     case "E":
@@ -1362,6 +1379,7 @@ function setGameover(victoria) {
 
 /* Guarda la partida actual en un slot */
 function guardarPartida() {
+  accionTerminada = false;
   //Cargamos las partidas guardadas
   $.when(creaSlots()).done(function() {
     //Mostramos el menu de guardar partida
@@ -1416,24 +1434,31 @@ function eliminaSlot(slot) {
 
 /* Guarda el slot seleccionado */
 function guardaSlot(slot) {
- var url = 'http://puigpedros.salleurl.edu/pwi/pac4/partida.php?token=0aee8310-0212-424d-b2b2-8e7771e4982d&slot=' + slot;
+  var nombre = $('#nombre-partida').val();
 
- //Actualizamos la informacion del jugador
- partida.player = player;
+  if (nombre != '') {
+    var url = 'http://puigpedros.salleurl.edu/pwi/pac4/partida.php?token=0aee8310-0212-424d-b2b2-8e7771e4982d&slot=' + slot;
 
- //Le damos un nombre a la partida
- partida.nombre = 'ei';
+    //Actualizamos la informacion del jugador
+    partida.player = player;
 
- //Subimos el json
- $.ajax({
-   type: 'POST',
-   url: url,
-   data: {json: JSON.stringify(partida)},
-   success: function() {
-     $('#menu-guardar').css('display', 'none');
-     alert('Partida guardada');
-   }
- });
+    //Le damos un nombre a la partida
+    partida.nombre = nombre;
+
+    //Subimos el json
+    $.ajax({
+      type: 'POST',
+      url: url,
+      data: {json: JSON.stringify(partida)},
+      success: function() {
+        $('#menu-guardar').css('display', 'none');
+        accionTerminada = true;
+        alert('Partida guardada');
+      }
+    });
+  } else {
+    $('#texto-guardar').html('Introduce un nombre para poder guardar');
+  }
 }
 
 /* Cierra el juego */

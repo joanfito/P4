@@ -22,6 +22,44 @@ function iniciarJuego() {
         actualizaHUD();
         creaMenuMochila();
         creaMenuEquipo();
+
+        //Creamos el listener para guardar
+        $('#menu-guardar').click(function (e) {
+          var nombreSlot1 = $('#nombre-slot1').text();
+          var nombreSlot2 = $('#nombre-slot2').text();
+
+          switch (e.target.id) {
+            case 'eliminar-slot1':
+              if (nombreSlot1 != 'Slot 1 (vacío)') {
+                eliminaSlot(1);
+              } else {
+                $('#texto-guardar').html('No puedes eliminar un slot vacio');
+              }
+              break;
+            case 'guardar-slot1':
+              if (nombreSlot1 != 'Slot 1 (vacío)') {
+                $('#texto-guardar').html('No puedes guardar en un slot ocupado');
+              } else {
+                guardaSlot(1);
+              }
+              break;
+            case 'eliminar-slot2':
+              if (nombreSlot2 != 'Slot 2 (vacío)') {
+                eliminaSlot(2);
+              } else {
+                $('#texto-guardar').html('No puedes eliminar un slot vacio');
+              }
+              break;
+            case 'guardar-slot2':
+              if (nombreSlot2 != 'Slot 2 (vacío)') {
+                $('#texto-guardar').html('No puedes guardar en un slot ocupado');
+              } else {
+                guardaSlot(2);
+              }
+              break;
+          }
+        });
+
         //  movimiento (ADRI)
         //  cambiar de nivel (de mapa) (ADRI)
         //  lucha (FITO)
@@ -867,7 +905,6 @@ function volverJuegoTienda(){
 }
 
 function creaCofre(tipoCofre) {
-  console.log(cofres[tipoCofre]);
   if (cofres[tipoCofre].usado == false){
     cofres[tipoCofre].usado = true;
     itemsCofre = new Array(cofres[tipoCofre].objetos.length);
@@ -877,7 +914,6 @@ function creaCofre(tipoCofre) {
   }
   $('#visor').remove();
   $('#texto-juego').html(player.nombre + ' abre el cofre');
-  console.log(itemsCofre);
   creaItemsCofre(tipoCofre);
 }
 
@@ -917,9 +953,7 @@ function creaItemsCofre(tipoCofre) {
 }
 
 function cogerdeCofre(tipoCofre, item) {
-  console.log(itemsCofre);
   itemsCofre[item] = false;
-  console.log(itemsCofre);
   if(item == 0) {
     player.oro = player.oro + cofres[tipoCofre].objetos[item];
   } else {
@@ -1335,11 +1369,6 @@ function guardarPartida() {
     $('#menu-guardar').css('display', 'block');
 
   });
-
-
-
-  //alert('Partida guadada');
-  //$('#menu-guardar').css('display', 'none');
 }
 
 /* Comprueba los slots */
@@ -1348,7 +1377,6 @@ function creaSlots() {
 
   return $.get(url, function(data) {
     var slots = JSON.parse(data);
-
     if (slots[1] == 1) {
       //Obtenemos el nombre del slot 1
       var urlGet1 = 'http://puigpedros.salleurl.edu/pwi/pac4/partida.php?token=0aee8310-0212-424d-b2b2-8e7771e4982d&slot=1';
@@ -1356,58 +1384,21 @@ function creaSlots() {
         var slot = JSON.parse(data);
         //Rellenamos el nombre del slot
         $('#nombre-slot1').html(slot.nombre);
-
-        //Añadimos la opcion de eliminar y deshabilitamos la opcion de guardar
-        $('#eliminar-slot1').click(function () {
-          eliminaSlot(1);
-        });
-
-        $('#guardar-slot1').click(function () {
-          $('#texto-guardar').html('No puedes guardar en un slot ocupado');
-        });
       });
     } else {
       $('#nombre-slot1').html('Slot 1 (vacío)');
-
-      //Añadimos la opcion de guardar y deshabilitamos la opcion de eliminar
-      $('#guardar-slot1').click(function () {
-        guardaSlot(1);
-      });
-
-      $('#eliminar-slot1').click(function () {
-        $('#texto-guardar').html('No puedes eliminar un slot vacio');
-      });
     }
 
-    if (slots[2] == 2) {
+    if (slots[1] == 2 || slots[2] == 2) {
       //Obtenemos el nombre del slot 2
       var urlGet2 = 'http://puigpedros.salleurl.edu/pwi/pac4/partida.php?token=0aee8310-0212-424d-b2b2-8e7771e4982d&slot=2';
       $.get(urlGet2, function(data) {
         var slot = JSON.parse(data);
         //Rellenamos el nombre del slot
         $('#nombre-slot2').html(slot.nombre);
-
-        //Añadimos la opcion de eliminar y deshabilitamos la opcion de guardar
-        $('#eliminar-slot2').click(function () {
-          eliminaSlot(2);
-        });
-
-        $('#guardar-slot2').click(function () {
-          $('#texto-guardar').html('No puedes guardar en un slot ocupado');
-        });
       });
     } else {
       $('#nombre-slot2').html('Slot 2 (vacío)');
-
-      //Añadimos la opcion de guardar y deshabilitamos la opcion de eliminar
-      $('#guardar-slot2').click(function () {
-        guardaSlot(2);
-      });
-
-      $('#eliminar-slot2').click(function () {
-        $('#texto-guardar').html('No puedes eliminar un slot vacio');
-      });
-
     }
   });
 }
@@ -1418,7 +1409,7 @@ function eliminaSlot(slot) {
     url: 'http://puigpedros.salleurl.edu/pwi/pac4/partida.php?token=0aee8310-0212-424d-b2b2-8e7771e4982d&slot=' + slot,
     type: 'DELETE',
     success: function(result) {
-        creaSlots();
+      guardarPartida();
     }
   });
 }
@@ -1432,17 +1423,17 @@ function guardaSlot(slot) {
 
  //Le damos un nombre a la partida
  partida.nombre = 'ei';
- 
+
  //Subimos el json
  $.ajax({
    type: 'POST',
    url: url,
    data: {json: JSON.stringify(partida)},
    success: function() {
-     console.log('guardao');
+     $('#menu-guardar').css('display', 'none');
+     alert('Partida guardada');
    }
  });
-
 }
 
 /* Cierra el juego */

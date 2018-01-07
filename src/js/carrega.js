@@ -20,7 +20,7 @@ function compruebaSlots() {
     if (slots[1] == 1) {
       existe1 = true;
     }
-    if (slots[2] == 2) {
+    if (slots[1] == 2 || slots[2] == 2) {
       existe2 = true;
     }
   });

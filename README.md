@@ -92,5 +92,7 @@ Nivel mazmorra: portales para saltar diversos niveles
 
 ## Autores
 [Joan Fitó Martínez](https://github.com/joanfito) - joan.fito.2015
+
 [Adrián Garcia Garrido](https://github.com/adrig-geek) - adrian.garcia.2015
+
 [Marc Salinero Roig](https://github.com/SlamMark) - marc.salinero.2015

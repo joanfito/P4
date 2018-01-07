@@ -900,52 +900,15 @@ function creaItemsCofre() {
 }
 
 function cogerdeCofre(cofre, item, idfila) {
+  alert("hola");
   if(item == 0) {
+    alert("hola0");
     player.oro = player.oro + cofres[cofre].objetos[item];
   } else {
+    alert("hola1");
     if (player.mochila.indexOf("") < 6 && player.mochila.indexOf("") > -1){
-      var objeto;
-      for (var i = 0; i < objetos.length; i++) {
-        for (var j = 0; j < objetos[i].length; j++) {
-          switch(i) {
-            case 0:
-              if (objetos[i].armas[j].nombre == cofres[cofre].objetos[item]) {
-                objeto = objetos[i][j];
-              }
-            break;
-            case 1:
-              if (objetos[i].escudos[j].nombre == cofres[cofre].objetos[item]) {
-                objeto = objetos[i][j];
-              }
-            break;
-            case 2:
-              if (objetos[i].armaduras[j].nombre == cofres[cofre].objetos[item]) {
-                objeto = objetos[i][j];
-              }
-            break;
-            case 3:
-              if (objetos[i].pociones[j].nombre == cofres[cofre].objetos[item]) {
-                objeto = objetos[i][j];
-              }
-            break;
-            case 4:
-              if (objetos[i].moneda[j].nombre == cofres[cofre].objetos[item]) {
-                objeto = objetos[i][j];
-              }
-            break;
-            case 5:
-              if (objetos[i].botas[j].nombre == cofres[cofre].objetos[item]) {
-                objeto = objetos[i][j];
-              }
-            break;
-            case 6:
-              if (objetos[i].hechizos[j].nombre == cofres[cofre].objetos[item]) {
-                objeto = objetos[i][j];
-              }
-            break;
-          }
-        }
-      }
+      var objeto = getObjectByName(cofre);
+      alert(objeto);
       player.mochila[player.mochila.indexOf("")] = objeto;
       actualizaHUD();
       $(idfila).attr("disabled","disabled");

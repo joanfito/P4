@@ -56,21 +56,21 @@ El slot debe estar vacío, si no, antes se tendrá que borrar y después guardar
 
 ### Leyenda mapa
 
-* V  Espacio vacío
-* X  Pared
-* O  Transporte 1
-* P  Transporte 2
-* S  Puerta subir nivel
-* B  Puerta bajar nivel
-* F  Puerta final
-* T  Tienda
-* C  Cofre
-* K  Cofre
-* J  Alduin
-* E  Enemigo asesino
-* M  Enemigo mago
-* G  Enemigo tanque
-* A  Pared grito
+* V:  Espacio vacío
+* X:  Pared
+* O:  Transporte 1
+* P:  Transporte 2
+* S:  Puerta subir nivel
+* B:  Puerta bajar nivel
+* F:  Puerta final
+* T:  Tienda
+* C:  Cofre
+* K:  Cofre
+* J:  Alduin
+* E:  Enemigo asesino
+* M:  Enemigo mago
+* G:  Enemigo tanque
+* A:  Pared grito
 
 ### Extras
 

@@ -1,6 +1,6 @@
 var cofres, armas, escudos, armaduras, pociones, moneda, botas, mapas, hechizos;
 var gameover = false, cargasDunmer = 0, accionTerminada = true, tipoCofre;
-var itemsCofre;
+var itemsCofre, mapaAbierto = false;
 
 
 /* Inicializar el juego */
@@ -22,6 +22,7 @@ function iniciarJuego() {
         actualizaHUD();
         creaMenuMochila();
         creaMenuEquipo();
+        actualizaMapa();
 
         //Creamos el listener para guardar
         $('#menu-guardar').click(function(e) {
@@ -162,6 +163,18 @@ window.onkeypress = function(event) {
     if (accionTerminada) {
       guardarPartida();
     }
+  } else if (key == 77 || key == 109) {
+    if (!mapaAbierto) {
+      $('#mapa').css({
+        'left': ($(window).width() / 2 - $('#mapa').width() / 2) + 'px',
+        'top': ($(window).height() / 2 - $('#mapa').height() / 2) + 'px'
+      });
+      $('#mapa').css('display', 'block');
+      mapaAbierto = true;
+    } else {
+      $('#mapa').css('display', 'none');
+      mapaAbierto = false;
+    }
   }
 };
 
@@ -172,6 +185,7 @@ window.onkeyup = function(event) {
     $('#menu-mochila').css('display', 'none');
     $('#menu-equipo').css('display', 'none');
     $('#menu-guardar').css('display', 'none');
+    $('#mapa').css('display', 'none');
   }
 };
 
@@ -216,10 +230,34 @@ function mapaToImg(x, y) {
       return "puerta_final.png";
     case "T":
       return "tienda.png";
-    case "C":
+    case "C0":
       return cofres[0].img;
-    case "K":
+    case "C1":
       return cofres[1].img;
+    case "C2":
+      return cofres[2].img;
+    case "C3":
+      return cofres[3].img;
+    case "C4":
+      return cofres[4].img;
+    case "C5":
+      return cofres[5].img;
+    case "C6":
+      return cofres[6].img;
+    case "C7":
+      return cofres[7].img;
+    case "C8":
+      return cofres[8].img;
+    case "C9":
+      return cofres[9].img;
+    case "C10":
+      return cofres[10].img;
+    case "C11":
+        return cofres[11].img;
+    case "C12":
+      return cofres[12].img;
+    case "C13":
+        return cofres[13].img;
     case "J":
       return enemigo[3].img;
     case "E":
@@ -493,18 +531,89 @@ function movimiento(x, y) {
       creaTienda();
       break;
       //Cofre
-    case "C":
+    case "C0":
       //Bloqueamos el movimiento mientras abrimos el cofre
       accionTerminada = false;
       creaCofre(0);
       break;
       //Cofre
-    case "K":
+    case "C1":
       //Bloqueamos el movimiento mientras abrimos el cofre
       accionTerminada = false;
       creaCofre(1);
       break;
-      //Boss
+      //Cofre
+    case "C2":
+      //Bloqueamos el movimiento mientras abrimos el cofre
+      accionTerminada = false;
+      creaCofre(2);
+      break;
+      //Cofre
+    case "C3":
+      //Bloqueamos el movimiento mientras abrimos el cofre
+      accionTerminada = false;
+      creaCofre(3);
+      break;
+      //Cofre
+    case "C4":
+      //Bloqueamos el movimiento mientras abrimos el cofre
+      accionTerminada = false;
+      creaCofre(4);
+      break;
+      //Cofre
+    case "C5":
+      //Bloqueamos el movimiento mientras abrimos el cofre
+      accionTerminada = false;
+      creaCofre(5);
+      break;
+      //Cofre
+    case "C6":
+      //Bloqueamos el movimiento mientras abrimos el cofre
+      accionTerminada = false;
+      creaCofre(6);
+      break;
+      //Cofre
+    case "C7":
+      //Bloqueamos el movimiento mientras abrimos el cofre
+      accionTerminada = false;
+      creaCofre(7);
+      break;
+      //Cofre
+    case "C8":
+      //Bloqueamos el movimiento mientras abrimos el cofre
+      accionTerminada = false;
+      creaCofre(8);
+      break;
+      //Cofre
+    case "C9":
+      //Bloqueamos el movimiento mientras abrimos el cofre
+      accionTerminada = false;
+      creaCofre(9);
+      break;
+      //Cofre
+    case "C10":
+      //Bloqueamos el movimiento mientras abrimos el cofre
+      accionTerminada = false;
+      creaCofre(10);
+      break;
+      //Cofre
+    case "C11":
+      //Bloqueamos el movimiento mientras abrimos el cofre
+      accionTerminada = false;
+      creaCofre(11);
+      break;
+      //Cofre
+    case "C12":
+      //Bloqueamos el movimiento mientras abrimos el cofre
+      accionTerminada = false;
+      creaCofre(12);
+      break;
+      //Cofre
+    case "C13":
+      //Bloqueamos el movimiento mientras abrimos el cofre
+      accionTerminada = false;
+      creaCofre(13);
+      break;
     case "J":
       player.estadoPartida.x = x;
       player.estadoPartida.y = y;
@@ -549,6 +658,7 @@ function movimiento(x, y) {
   }
   mapa = cargaMapa(player.estadoPartida.nivel);
   cargaPosicion(player.estadoPartida.x, player.estadoPartida.y, player.estadoPartida.direccion);
+  actualizaMapa();
 }
 
 /* Trata los giros de camara */
@@ -1043,9 +1153,11 @@ function combate(rival) {
   //Comprobamos que el combate sea posible, sino, el jugador huye del combate
   if (player.tipoAtaque == 'AD' && player.ataque <= rival.armadura) {
     huir = true;
+    accionTerminada = true;
     $('#texto-juego').html('Has huido del combate contra ' + rival.nombre);
   } else if (player.tipoAtaque == 'AP' && player.ataque <= rival.resistenciaMagica) {
     huir = true;
+    accionTerminada = true;
     $('#texto-juego').html('Has huido del combate contra ' + rival.nombre);
   } else {
     //El combate es posible, ejecutamos la habilidad pasiva (si tiene)
@@ -1962,5 +2074,30 @@ function desequipaMano(objeto, mano) {
     player[mano] = '';
   } else {
     $('#texto-juego').html('No puedes desequiparte, la mochila está llena');
+  }
+}
+
+/* Pinta el minimapa */
+function actualizaMapa() {
+  var index, i = 0, j = 0, aux = 0;
+
+  while (i < 10) {
+    j = 0;
+    while (j < 10) {
+      aux = j;
+      index = (i * 10) + j;
+      if (mapa[i][aux] == 'X') {
+        index = (i * 10) + j;
+        $($('.mapa-fila').children()[index]).css('background-color', 'rgba(175,83,33, 0.5)');
+      } else {
+        $($('.mapa-fila').children()[index]).css('background-color', 'rgba(110,219,114, 0.5)');
+      }
+
+      if (player.estadoPartida.x == i && player.estadoPartida.y == aux) {
+        $($('.mapa-fila').children()[index]).css('background-color', 'rgba(214,224,24, 0.5)');
+      }
+      j++;
+    }
+    i ++;
   }
 }

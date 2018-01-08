@@ -28,6 +28,12 @@ Puedes moverte con los botones incorporados en el HUD, o con el teclado:
 * Q: Girar la cámara hacia la izquierda
 * E: Girar la cámara hacia la derecha
 
+### Funcionamiento del mapa
+
+Puedes mostrar el mapa del nivel pulsando la letra 'M' del teclado.
+Únicamente podras diferenciar donde hay paredes, tu posición y por donde puedes caminar.
+Para cerrarlo, vuelve a pulsar 'M' o 'ESC'.
+
 ### Funcionamiento del combate
 
 Siempre que sea posible  que el jugador derrote al enemigo, se empezará un combate, en caso contrario el jugador huirá.
@@ -46,6 +52,8 @@ Para equipar los objetos que compres o que quites a los enemigos muertos, tienes
 
 Para desequipar o tirar un objeto ‘activo’, el funcionamiento es el mismo.
 
+Para cerrar la ventana, realiza una acción o pulsa 'ESC'.
+
 La mochila dispone de un total de 6 huecos y el equipo del jugador de 3 (mano izquierda, cuerpo y mano derecha).
 
 ### Funcionamiento del guardado de partida
@@ -53,6 +61,7 @@ La mochila dispone de un total de 6 huecos y el equipo del jugador de 3 (mano iz
 Para guardar partida, deberás pulsar en el botón ‘G’ del HUD, o la tecla G del teclado.
 Se abrirá un menú donde podrás guardar la partida, añadiéndole un nombre, en uno de los dos slots.
 El slot debe estar vacío, si no, antes se tendrá que borrar y después guardar.
+Para cerrar la ventana, guarda partida o pulsa 'ESC'.
 
 ### Leyenda mapa
 
@@ -64,8 +73,7 @@ El slot debe estar vacío, si no, antes se tendrá que borrar y después guardar
 * B:  Puerta bajar nivel
 * F:  Puerta final
 * T:  Tienda
-* C:  Cofre
-* K:  Cofre
+* C<x>:  Cofre
 * J:  Alduin
 * E:  Enemigo asesino
 * M:  Enemigo mago
@@ -74,21 +82,21 @@ El slot debe estar vacío, si no, antes se tendrá que borrar y después guardar
 
 ### Extras
 
-Movimiento: Moverse izquierda/derecha (sin girar) + movimiento con teclado
+Movimiento: Moverse izquierda/derecha (sin girar) y movimiento con teclado.
 
-Objetos: Armas, escudos, hechizos, pociones, etc
+Objetos: Armas, escudos, hechizos, pociones, etc.
 
-Lucha: Huir si el combate es imposible de ganar + poder esquivar  si eres de raza khajita + HUD información jugador / enemigo en tiempo real
+Lucha: Huir si el combate es imposible de ganar + poder esquivar  si eres de raza khajita + HUD información jugador / enemigo en tiempo real.
 
-Nivel/XP: Punto adicional por cada nivel, con un menú en pantalla para gestionarlo
+Nivel/XP: Punto adicional por cada nivel, con un menú en pantalla para gestionarlo.
 
-Jugabilidad: Razas, roles, tiendas, cofres, jefe final, llave para poder salir, etc
+Jugabilidad: Razas, roles, tiendas, cofres, jefe final, llave para poder salir, etc.
 
-Información de datos: HUD mejorado que muestra las imágenes de los objetos de mochila / equipo y permite gestionar los objetos pulsando encima de ellos
+Información de datos: HUD mejorado que muestra las imágenes de los objetos de mochila / equipo y permite gestionar los objetos pulsando encima de ellos. También dispones de un mapa del nivel.
 
-Diseño: video de introducción, música de fondo en las diferentes pantallas, pantalla de gameover, texto que informa sobre las acciones del juego, etc
+Diseño: video de introducción, música de fondo en las diferentes pantallas, pantalla de gameover, texto que informa sobre las acciones del juego, etc.
 
-Nivel mazmorra: portales para saltar diversos niveles
+Nivel mazmorra: portales para saltar diversos niveles.
 
 ## Autores
 [Joan Fitó Martínez](https://github.com/joanfito) - joan.fito.2015

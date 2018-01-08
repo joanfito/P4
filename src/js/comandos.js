@@ -16,26 +16,26 @@
       "nivel": -1,
       "salto": -5,
       "0": ["X","F","X","X","X","X","X","X","X","X"],
-      "1": ["X","V","V","K","X","V","V","V","V","X"],
-      "2": ["X","V","V","X","X","V","G","V","C","X"],
+      "1": ["X","V","V","C2","X","V","V","V","V","X"],
+      "2": ["X","V","V","X","X","V","G","V","C0","X"],
       "3": ["X","V","X","X","V","V","V","X","X","X"],
       "4": ["X","V","X","V","V","V","V","V","V","B"],
       "5": ["X","V","E","V","V","E","V","X","X","X"],
       "6": ["X","V","V","V","V","V","V","V","V","X"],
       "7": ["X","V","X","V","V","V","V","M","V","X"],
-      "8": ["X","M","X","V","K","V","V","V","O","X"],
+      "8": ["X","M","X","V","C1","V","V","V","O","X"],
       "9": ["X","X","X","X","X","X","X","X","X","X"]
     }, {
       "nivel": -2,
       "salto": -4,
       "0": ["X","X","X","X","X","X","X","X","X","X"],
-      "1": ["X","C","T","V","X","V","V","V","V","X"],
+      "1": ["X","C3","T","V","X","V","V","V","V","X"],
       "2": ["X","X","X","V","X","X","X","V","V","X"],
       "3": ["X","V","V","V","V","V","X","V","G","X"],
       "4": ["X","V","V","E","V","V","G","V","V","S"],
-      "5": ["X","X","X","V","V","V","V","V","K","X"],
+      "5": ["X","X","X","V","V","V","V","V","C5","X"],
       "6": ["X","X","B","V","M","V","X","X","X","X"],
-      "7": ["X","K","X","V","V","V","V","M","V","X"],
+      "7": ["X","C4","X","V","V","V","V","M","V","X"],
       "8": ["X","V","V","V","P","V","V","V","V","X"],
       "9": ["X","X","X","X","X","X","X","X","X","X"]
     }, {
@@ -43,26 +43,26 @@
       "salto": -3,
       "0": ["X","X","X","X","X","X","X","X","X","X"],
       "1": ["X","V","V","V","V","V","V","V","V","X"],
-      "2": ["B","V","V","V","V","V","V","V","K","X"],
+      "2": ["B","V","V","V","V","V","V","V","C6","X"],
       "3": ["X","V","X","V","V","V","V","E","V","X"],
-      "4": ["X","K","X","V","M","V","V","V","V","X"],
+      "4": ["X","C7","X","V","M","V","V","V","V","X"],
       "5": ["X","X","X","V","X","V","V","V","V","X"],
       "6": ["X","X","S","V","X","X","X","V","M","X"],
-      "7": ["X","C","X","X","X","V","V","V","V","X"],
+      "7": ["X","C8","X","X","X","V","V","V","V","X"],
       "8": ["X","V","V","E","V","V","G","V","V","X"],
       "9": ["X","X","X","X","X","X","X","X","X","X"]
     }, {
       "nivel": -4,
       "salto": -2,
       "0": ["X","X","X","X","X","X","X","X","X","X"],
-      "1": ["X","C","X","M","V","V","V","V","V","B"],
+      "1": ["X","C9","X","M","V","V","V","V","V","B"],
       "2": ["S","V","V","V","V","V","V","V","V","X"],
       "3": ["X","T","X","V","M","V","V","E","V","X"],
       "4": ["X","X","X","V","V","V","V","V","V","X"],
       "5": ["X","V","V","V","V","V","P","V","V","X"],
       "6": ["X","V","X","V","V","X","V","V","V","X"],
       "7": ["X","V","X","E","V","X","V","V","V","X"],
-      "8": ["X","K","X","V","V","X","V","V","V","X"],
+      "8": ["X","C10","X","V","V","X","V","V","V","X"],
       "9": ["X","X","X","X","X","X","X","X","X","X"]
     }, {
       "nivel": -5,
@@ -70,12 +70,12 @@
       "0": ["X","X","X","X","X","X","X","X","X","X"],
       "1": ["X","V","E","V","V","V","V","G","V","S"],
       "2": ["X","G","V","V","M","E","V","V","V","X"],
-      "3": ["X","V","V","K","V","V","C","V","V","X"],
+      "3": ["X","V","V","C11","V","V","C13","V","V","X"],
       "4": ["X","V","X","X","V","V","X","X","V","X"],
       "5": ["X","V","X","V","V","V","V","X","V","X"],
       "6": ["X","V","X","V","J","V","V","X","V","X"],
       "7": ["X","V","X","X","A","X","V","X","V","X"],
-      "8": ["X","O","X","X","V","X","V","X","K","X"],
+      "8": ["X","O","X","X","V","X","V","X","C12","X"],
       "9": ["X","X","X","X","X","X","X","X","X","X"]
     }],
     "razas": [{
@@ -101,7 +101,7 @@
     }, {
       "nombre": "Nórdico",
       "habilidad": "Fuerza de Skyrim",
-      "descripcion": "Los nordicos son una de las grandes razas guerreras de Tamriel. Su excelente habilidad para con la espada, les otorga un 20% más de daño si llevan equipados una espada y un escudo."
+      "descripcion": "Los nordicos son una de las grandes razas guerreras de Tamriel. Su excelente habilidad con la espada, les otorga un 20% más de daño si llevan equipados una espada y un escudo."
     }, {
       "nombre": "Bretón",
       "habilidad": "Piel de dragón",
@@ -175,7 +175,7 @@
       "resistenciaMagica": 2,
       "xp": 20,
       "img": "draug.png",
-      "objetos": [100]
+      "objetos": [30]
     },{
       "nombre": "Nigromante",
       "vida": 10,
@@ -185,17 +185,17 @@
       "resistenciaMagica": 2,
       "xp": 20,
       "img": "nigromante.png",
-      "objetos": [100]
+      "objetos": [30]
     }, {
       "nombre": "Trol",
       "vida": 20,
       "tipoAtaque": "fisico",
-      "ataque": 3,
-      "armadura": 4,
-      "resistenciaMagica": 4,
+      "ataque": 5,
+      "armadura": 6,
+      "resistenciaMagica": 6,
       "xp": 40,
       "img": "troll.png",
-      "objetos": [200]
+      "objetos": [60]
     }, {
       "nombre": "Alduin",
       "vida": 50,
@@ -356,14 +356,59 @@
     }],
     "cofre": [{
       "img": "cofre1.png",
-      "objetos": [100, "Poción de salud", "Escudo Élfico"],
+      "objetos": [100, "Poción de salud", "Escudo de Piel"],
       "usado": false
     }, {
       "img": "cofre1.png",
-      "objetos": [100, "Gran poción de salud", "Armadura Élfica"],
+      "objetos": [100, "Gran poción de salud", "Capa de Ruiseñor"],
+      "usado": false
+    }, {
+      "img": "cofre1.png",
+      "objetos": [200, "Poción de salud", "Armadura Élfica, Espada Élfica "],
+      "usado": false
+    }, {
+      "img": "cofre1.png",
+      "objetos": [200, "Poción de salud", "Armadura Élfica, Congelación"],
+      "usado": false
+    }, {
+      "img": "cofre1.png",
+      "objetos": [300, "Gran poción de salud", "Armadura ligera de Dragón"],
+      "usado": false
+    }, {
+      "img": "cofre1.png",
+      "objetos": [300, "Gran poción de salud", "Espada Enana", "Rayo"],
+      "usado": false
+    }, {
+      "img": "cofre1.png",
+      "objetos": [400, "Poción de salud", "Escudo Élfico"],
+      "usado": false
+    }, {
+      "img": "cofre1.png",
+      "objetos": [400, "Poción de salud", "Armadura Élfica"],
+      "usado": false
+    }, {
+      "img": "cofre1.png",
+      "objetos": [500, "Gran poción de salud", "Escudo Daédrico"],
+      "usado": false
+    }, {
+      "img": "cofre1.png",
+      "objetos": [500, "Gran poción de salud", "Armadura Élfica"],
+      "usado": false
+    }, {
+      "img": "cofre1.png",
+      "objetos": [600, "Gran poción de salud", "Estaca de hielo", "Espada Daédrica"],
+      "usado": false
+    }, {
+      "img": "cofre1.png",
+      "objetos": [600, "Gran poción de salud", "Armadura Daédrica"],
+      "usado": false
+    }, {
+      "img": "cofre1.png",
+      "objetos": [800, "Gran poción de salud", "Armadura Daédrica", "Espada Daédrica", "Estaca de hielo"],
       "usado": false
     }]
-  });
+  }
+);
 
   //Subimos el json de configuración
   return $.ajax({

@@ -513,3 +513,31 @@ td, th {
   text-shadow: 1px 1px #B5B5B5;
   cursor: pointer;
 }
+
+#mapa {
+  display: none;
+  height: 700px;
+  position: absolute;
+  width: 700px;
+}
+
+#inner-mapa {
+  background-color: rgba(0, 0, 0, 0.5);
+  height: 590px;
+  margin: 0 auto;
+  width: 560px;
+}
+
+.mapa-fila {
+  margin: 10px;
+  height: 50px;
+  width: 600px;
+}
+
+.mapa-col {
+  background-color: lemonchiffon;
+  border: 1px solid black;
+  display: inline-block;
+  height: 48px;
+  width: 48px;
+}

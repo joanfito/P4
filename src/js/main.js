@@ -266,8 +266,6 @@ function mapaToImg(x, y) {
         return cofres[11].img;
     case "C12":
       return cofres[12].img;
-    case "C13":
-        return cofres[13].img;
     case "J":
       return enemigo[3].img;
     case "E":
@@ -617,12 +615,6 @@ function movimiento(x, y) {
       //Bloqueamos el movimiento mientras abrimos el cofre
       accionTerminada = false;
       creaCofre(12);
-      break;
-      //Cofre
-    case "C13":
-      //Bloqueamos el movimiento mientras abrimos el cofre
-      accionTerminada = false;
-      creaCofre(13);
       break;
     case "J":
       player.estadoPartida.x = x;

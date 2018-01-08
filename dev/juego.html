@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Dungeon Master</title>
+    <meta charset="UTF-8">
+    <meta name="description" content="Dungeon Master AJAX Game" />
+    <meta name="keywords" content="dungeon, ajax, javascript, css" />
+    <meta name="author" content="Joan Fito, Adrian Garcia, Marc Salinero" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="css/main.css" type="text/css" media="all" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inknut+Antiqua">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="js/juego.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/razas.js"></script>
+    <script src="js/music.js"></script>
+  </head>
+  <body>
+    <header>
+      <h1 id="titulo-juego">Dungeon Master AJAX Game</h1>
+    </header>
+    <section class="juego">
+      <section class="col-juego-l">
+        <div class="fila-juego">
+          <div id="navegacion">
+            <canvas id="visor" width="300" height="300"></canvas>
+          </div>
+          <p id="texto-juego"></p>
+        </div>
+        <div class="fila-juego">
+          <div id="controllers">
+            <div>
+              <img id="giresquerra" src="./media/images/l.png" alt="Giro Izquierda" onclick="girarCamara(false);">
+              <img id="movendavant" src="./media/images/up.png" alt="Adelante" onclick="muevePlayer(0);">
+              <img id="dirdreta" src="./media/images/r.png" alt="Giro Derecha" onclick="girarCamara(true);">
+              <span class="espacio-controllers"></span>
+              <img id="guardarPartida" src="./media/images/save.png" alt="Guardar" onclick="guardarPartida();">
+            </div>
+            <div>
+              <img id="movesquerra" src="./media/images/left.png" alt="Izquierda" onclick="muevePlayer(3);">
+              <img id="movendarrere" src="./media/images/down.png" alt="Atrás" onclick="muevePlayer(1);">
+              <img id="movdreta" src="./media/images/right.png" alt="Derecha" onclick="muevePlayer(2);">
+              <span class="espacio-controllers"></span>
+              <img id="salir" src="./media/images/exit.png" alt="Salir" onclick="salir();">
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="col-juego-r">
+        <section id="equipocarac">
+          <h4>Estadísticas jugador</h4>
+          <div class="fila-juego barra-vida">
+            <img id="vida" src="./media/images/vida.png" alt="vida">
+            <progress value="0" max="10"></progress>
+          </div>
+          <div class="fila-juego barra-nivel">
+            <img id="lvl" src="./media/images/lvl.png" alt="nivel">
+            <p></p>
+            <progress value="0" max="10"></progress>
+          </div>
+          <div class="fila-juego estadisticas-1">
+            <p>Oro: <span id="oro-hud"></span></p>
+            <p>Ataque: <span id="ataque-hud"></span></p>
+            <p>Armadura: <span id="armadura-hud"></span></p>
+          </div>
+          <div class="fila-juego estadisticas-2">
+            <p>Resistencia magica: <span id="mr-hud"></span></p>
+            <p>Nivel mazmorra: <span id="niv-hud"></span></p>
+            <p>Enemigos: <span id="enemigos-hud"></span></p>
+          </div>
+          <div class="fila-juego lista-objetos">
+            <h4>Mochila</h4>
+            <div>
+              <img id="objeto1" src="./media/images/objeto_vacio.png" alt="objeto 1" width="100" height="100">
+              <img id="objeto2" src="./media/images/objeto_vacio.png" alt="objeto 2" width="100" height="100">
+              <img id="objeto3" src="./media/images/objeto_vacio.png" alt="objeto 3" width="100" height="100">
+            </div>
+            <div>
+              <img id="objeto4" src="./media/images/objeto_vacio.png" alt="objeto 4" width="100" height="100">
+              <img id="objeto5" src="./media/images/objeto_vacio.png" alt="objeto 5" width="100" height="100">
+              <img id="objeto6" src="./media/images/objeto_vacio.png" alt="objeto 6" width="100" height="100">
+            </div>
+          </div>
+          <div class="fila-juego objetos-jugador">
+            <h4>Equipado</h4>
+            <div>
+              <img id="mano-izq" src="./media/images/objeto_vacio.png" alt="mano izq" width="100" height="100">
+              <img id="cuerpo" src="./media/images/objeto_vacio.png" alt="cuerpo" width="100" height="100">
+              <img id="mano-der" src="./media/images/objeto_vacio.png" alt="mano derecha" width="100" height="100">
+            </div>
+          </div>
+          <div class="fila-juego estadisticas-3">
+            <p>Nombre: <span id="nombre-hud"></span></p>
+            <p>Raza: <span id="raza-hud"></span></p>
+            <p>Sexo: <span id="sexo-hud"></span></p>
+            <p>Rol: <span id="rol-hud"></span></p>
+          </div>
+        </section>
+      </section>
+    </section>
+    <section id="musicaindex"></section>
+    <section id="menu-mochila">
+      <ul>
+        <li id="equipar-objeto" class="opcion-menu">Equipar</li>
+        <li id="tirar-objeto" class="opcion-menu">Tirar</li>
+        <li id="origen-menu"></li>
+      </ul>
+    </section>
+    <section id="menu-equipo">
+      <ul>
+        <li id="desequipar-equipo" class="opcion-menu">Desequipar</li>
+        <li id="tirar-equipo" class="opcion-menu">Tirar</li>
+        <li id="id-equipo"></li>
+      </ul>
+    </section>
+    <section id="menu-guardar">
+      <label for="nombre-partida">Nombre partida: </label>
+      <input type="text" id="nombre-partida" value="">
+      <div id="menu-slot1">
+        <span id="nombre-slot1">Slot 1</span>
+        <div>
+          <span id="guardar-slot1">Guardar</span>
+          <span id="eliminar-slot1">Eliminar</span>
+        </div>
+      </div>
+      <div id="menu-slot2">
+        <span id="nombre-slot2">Slot 2</span>
+        <div>
+          <span id="guardar-slot2">Guardar</span>
+          <span id="eliminar-slot2">Eliminar</span>
+        </div>
+      </div>
+      <p id="texto-guardar"></p>
+    </section>
+    <section id="mapa">
+      <div id="inner-mapa">
+        <div class="mapa-fila">
+          <div class="mapa-col">
+
+          </div>
+          <div class="mapa-col">
+
+          </div>
+          <div class="mapa-col">
+
+          </div>
+          <div class="mapa-col">
+
+          </div>
+          <div class="mapa-col">
+
+          </div>
+          <div class="mapa-col">
+
+          </div>
+          <div class="mapa-col">
+
+          </div>
+          <div class="mapa-col">
+
+          </div>
+          <div class="mapa-col">
+
+          </div>
+          <div class="mapa-col">
+
+          </div>
+        </div>
+        <div class="mapa-fila">
+          <div class="mapa-col">
+
+          </div>
+          <div class="mapa-col">
+
+          </div>
+          <div class="mapa-col">
+
+          </div>
+          <div class="mapa-col">
+
+          </div>
+          <div class="mapa-col">
+
+          </div>
+          <div class="mapa-col">
+
+          </div>
+          <div class="mapa-col">
+
+          </div>
+          <div class="mapa-col">
+
+          </div>
+          <div class="mapa-col">
+
+          </div>
+          <div class="mapa-col">
+
+          </div>
+        </div>
+        <div class="mapa-fila">
+          <div class="mapa-col">
+
+          </div>
+          <div class="mapa-col">
+
+          </div>
+          <div class="mapa-col">
+
+          </div>
+          <div class="mapa-col">
+
+          </div>
+          <div class="mapa-col">
+
+          </div>
+          <div class="mapa-col">
+
+          </div>
+          <div class="mapa-col">
+
+          </div>
+          <div class="mapa-col">
+
+          </div>
+          <div class="mapa-col">
+
+          </div>
+          <div class="mapa-col">
+
+          </div>
+        </div>
+        <div class="mapa-fila">
+          <div class="mapa-col">
+          </div>
+          <div class="mapa-col">
+          </div>
+          <div class="mapa-col">
+          </div>
+          <div class="mapa-col">
+          </div>
+          <div class="mapa-col">
+          </div>
+          <div class="mapa-col">
+          </div>
+          <div class="mapa-col">
+          </div>
+          <div class="mapa-col">
+          </div>
+          <div class="mapa-col">
+          </div>
+          <div class="mapa-col">
+          </div>
+        </div>
+        <div class="mapa-fila">
+          <div class="mapa-col">
+
+          </div>
+          <div class="mapa-col">
+
+          </div>
+          <div class="mapa-col">
+
+          </div>
+          <div class="mapa-col">
+
+          </div>
+          <div class="mapa-col">
+
+          </div>
+          <div class="mapa-col">
+
+          </div>
+          <div class="mapa-col">
+
+          </div>
+          <div class="mapa-col">
+
+          </div>
+          <div class="mapa-col">
+
+          </div>
+          <div class="mapa-col">
+
+          </div>
+        </div>
+        <div class="mapa-fila">
+          <div class="mapa-col">
+
+          </div>
+          <div class="mapa-col">
+
+          </div>
+          <div class="mapa-col">
+
+          </div>
+          <div class="mapa-col">
+
+          </div>
+          <div class="mapa-col">
+
+          </div>
+          <div class="mapa-col">
+
+          </div>
+          <div class="mapa-col">
+
+          </div>
+          <div class="mapa-col">
+
+          </div>
+          <div class="mapa-col">
+
+          </div>
+          <div class="mapa-col">
+
+          </div>
+        </div>
+        <div class="mapa-fila">
+          <div class="mapa-col">
+
+          </div>
+          <div class="mapa-col">
+
+          </div>
+          <div class="mapa-col">
+
+          </div>
+          <div class="mapa-col">
+
+          </div>
+          <div class="mapa-col">
+
+          </div>
+          <div class="mapa-col">
+
+          </div>
+          <div class="mapa-col">
+
+          </div>
+          <div class="mapa-col">
+
+          </div>
+          <div class="mapa-col">
+
+          </div>
+          <div class="mapa-col">
+
+          </div>
+        </div>
+        <div class="mapa-fila">
+          <div class="mapa-col">
+
+          </div>
+          <div class="mapa-col">
+
+          </div>
+          <div class="mapa-col">
+
+          </div>
+          <div class="mapa-col">
+
+          </div>
+          <div class="mapa-col">
+
+          </div>
+          <div class="mapa-col">
+
+          </div>
+          <div class="mapa-col">
+
+          </div>
+          <div class="mapa-col">
+
+          </div>
+          <div class="mapa-col">
+
+          </div>
+          <div class="mapa-col">
+
+          </div>
+        </div>
+        <div class="mapa-fila">
+          <div class="mapa-col">
+
+          </div>
+          <div class="mapa-col">
+
+          </div>
+          <div class="mapa-col">
+
+          </div>
+          <div class="mapa-col">
+
+          </div>
+          <div class="mapa-col">
+
+          </div>
+          <div class="mapa-col">
+
+          </div>
+          <div class="mapa-col">
+
+          </div>
+          <div class="mapa-col">
+
+          </div>
+          <div class="mapa-col">
+
+          </div>
+          <div class="mapa-col">
+
+          </div>
+        </div>
+        <div class="mapa-fila">
+          <div class="mapa-col">
+
+          </div>
+          <div class="mapa-col">
+
+          </div>
+          <div class="mapa-col">
+
+          </div>
+          <div class="mapa-col">
+
+          </div>
+          <div class="mapa-col">
+
+          </div>
+          <div class="mapa-col">
+
+          </div>
+          <div class="mapa-col">
+
+          </div>
+          <div class="mapa-col">
+
+          </div>
+          <div class="mapa-col">
+
+          </div>
+          <div class="mapa-col">
+
+          </div>
+        </div>
+      </div>
+    </section>
+  </body>
+</html>

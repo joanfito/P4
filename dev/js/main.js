@@ -1141,7 +1141,7 @@ function combate(rival) {
   //Assignamos objetos al enemigo
   asignaObjetos(rival.objetos);
 
-  if (riva.nombre != 'Alduin') {
+  if (rival.nombre != 'Alduin') {
     //Augmentamos sus estadisticas en funcion del nivel del jugador
     rival.vida = rival.vida + Math.floor(rival.vida * (player.nivel) / 10);
     rival.ataque = rival.ataque + Math.floor(rival.ataque * (player.nivel) / 4);

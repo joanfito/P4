@@ -1577,6 +1577,9 @@ function eliminaSlot(slot) {
     type: 'DELETE',
     success: function(result) {
       guardarPartida();
+    },
+    error: function() {
+      console.log('Error: No existe ninguna partida en el slot \'' + slot + '\'');
     }
   });
 }
@@ -1605,6 +1608,9 @@ function guardaSlot(slot) {
         $('#menu-guardar').css('display', 'none');
         accionTerminada = true;
         alert('Partida guardada');
+      },
+      error: function() {
+        console.log('Error: El slot \'' + slot + '\' esta ocupado');
       }
     });
   } else {

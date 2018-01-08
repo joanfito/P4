@@ -436,6 +436,9 @@ function eliminaJSON() {
     type: 'DELETE',
     success: function(result) {
         console.log('JSON inicial eliminado');
+    },
+    error: function() {
+      console.log('Error: No existe ninguna partida en el slot \'nueva\'');
     }
   });
 }

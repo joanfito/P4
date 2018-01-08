@@ -7,7 +7,7 @@ Práctica 4 de la asignatura Proyectos Web I
 ### Funcionamiento ‘pre-juego’
 
 Para iniciar el juego se debe acceder a index.html, ahí se encuentran dos opciones, nueva partida y carga partida.
-Si se accede a nueva partida, se reproducirá un video de introducción y cuando termine se cargará el menú de selección (seleccion.html).
+Si se accede a nueva partida, se reproducirá un video de introducción, que se puede saltar haciendo click encima, y cuando termine se cargará el menú de selección (seleccion.html).
 En esta pantalla se puede elegir la configuración deseada para nuestro personaje. Hay tres campos a elegir: raza, sexo y rol. Mientras que sexo es únicamente estético, las diferentes razas y roles aportan diferentes jugabilidades.
 Si accedemos a cargar partida, se nos mostraran los dos slots de los que disponemos, junto con información sobre la partida en cuestión.
 
@@ -58,7 +58,7 @@ La mochila dispone de un total de 6 huecos y el equipo del jugador de 3 (mano iz
 
 ### Funcionamiento del guardado de partida
 
-Para guardar partida, deberás pulsar en el botón ‘G’ del HUD, o la tecla G del teclado.
+Para guardar partida, deberás pulsar en el botón ‘S’ del HUD, o la tecla G del teclado.
 Se abrirá un menú donde podrás guardar la partida, añadiéndole un nombre, en uno de los dos slots.
 El slot debe estar vacío, si no, antes se tendrá que borrar y después guardar.
 Para cerrar la ventana, guarda partida o pulsa 'ESC'.

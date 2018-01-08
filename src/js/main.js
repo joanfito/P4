@@ -1051,13 +1051,7 @@ function volverJuegoTienda() {
 
 /* Crea los cofres del juego*/
 function creaCofre(tipoCofre) {
-  if (cofres[tipoCofre].usado == false) {
-    cofres[tipoCofre].usado = true;
-    itemsCofre = new Array(cofres[tipoCofre].objetos.length);
-    for (var i = 0; i < cofres[tipoCofre].objetos.length; i++) {
-      itemsCofre[i] = true;
-    }
-  }
+  itemsCofre = cofres[tipoCofre].itemsCofre;
   $('#visor').remove();
   $('#texto-juego').html(player.nombre + ' abre el cofre');
   creaItemsCofre(tipoCofre);
@@ -1099,17 +1093,18 @@ function creaItemsCofre(tipoCofre) {
   $('#cofre').append('<button id = "volverjuegocofre" onclick = volverJuegoCofre();>Salir</button>');
 }
 
-/*Nos permite gestionr cuando cojemos un elemento del cofre*/
+/* Nos permite gestionr cuando cojemos un elemento del cofre*/
 function cogerdeCofre(tipoCofre, item) {
-  itemsCofre[item] = false;
   //En caso de ser el oro del cofre lo sumamos
   if (item == 0) {
     player.oro = player.oro + cofres[tipoCofre].objetos[item];
+    itemsCofre[item] = false;
   } else {
     //Comprobamos si la mochila esta llena antes de assignar el objeto
     if (player.mochila.indexOf("") < 6 && player.mochila.indexOf("") > -1) {
       var objeto = getObjectByName(cofres[tipoCofre].objetos[item]);
       player.mochila[player.mochila.indexOf("")] = objeto;
+      itemsCofre[item] = false;
     } else {
       $('#texto-juego').html('Tienes la mochila llena!');
     }

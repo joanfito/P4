@@ -5,4 +5,8 @@ window.onload = function videoInicial() {
   video.onended = function () {
     location.href = 'seleccion.html';
   };
+
+  $("#video-body").click(function () {
+    location.href = 'seleccion.html';
+  });
 };

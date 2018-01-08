@@ -345,54 +345,68 @@
     "cofre": [{
       "img": "cofre1.png",
       "objetos": [100, "Poción de salud", "Escudo de Piel"],
-      "usado": false
+      "usado": false,
+      "itemsCofre": [true, true, true]
     }, {
       "img": "cofre1.png",
       "objetos": [100, "Gran poción de salud", "Capa de Ruiseñor"],
-      "usado": false
+      "usado": false,
+      "itemsCofre": [true, true, true]
     }, {
       "img": "cofre1.png",
       "objetos": [200, "Poción de salud", "Armadura Élfica, Espada Élfica "],
-      "usado": false
+      "usado": false,
+      "itemsCofre": [true, true, true, true]
     }, {
       "img": "cofre1.png",
       "objetos": [200, "Poción de salud", "Armadura Élfica, Congelación"],
-      "usado": false
+      "usado": false,
+      "itemsCofre": [true, true, true, true]
     }, {
       "img": "cofre1.png",
       "objetos": [300, "Gran poción de salud", "Armadura ligera de Dragón"],
-      "usado": false
+      "usado": false,
+      "itemsCofre": [true, true, true, true]
     }, {
       "img": "cofre1.png",
       "objetos": [300, "Gran poción de salud", "Espada Enana", "Rayo"],
-      "usado": false
+      "usado": false,
+      "itemsCofre": [true, true, true, true]
     }, {
       "img": "cofre1.png",
       "objetos": [400, "Poción de salud", "Escudo Élfico"],
-      "usado": false
+      "usado": false,
+      "itemsCofre": [true, true, true]
     }, {
       "img": "cofre1.png",
       "objetos": [400, "Poción de salud", "Armadura Élfica"],
-      "usado": false
+      "usado": false,
+      "itemsCofre": [true, true, true]
     }, {
       "img": "cofre1.png",
       "objetos": [500, "Gran poción de salud", "Escudo Daédrico"],
       "usado": false
+      ,
+      "itemsCofre": [true, true, true]
     }, {
       "img": "cofre1.png",
       "objetos": [500, "Gran poción de salud", "Armadura Élfica"],
-      "usado": false
+      "usado": false,
+      "itemsCofre": [true, true, true]
     }, {
       "img": "cofre1.png",
       "objetos": [600, "Gran poción de salud", "Estaca de hielo", "Espada Daédrica"],
-      "usado": false
+      "usado": false,
+      "itemsCofre": [true, true, true, true]
     }, {
       "img": "cofre1.png",
       "objetos": [600, "Gran poción de salud", "Armadura Daédrica"],
-      "usado": false
+      "usado": false,
+      "itemsCofre": [true, true, true]
     }, {
       "img": "cofre1.png",
       "objetos": [800, "Gran poción de salud", "Armadura Daédrica", "Espada Daédrica", "Estaca de hielo"],
-      "usado": false
+      "usado": false,
+      "itemsCofre": [true, true, true, true, true]
     }]
   }

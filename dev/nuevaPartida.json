@@ -188,9 +188,9 @@
       "nombre": "Alduin",
       "vida": 50,
       "tipoAtaque": "magico",
-      "ataque": 20,
-      "armadura": 10,
-      "resistenciaMagica": 10,
+      "ataque": 25,
+      "armadura": 20,
+      "resistenciaMagica": 20,
       "xp": 400,
       "img": "alduin.png",
       "objetos": [1000]

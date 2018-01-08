@@ -1141,11 +1141,13 @@ function combate(rival) {
   //Assignamos objetos al enemigo
   asignaObjetos(rival.objetos);
 
-  //Augmentamos sus estadisticas en funcion del nivel del jugador
-  rival.vida = rival.vida + Math.floor(rival.vida * (player.nivel) / 10);
-  rival.ataque = rival.ataque + Math.floor(rival.ataque * (player.nivel) / 4);
-  rival.armadura = rival.armadura + Math.floor(rival.armadura * (player.nivel) / 4);
-  rival.resistenciaMagica = rival.resistenciaMagica + Math.floor(rival.resistenciaMagica * (player.nivel) / 4);
+  if (riva.nombre != 'Alduin') {
+    //Augmentamos sus estadisticas en funcion del nivel del jugador
+    rival.vida = rival.vida + Math.floor(rival.vida * (player.nivel) / 10);
+    rival.ataque = rival.ataque + Math.floor(rival.ataque * (player.nivel) / 4);
+    rival.armadura = rival.armadura + Math.floor(rival.armadura * (player.nivel) / 4);
+    rival.resistenciaMagica = rival.resistenciaMagica + Math.floor(rival.resistenciaMagica * (player.nivel) / 4);
+  }
 
   //Comprobamos que el combate sea posible, sino, el jugador huye del combate
   if (player.tipoAtaque == 'AD' && player.ataque <= rival.armadura) {

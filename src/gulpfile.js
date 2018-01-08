@@ -25,9 +25,19 @@ gulp.task('js', function () {
     .pipe(gulp.dest('../build/js'));
 });
 
-gulp.task('media', function () {
-  return gulp.src('media/*')
-  .pipe(gulp.dest('../build/media'));
+gulp.task('images', function () {
+  return gulp.src('media/images/*')
+  .pipe(gulp.dest('../build/media/images'));
 });
 
-gulp.task('default', [ 'html', 'css', 'js', 'media' ]);
+gulp.task('videos', function () {
+  return gulp.src('media/videos/*')
+  .pipe(gulp.dest('../build/media/videos'));
+});
+
+gulp.task('music', function () {
+  return gulp.src('media/music/*')
+  .pipe(gulp.dest('../build/media/music'));
+});
+
+gulp.task('default', [ 'html', 'css', 'js', 'images', 'videos', 'music' ]);

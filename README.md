@@ -31,7 +31,7 @@ Puedes moverte con los botones incorporados en el HUD, o con el teclado:
 ### Funcionamiento del mapa
 
 Puedes mostrar el mapa del nivel pulsando la letra 'M' del teclado.
-Únicamente podras diferenciar donde hay paredes, tu posición y por donde puedes caminar.
+Únicamente podrás diferenciar donde hay paredes, tu posición y por donde puedes caminar.
 Para cerrarlo, vuelve a pulsar 'M' o 'ESC'.
 
 ### Funcionamiento del combate

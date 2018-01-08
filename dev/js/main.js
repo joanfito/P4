@@ -489,8 +489,8 @@ function movimiento(x, y) {
           player.estadoPartida.direccion = 2;
           break;
         case -4:
-          player.estadoPartida.x = 8;
-          player.estadoPartida.y = 1;
+          player.estadoPartida.x = 1;
+          player.estadoPartida.y = 8;
           player.estadoPartida.direccion = 3;
           break;
       }
@@ -517,8 +517,8 @@ function movimiento(x, y) {
           player.estadoPartida.direccion = 2;
           break;
         case -5:
-          player.estadoPartida.x = 8;
-          player.estadoPartida.y = 1;
+          player.estadoPartida.x = 1;
+          player.estadoPartida.y = 8;
           player.estadoPartida.direccion = 3;
           break;
       }

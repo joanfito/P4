@@ -73,7 +73,7 @@ Para cerrar la ventana, guarda partida o pulsa 'ESC'.
 * B:  Puerta bajar nivel
 * F:  Puerta final
 * T:  Tienda
-* C<x>:  Cofre
+* C:  Cofre
 * J:  Alduin
 * E:  Enemigo asesino
 * M:  Enemigo mago

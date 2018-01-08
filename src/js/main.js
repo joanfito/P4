@@ -19,6 +19,15 @@ function iniciarJuego() {
       //Cargamos el fichero correspondiente
       $.when(cargaFichero(slot)).done(function() {
 
+        //Añadimos el arma inicial
+        if (player.tipoAtaque == 'AD') {
+          player.manoizquierda = armas[0];
+          player.ataque = player.ataque + armas[0].ataque;
+        } else {
+          player.manoizquierda = hechizos[0];
+          player.ataque = player.ataque + hechizos[0].ataque;
+        }
+
         actualizaHUD();
         creaMenuMochila();
         creaMenuEquipo();
@@ -164,7 +173,8 @@ window.onkeypress = function(event) {
       guardarPartida();
     }
   } else if (key == 77 || key == 109) {
-    if (!mapaAbierto) {
+    //M
+    if (!mapaAbierto && accionTerminada) {
       $('#mapa').css({
         'left': ($(window).width() / 2 - $('#mapa').width() / 2) + 'px',
         'top': ($(window).height() / 2 - $('#mapa').height() / 2) + 'px'
@@ -1146,9 +1156,9 @@ function combate(rival) {
 
   //Augmentamos sus estadisticas en funcion del nivel del jugador
   rival.vida = rival.vida + Math.floor(rival.vida * (player.nivel) / 10);
-  rival.ataque = rival.ataque + Math.floor(rival.ataque * (player.nivel) / 10);
-  rival.armadura = rival.armadura + Math.floor(rival.armadura * (player.nivel) / 10);
-  rival.resistenciaMagica = rival.resistenciaMagica + Math.floor(rival.resistenciaMagica * (player.nivel) / 10);
+  rival.ataque = rival.ataque + Math.floor(rival.ataque * (player.nivel) / 4);
+  rival.armadura = rival.armadura + Math.floor(rival.armadura * (player.nivel) / 4);
+  rival.resistenciaMagica = rival.resistenciaMagica + Math.floor(rival.resistenciaMagica * (player.nivel) / 4);
 
   //Comprobamos que el combate sea posible, sino, el jugador huye del combate
   if (player.tipoAtaque == 'AD' && player.ataque <= rival.armadura) {

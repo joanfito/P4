@@ -1276,6 +1276,7 @@ function victoriaCombate(rival, vidaPerdida, vidaInicial) {
   //Comprobamos que el enemigo sea Alduin
   if (rival.nombre == 'Alduin') {
     player.estadoPartida.alma = true;
+    rival.xp = 0;
   }
 
   //Augmentamos el numero de enemigos muertos
